@@ -4,7 +4,7 @@ const PressRelease = () => {
   const pressReleases = [
     {
       id: 1,
-      image: 'assets/img/1.png',
+      image: 'https://images.unsplash.com/photo-1511795409834-ef04bbd61622?w=800&h=600&fit=crop',
       title: 'Dailymirror announces new editorial team',
       date: '10 Jan 2025',
       paper: 'Dailymirror',
@@ -13,7 +13,7 @@ const PressRelease = () => {
     },
     {
       id: 2,
-      image: 'assets/img/2.png',
+      image: 'https://images.unsplash.com/photo-1511795409834-ef04bbd61622?w=800&h=600&fit=crop',
       title: 'Lankadeepa celebrates 30 years of excellence',
       date: '20 Dec 2024',
       paper: 'Lankadeepa',
@@ -22,7 +22,7 @@ const PressRelease = () => {
     },
     {
       id: 3,
-      image: 'assets/img/3.png',
+      image: 'https://images.unsplash.com/photo-1511795409834-ef04bbd61622?w=800&h=600&fit=crop',
       title: 'Sundaytimes launches youth journalism program',
       date: '05 Nov 2024',
       paper: 'Sundaytimes',

@@ -4,19 +4,19 @@ const Hero = () => {
   const newsItems = [
     {
       id: 1,
-      image: 'assets/img/slider/1.png',
+      image: 'https://images.unsplash.com/photo-1511795409834-ef04bbd61622?w=800&h=600&fit=crop',
       title: "Daily Mirror awarded the 'Most Popular English Newspaper 2025'",
       date: '08 Sep 2025',
     },
     {
       id: 2,
-      image: 'assets/img/slider/3.png',
+      image: 'https://images.unsplash.com/photo-1511795409834-ef04bbd61622?w=800&h=600&fit=crop',
       title: 'Wijeya COO Janaka wins APO National Award for Productivity Advocates',
       date: '01 Sep 2025',
     },
     {
       id: 3,
-      image: 'assets/img/slider/2.png',
+      image: 'https://images.unsplash.com/photo-1511795409834-ef04bbd61622?w=800&h=600&fit=crop',
       title: 'Daily FT bags Global Business Excellence Award for Best Business Newspaper',
       date: '25 Aug 2025',
     },
@@ -25,19 +25,19 @@ const Hero = () => {
   const newsItems2 = [
     {
       id: 4,
-      image: 'assets/img/slider/1.png',
+      image: 'https://images.unsplash.com/photo-1511795409834-ef04bbd61622?w=800&h=600&fit=crop',
       title: 'News Headline 4',
       date: '20 Aug 2025',
     },
     {
       id: 5,
-      image: 'assets/img/slider/2.png',
+      image: 'https://images.unsplash.com/photo-1511795409834-ef04bbd61622?w=800&h=600&fit=crop',
       title: 'News Headline 5',
       date: '15 Aug 2025',
     },
     {
       id: 6,
-      image: 'assets/img/slider/3.png',
+      image: 'https://images.unsplash.com/photo-1511795409834-ef04bbd61622?w=800&h=600&fit=crop',
       title: 'News Headline 6',
       date: '10 Aug 2025',
     },

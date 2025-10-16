@@ -2,22 +2,22 @@ import React from 'react'
 
 const Publications = () => {
   const publications = [
-    { id: 1, title: 'Daily Lankadeepa', image: 'assets/img/portfolio/po-4.png', filter: 'filter-card', link: 'http://www.lankadeepa.lk/' },
-    { id: 2, title: 'Daily Mirror', image: 'assets/img/portfolio/po-5.png', filter: 'filter-card', link: 'http://www.dailymirror.lk/' },
-    { id: 3, title: 'Sunday Lankadeepa', image: 'assets/img/portfolio/po-2.png', filter: 'filter-app', link: 'http://www.lankadeepa.lk/sunday' },
-    { id: 4, title: 'Deshaya', image: 'assets/img/portfolio/po-3.png', filter: 'filter-app', link: 'http://www.deshaya.lk/' },
-    { id: 5, title: 'FT', image: 'assets/img/portfolio/po-6.png', filter: 'filter-app', link: 'http://www.ft.lk/' },
-    { id: 6, title: 'Ada', image: 'assets/img/portfolio/po-7.png', filter: 'filter-card', link: 'http://www.ada.lk/' },
-    { id: 7, title: 'Tamil Mirror', image: 'assets/img/portfolio/po-1.png', filter: 'filter-card', link: 'http://www.tamilmirror.lk' },
-    { id: 8, title: 'Sunday Times', image: 'assets/img/portfolio/po-8.png', filter: 'filter-app', link: 'http://www.sundaytimes.lk/' },
-    { id: 9, title: 'Hi Magazine', image: 'assets/img/portfolio/po-18.png', filter: 'filter-web', link: 'http://www.hi.lk/' },
-    { id: 10, title: 'Lanka Women', image: 'assets/img/portfolio/po-10.png', filter: 'filter-web', link: 'http://www.lw.lk/' },
-    { id: 11, title: 'Sirikatha', image: 'assets/img/portfolio/po-12.png', filter: 'filter-app', link: 'http://sirikatha.lankadeepa.lk/' },
-    { id: 12, title: 'Wijaya', image: 'assets/img/portfolio/po-14.png', filter: 'filter-app', link: 'http://www.wijeya.lk/' },
-    { id: 13, title: 'Bilindu', image: 'assets/img/portfolio/po-16.png', filter: 'filter-app', link: '' },
-    { id: 14, title: 'Pariganaka', image: 'assets/img/portfolio/po-20.png', filter: 'filter-web', link: '' },
-    { id: 15, title: 'Easy Guide', image: 'assets/img/portfolio/po-22.png', filter: 'filter-web', link: '' },
-    { id: 16, title: 'Braille', image: 'assets/img/portfolio/po-23.png', filter: 'filter-app', link: '' },
+    { id: 1, title: 'Daily Lankadeepa', image: 'https://images.unsplash.com/photo-1511795409834-ef04bbd61622?w=400&h=500&fit=crop', filter: 'filter-card', link: 'http://www.lankadeepa.lk/' },
+    { id: 2, title: 'Daily Mirror', image: 'https://images.unsplash.com/photo-1511795409834-ef04bbd61622?w=400&h=500&fit=crop', filter: 'filter-card', link: 'http://www.dailymirror.lk/' },
+    { id: 3, title: 'Sunday Lankadeepa', image: 'https://images.unsplash.com/photo-1511795409834-ef04bbd61622?w=400&h=500&fit=crop', filter: 'filter-app', link: 'http://www.lankadeepa.lk/sunday' },
+    { id: 4, title: 'Deshaya', image: 'https://images.unsplash.com/photo-1511795409834-ef04bbd61622?w=400&h=500&fit=crop', filter: 'filter-app', link: 'http://www.deshaya.lk/' },
+    { id: 5, title: 'FT', image: 'https://images.unsplash.com/photo-1511795409834-ef04bbd61622?w=400&h=500&fit=crop', filter: 'filter-app', link: 'http://www.ft.lk/' },
+    { id: 6, title: 'Ada', image: 'https://images.unsplash.com/photo-1511795409834-ef04bbd61622?w=400&h=500&fit=crop', filter: 'filter-card', link: 'http://www.ada.lk/' },
+    { id: 7, title: 'Tamil Mirror', image: 'https://images.unsplash.com/photo-1511795409834-ef04bbd61622?w=400&h=500&fit=crop', filter: 'filter-card', link: 'http://www.tamilmirror.lk' },
+    { id: 8, title: 'Sunday Times', image: 'https://images.unsplash.com/photo-1511795409834-ef04bbd61622?w=400&h=500&fit=crop', filter: 'filter-app', link: 'http://www.sundaytimes.lk/' },
+    { id: 9, title: 'Hi Magazine', image: 'https://images.unsplash.com/photo-1511795409834-ef04bbd61622?w=400&h=500&fit=crop', filter: 'filter-web', link: 'http://www.hi.lk/' },
+    { id: 10, title: 'Lanka Women', image: 'https://images.unsplash.com/photo-1511795409834-ef04bbd61622?w=400&h=500&fit=crop', filter: 'filter-web', link: 'http://www.lw.lk/' },
+    { id: 11, title: 'Sirikatha', image: 'https://images.unsplash.com/photo-1511795409834-ef04bbd61622?w=400&h=500&fit=crop', filter: 'filter-app', link: 'http://sirikatha.lankadeepa.lk/' },
+    { id: 12, title: 'Wijaya', image: 'https://images.unsplash.com/photo-1511795409834-ef04bbd61622?w=400&h=500&fit=crop', filter: 'filter-app', link: 'http://www.wijeya.lk/' },
+    { id: 13, title: 'Bilindu', image: 'https://images.unsplash.com/photo-1511795409834-ef04bbd61622?w=400&h=500&fit=crop', filter: 'filter-app', link: '' },
+    { id: 14, title: 'Pariganaka', image: 'https://images.unsplash.com/photo-1511795409834-ef04bbd61622?w=400&h=500&fit=crop', filter: 'filter-web', link: '' },
+    { id: 15, title: 'Easy Guide', image: 'https://images.unsplash.com/photo-1511795409834-ef04bbd61622?w=400&h=500&fit=crop', filter: 'filter-web', link: '' },
+    { id: 16, title: 'Braille', image: 'https://images.unsplash.com/photo-1511795409834-ef04bbd61622?w=400&h=500&fit=crop', filter: 'filter-app', link: '' },
   ]
 
   return (
