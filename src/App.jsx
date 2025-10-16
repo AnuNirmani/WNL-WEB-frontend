@@ -4,6 +4,7 @@ import AOS from 'aos'
 import Dashboard from './components/Dashboard'
 import Leaders from './Leaders/Leaders'
 import Faces from './Leaders/Faces'
+import Awards from './Categories/Awards'
 
 function App() {
   useEffect(() => {
@@ -19,6 +20,7 @@ function App() {
         <Route path="/" element={<Dashboard />} />
         <Route path="/leaders" element={<Leaders />} />
         <Route path="/faces" element={<Faces />} />
+        <Route path="/awards" element={<Awards />} />
       </Routes>
     </Router>
   )
