@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 const Header = () => {
   return (
@@ -51,7 +52,7 @@ const Header = () => {
         <div className="row align-items-center">
           <div className="col-md-4">
             <div className="logo-container">
-              <a href="/" style={{ textDecoration: 'none' }}>
+              <Link to="/" style={{ textDecoration: 'none' }}>
                 <div className="logo-wrapper" style={{
                   background: '#fff',
                   padding: '15px 20px',
@@ -67,7 +68,7 @@ const Header = () => {
                     }}
                   />
                 </div>
-              </a>
+              </Link>
             </div>
           </div>
           <div className="col-md-8">
@@ -88,7 +89,7 @@ const Header = () => {
               <div className="collapse navbar-collapse" id="wijeyaNavbar">
                 <ul className="navbar-nav ms-auto">
                   <li className="nav-item">
-                    <a className="nav-link" href="/">Home</a>
+                    <Link className="nav-link" to="/">Home</Link>
                   </li>
                   <li className="nav-item dropdown">
                     <a className="nav-link dropdown-toggle" href="#" id="whoWeAreDropdown" role="button" data-bs-toggle="dropdown">
@@ -103,7 +104,7 @@ const Header = () => {
                     </ul>
                   </li>
                   <li className="nav-item">
-                    <a className="nav-link" href="our-leaders.html">Leadership</a>
+                    <Link className="nav-link" to="/leaders">Leadership</Link>
                   </li>
                   <li className="nav-item">
                     <a className="nav-link" href="our-network.html">Our Network</a>
