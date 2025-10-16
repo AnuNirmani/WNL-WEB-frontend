@@ -7,6 +7,7 @@ import Faces from './Leaders/Faces'
 import Awards from './Categories/Awards'
 import AwardDetails from './Categories/AwardDetails'
 import Careers from './Categories/Careers'
+import JobDetails from './Categories/JobDetails'
 
 function App() {
   useEffect(() => {
@@ -25,6 +26,7 @@ function App() {
         <Route path="/awards" element={<Awards />} />
         <Route path="/award/:id" element={<AwardDetails />} />
         <Route path="/careers" element={<Careers />} />
+        <Route path="/job/:id" element={<JobDetails />} />
       </Routes>
     </Router>
   )

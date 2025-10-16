@@ -79,7 +79,7 @@ const Careers = () => {
                     <td>{job.description}</td>
                     <td>{job.closingDate}</td>
                     <td>
-                      <a href="#" className="btn btn-danger btn-sm">View</a>
+                      <Link to={`/job/${index + 1}`} className="btn btn-danger btn-sm">View</Link>
                     </td>
                   </tr>
                 ))}

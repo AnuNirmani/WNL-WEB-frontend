@@ -182,7 +182,7 @@
 .btn {
   display: inline-block;
   font-weight: 400;
-  color: #212529;
+  color: #0c1a4b;
   text-align: center;
   vertical-align: middle;
   cursor: pointer;
@@ -204,15 +204,22 @@
 }
 
 .btn-primary {
-  color: #fff;
-  background-color: #007bff;
-  border-color: #007bff;
+  background: #0c1a4b !important;
+  color: white;
+  border-radius: 20px;
+  font-size: 16px;
+  padding: 12px 24px;
+  border: #0c1a4b !important;
+  margin-top: 20px !important;
+  cursor: pointer !important;
+  transition: all 0.3s ease !important;
+  font-weight: 600 !important;
 }
 
 .btn-primary:hover {
-  color: #fff;
-  background-color: #0056b3;
-  border-color: #004085;
+  background: rgba(18, 66, 101, 0.9) !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 4px 8px rgba(139, 195, 74, 0.3) !important;
 }
 
 .btn-primary:focus {
