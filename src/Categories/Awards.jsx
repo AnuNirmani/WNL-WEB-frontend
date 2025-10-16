@@ -93,8 +93,8 @@ const Awards = () => {
   });
 
   const handleAwardClick = (awardId) => {
-    // Navigate to single award page
-    window.location.href = '/single-award';
+    // Navigate to award details page
+    window.location.href = `/award/${awardId}`;
   };
 
   return (
@@ -112,6 +112,7 @@ const Awards = () => {
       </section>
 
       {/* Awards Banner Image */}
+      {/* <div className="container py-5" data-aos="fade-up"> */}
       <div className="container-fluid">
         <div className="row">
           <div className="col-lg-12 col-sm-12 pl-0 pr-0">
@@ -123,14 +124,18 @@ const Awards = () => {
           </div>
         </div>
       </div>
+      {/* </div> */}
 
       {/* Awards Section */}
       <section id="awards" className="awards section-bg py-5">
-        <div className="container py-5">
-          <h2 className="text-center mb-4">Awards</h2>
+        <div className="container py-5" data-aos="fade-up">
+          <div className="section-title" data-aos="fade-up" data-aos-delay="100">
+            <h2 className="text-center mb-4">Awards</h2>
+            <p className="text-center mb-4">Recognizing excellence in journalism and media innovation.</p>
+          </div>
 
           {/* Filters */}
-          <div className="row mb-4">
+          <div className="row mb-4" data-aos="fade-up" data-aos-delay="200">
             <div className="col-md-6">
               <select 
                 id="yearFilter" 
@@ -161,13 +166,16 @@ const Awards = () => {
 
           {/* Awards Grid */}
           <div className="row" id="awardsGrid">
-            {filteredAwards.map(award => (
+            {filteredAwards.map((award, index) => (
               <div 
                 key={award.id}
                 className="col-lg-4 col-md-6 mb-4 award-card" 
                 data-year={award.year} 
                 data-department={award.department} 
                 onClick={() => handleAwardClick(award.id)}
+                data-aos="zoom-in" 
+                data-aos-delay={index < 3 ? (index + 1) * 100 : 300}
+                style={index >= 3 ? { marginTop: '1.5rem' } : {}}
               >
                 <div className="card h-100 shadow-sm">
                   {award.image && (
@@ -178,7 +186,7 @@ const Awards = () => {
                     <p className="card-text">
                       <strong>Year:</strong> {award.year} — {award.description}
                     </p>
-                    <Link to="/single-award" className="btn btn-sm btn-primary">View Details</Link>
+                    <Link to={`/award/${award.id}`} className="btn btn-sm btn-primary">View Details</Link>
                   </div>
                 </div>
               </div>

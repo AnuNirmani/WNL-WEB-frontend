@@ -5,6 +5,8 @@ import Dashboard from './components/Dashboard'
 import Leaders from './Leaders/Leaders'
 import Faces from './Leaders/Faces'
 import Awards from './Categories/Awards'
+import AwardDetails from './Categories/AwardDetails'
+import Careers from './Categories/Careers'
 
 function App() {
   useEffect(() => {
@@ -21,6 +23,8 @@ function App() {
         <Route path="/leaders" element={<Leaders />} />
         <Route path="/faces" element={<Faces />} />
         <Route path="/awards" element={<Awards />} />
+        <Route path="/award/:id" element={<AwardDetails />} />
+        <Route path="/careers" element={<Careers />} />
       </Routes>
     </Router>
   )

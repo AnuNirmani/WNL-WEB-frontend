@@ -1,0 +1,260 @@
+/* Careers Page Styles */
+.careers-page {
+  font-family: 'Open Sans', sans-serif;
+  background-color: #f8f9fa;
+}
+
+.careers-page .career-header {
+  text-align: center;
+  padding: 50px 20px 20px;
+}
+
+.careers-page .career-header h2 {
+  font-weight: 700;
+  color: #003366;
+}
+
+.careers-page .job-card {
+  background: #fff;
+  border-radius: 8px;
+  padding: 20px;
+  margin-bottom: 15px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  transition: transform 0.2s ease-in-out;
+}
+
+.careers-page .job-card:hover {
+  transform: translateY(-3px);
+}
+
+.careers-page .job-title {
+  font-weight: 600;
+  font-size: 1.1rem;
+  color: #b22222;
+}
+
+.careers-page .job-company {
+  font-size: 0.9rem;
+  color: #555;
+}
+
+.careers-page .job-meta {
+  font-size: 0.85rem;
+  color: #777;
+}
+
+.careers-page .apply-btn {
+  background-color: #8bc34a;
+  color: white;
+  font-weight: 600;
+  padding: 8px 15px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.careers-page .apply-btn:hover {
+  background-color: #7cb342;
+}
+
+.careers-page .view-details {
+  color: #b22222;
+  font-weight: 500;
+  text-decoration: none;
+  transition: color 0.2s ease-in-out;
+}
+
+.careers-page .view-details:hover {
+  color: #8b0000;
+  text-decoration: none;
+}
+
+/* Table Styles */
+.careers-page .table {
+  background-color: #fff;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+.careers-page .table-dark {
+  background-color: #343a40;
+}
+
+.careers-page .table-dark th {
+  border-color: #454d55;
+  font-weight: 600;
+}
+
+.careers-page .table-striped tbody tr:nth-of-type(odd) {
+  background-color: rgba(0, 0, 0, 0.02);
+}
+
+.careers-page .table tbody tr:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.careers-page .btn-danger {
+  background-color: #dc3545;
+  border-color: #dc3545;
+  transition: all 0.2s ease-in-out;
+}
+
+.careers-page .btn-danger:hover {
+  background-color: #c82333;
+  border-color: #bd2130;
+  transform: translateY(-1px);
+}
+
+/* Responsive Design */
+@media (max-width: 576px) {
+  .careers-page .job-meta {
+    display: block;
+    margin-top: 5px;
+  }
+  
+  .careers-page .job-card .col-md-3 {
+    margin-top: 10px;
+  }
+  
+  .careers-page .table-responsive {
+    font-size: 0.9rem;
+  }
+  
+  .careers-page .btn-sm {
+    padding: 4px 8px;
+    font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .careers-page .job-card .text-md-right {
+    text-align: left !important;
+  }
+  
+  .careers-page .job-card .mt-md-0 {
+    margin-top: 10px !important;
+  }
+}
+
+/* Main content spacing */
+.careers-page main {
+  min-height: 70vh;
+  padding-top: 140px; /* Add space to account for fixed header */
+}
+
+.careers-page .container {
+  padding: 20px 15px;
+}
+
+/* Section Title Styling (similar to leaders page) */
+.careers-page .section-title {
+  text-align: center;
+  padding-bottom: 30px;
+}
+
+.careers-page .section-title h2 {
+  color: #2c3e50;
+  font-size: 32px;
+  font-weight: bold;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+  padding-bottom: 20px;
+  position: relative;
+  margin-top: 20px;
+  padding-top: 20px;
+}
+
+.careers-page .section-title h2::before {
+  content: '';
+  position: absolute;
+  display: block;
+  width: 50px;
+  height: 3px;
+  background: #0563bb;
+  bottom: 0;
+  left: calc(50% - 25px);
+}
+
+.careers-page .section-title p {
+  margin-bottom: 0;
+  font-size: 14px;
+  color: #6c757d;
+}
+
+.careers-page h3 {
+  color: #2c3e50;
+  font-weight: 600;
+  margin-bottom: 25px;
+  font-size: 24px;
+}
+
+/* Icon styles */
+.careers-page .fas {
+  margin-right: 5px;
+  color: #b22222;
+}
+
+/* Additional spacing and styling */
+.careers-page .mt-5 {
+  margin-top: 3rem !important;
+}
+
+.careers-page .mb-4 {
+  margin-bottom: 1.5rem !important;
+}
+
+.careers-page .mr-3 {
+  margin-right: 1rem !important;
+}
+
+.careers-page .pt-5 {
+  padding-top: 3rem !important;
+}
+
+/* AOS Animation Support */
+[data-aos] {
+  opacity: 0;
+  transition-property: opacity, transform;
+}
+
+[data-aos].aos-animate {
+  opacity: 1;
+}
+
+[data-aos="fade-up"] {
+  transform: translate3d(0, 100px, 0);
+}
+
+[data-aos="fade-up"].aos-animate {
+  transform: translate3d(0, 0, 0);
+}
+
+[data-aos="zoom-in"] {
+  transform: scale(0.8);
+}
+
+[data-aos="zoom-in"].aos-animate {
+  transform: scale(1);
+}
+
+/* Enhanced job card animations */
+.careers-page .job-card {
+  transition: all 0.3s ease-in-out;
+}
+
+.careers-page .job-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+/* Table row animations */
+.careers-page .table tbody tr {
+  transition: all 0.3s ease-in-out;
+}
+
+.careers-page .table tbody tr:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+  transform: scale(1.01);
+}

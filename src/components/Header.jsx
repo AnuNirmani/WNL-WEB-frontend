@@ -125,7 +125,7 @@ const Header = () => {
                     <ul className="dropdown-menu" aria-labelledby="moreDropdown">
                       <li><a className="dropdown-item" href="faq.html">FAQs</a></li>
                       <li><a className="dropdown-item" href="location.html">Locations</a></li>
-                      <li><a className="dropdown-item" href="careers.html">Careers</a></li>
+                      <li><Link className="dropdown-item" to="/careers">Careers</Link></li>
                       <li><a className="dropdown-item" href="advertise.html">Advertise With Us</a></li>
                       <li><a className="dropdown-item" href="contactus.html">Contact Us</a></li>
                     </ul>
