@@ -60,7 +60,7 @@ const Header = () => {
                   display: 'inline-block'
                 }}>
                   <img 
-                    src="https://images.unsplash.com/photo-1511795409834-ef04bbd61622?w=200&h=60&fit=crop" 
+                    src="" 
                     alt="Wijeya Newspapers - Helping Shape Opinions" 
                     style={{
                       height: '50px',
@@ -110,7 +110,7 @@ const Header = () => {
                     <a className="nav-link" href="our-network.html">Our Network</a>
                   </li>
                   <li className="nav-item">
-                    <a className="nav-link" href="faces.html">Faces</a>
+                    <Link className="nav-link" to="/faces">Faces</Link>
                   </li>
                   <li className="nav-item">
                     <a className="nav-link" href="awards.html">Awards</a>
