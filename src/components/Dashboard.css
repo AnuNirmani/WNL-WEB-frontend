@@ -250,8 +250,9 @@ h1, h2, h3, h4, h5, h6 {
   padding: 60px 0 30px 0;
 }
 
+
 .news-card {
-  background-color: #0c1a4b;
+  background-color: #0c1a4b !important;
   color: #fff;
   margin: 10px;
   border-radius: 8px;
@@ -278,19 +279,22 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .news-card .card-title {
-  font-size: 18px;
+  color: #ffffff;
+  font-size: 24px;
   font-weight: 600;
-  margin-bottom: 10px;
+  margin-bottom: 1px;
   min-height: 50px;
 }
 
 .news-card .date {
-  color: #ccc;
-  font-size: 14px;
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: bold;
+  text-transform: uppercase;
 }
 
 .btn-view {
-  background-color: #f9a825;
+  background-color: #ff7402 !important;
   color: #000;
   font-weight: bold;
   border: none;
@@ -301,14 +305,11 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .btn-view:hover {
-  background-color: #ffb300;
-  color: #000;
+  background: rgba(255, 255, 0, 0.9) !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 4px 8px rgba(195, 149, 74, 0.3) !important;
 }
 
-.carousel-control-prev,
-.carousel-control-next {
-  width: 5%;
-}
 
 /* Section Title */
 .section-title {
@@ -656,6 +657,7 @@ h1, h2, h3, h4, h5, h6 {
   #intro-sec {
     padding: 40px 0 20px 0;
   }
+
 
   .section-title h2 {
     font-size: 24px;
