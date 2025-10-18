@@ -1,0 +1,256 @@
+/* Advertise With Us Page Styles */
+
+/* Section Title */
+.section-title {
+  text-align: center;
+  padding-bottom: 30px;
+}
+
+.section-title h2 {
+  font-size: 32px;
+  font-weight: 700;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+  color: #0c1a4b;
+  position: relative;
+  animation: fadeInUp 0.8s ease forwards;
+  opacity: 0;
+}
+
+.section-title h2::after {
+  content: '';
+  position: absolute;
+  display: block;
+  width: 50px;
+  height: 3px;
+  background: #47b2e4;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.breadcrumbs {
+  background: #f8f9fa;
+  padding: 40px 0;
+  margin-top: 120px;
+  animation: fadeInUp 0.6s ease forwards;
+  opacity: 0;
+}
+
+.breadcrumbs ol {
+  display: flex;
+  flex-wrap: wrap;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  font-size: 14px;
+}
+
+.breadcrumbs ol li + li {
+  padding-left: 10px;
+}
+
+.breadcrumbs ol li + li::before {
+  display: inline-block;
+  padding-right: 10px;
+  color: #6c757d;
+  content: "/";
+}
+
+.breadcrumbs ol li a {
+  color: #47b2e4;
+  text-decoration: none;
+}
+
+.breadcrumbs ol li a:hover {
+  color: #0c1a4b;
+}
+
+.inner-page {
+  padding: 60px 0;
+  background: #fff;
+}
+
+.inner-page .container .row > div {
+  margin-bottom: 30px;
+}
+
+.inner-page .border {
+  border: 1px solid #e9ecef !important;
+  border-radius: 8px;
+  background: #fff;
+  transition: all 0.3s ease;
+}
+
+.inner-page .border:hover {
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1) !important;
+  transform: translateY(-2px);
+}
+
+.inner-page h4 {
+  color: #3f414a;
+  font-weight: 600;
+  font-size: 25px;
+  margin-bottom: 20px;
+}
+
+.inner-page p {
+  color: #6c757d;
+  line-height: 1.6;
+  margin-bottom: 15px;
+  font-size: 17px;
+}
+
+.inner-page p strong {
+  color: #0c1a4b;
+  font-weight: 600;
+}
+
+.inner-page a {
+  color: #47b2e4;
+  text-decoration: none;
+}
+
+.inner-page a:hover {
+  color: #0c1a4b;
+  text-decoration: underline;
+}
+
+/* Form Styles */
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-group label {
+  font-weight: 600;
+  color: #0c1a4b;
+  margin-bottom: 8px;
+  display: block;
+}
+
+.form-control {
+  display: block;
+  width: 100%;
+  padding: 12px 15px;
+  font-size: 14px;
+  line-height: 1.5;
+  color: #495057;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.form-control:focus {
+  color: #495057;
+  background-color: #fff;
+  border-color: #47b2e4;
+  outline: 0;
+  box-shadow: 0 0 0 0.2rem rgba(71, 178, 228, 0.25);
+}
+
+.form-control::placeholder {
+  color: #6c757d;
+  opacity: 1;
+}
+
+textarea.form-control {
+  resize: vertical;
+  min-height: 120px;
+}
+
+.btn-primary {
+  background-color: #47b2e4;
+  border-color: #47b2e4;
+  color: #fff;
+  padding: 12px 30px;
+  font-size: 16px;
+  font-weight: 600;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+  width: 100%;
+  border: none;
+}
+
+.btn-primary:hover {
+  background-color: #0c1a4b;
+  border-color: #0c1a4b;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(12, 26, 75, 0.3);
+}
+
+.btn-primary:focus {
+  background-color: #47b2e4;
+  border-color: #47b2e4;
+  box-shadow: 0 0 0 0.2rem rgba(71, 178, 228, 0.25);
+}
+
+/* Animation for cards */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.advertise-item {
+  animation: fadeInUp 0.6s ease forwards;
+  opacity: 0;
+}
+
+.advertise-item:nth-child(1) {
+  animation-delay: 0.1s;
+}
+
+.advertise-item:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .section-title h2 {
+    font-size: 28px;
+  }
+  
+  .breadcrumbs {
+    margin-top: 100px;
+    padding: 30px 0;
+  }
+  
+  .inner-page {
+    padding: 40px 0;
+  }
+  
+  .inner-page h4 {
+    font-size: 18px;
+  }
+  
+  .btn-primary {
+    padding: 10px 25px;
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 576px) {
+  .section-title h2 {
+    font-size: 24px;
+  }
+  
+  .breadcrumbs {
+    margin-top: 80px;
+    padding: 20px 0;
+  }
+  
+  .inner-page {
+    padding: 30px 0;
+  }
+  
+  .inner-page .p-4 {
+    padding: 1.5rem !important;
+  }
+}

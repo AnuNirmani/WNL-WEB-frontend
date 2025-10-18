@@ -126,7 +126,7 @@ const Header = () => {
                       <li><Link className="dropdown-item" to="/faq">FAQs</Link></li>
                       <li><Link className="dropdown-item" to="/locations">Locations</Link></li>
                       <li><Link className="dropdown-item" to="/careers">Careers</Link></li>
-                      <li><a className="dropdown-item" href="advertise.html">Advertise With Us</a></li>
+                      <li><Link className="dropdown-item" to="/advertise-with-us">Advertise With Us</Link></li>
                       <li><a className="dropdown-item" href="contactus.html">Contact Us</a></li>
                     </ul>
                   </li>

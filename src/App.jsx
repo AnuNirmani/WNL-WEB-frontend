@@ -11,6 +11,7 @@ import JobDetails from './Categories/JobDetails'
 import PressRelease from './Categories/PressRelease'
 import Locations from './Categories/Locations'
 import FAQ from './Categories/FAQ'
+import AdvertiseWithUs from './Categories/AdvertiseWithUs'
 
 function App() {
   useEffect(() => {
@@ -33,6 +34,7 @@ function App() {
         <Route path="/press-release" element={<PressRelease />} />
         <Route path="/locations" element={<Locations />} />
         <Route path="/faq" element={<FAQ />} />
+        <Route path="/advertise-with-us" element={<AdvertiseWithUs />} />
       </Routes>
     </Router>
   )
