@@ -9,9 +9,9 @@ import AwardDetails from './Categories/AwardDetails'
 import Careers from './Categories/Careers'
 import JobDetails from './Categories/JobDetails'
 import PressRelease from './Categories/PressRelease'
-import Locations from './Categories/Locations'
-import FAQ from './Categories/FAQ'
-import AdvertiseWithUs from './Categories/AdvertiseWithUs'
+import Locations from './More/Locations'
+import FAQ from './More/FAQ'
+import AdvertiseWithUs from './More/AdvertiseWithUs'
 
 function App() {
   useEffect(() => {
