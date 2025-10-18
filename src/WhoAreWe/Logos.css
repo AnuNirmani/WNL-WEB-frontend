@@ -1,0 +1,189 @@
+/* Publications Component Styles */
+#services {
+  padding: 80px 0;
+  background-color: #ffffff;
+}
+
+#services .section-title {
+  text-align: center;
+  padding-bottom: 30px;
+}
+
+#services .section-title h2 {
+  font-size: 32px;
+  font-weight: 700;
+  color: #0c1a4b;
+  margin-bottom: 20px;
+  position: relative;
+}
+
+#services .section-title h2::after {
+  content: '';
+  position: absolute;
+  display: block;
+  width: 50px;
+  height: 3px;
+  background: #47b2e4;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+#services .section-title p {
+  font-size: 16px;
+  line-height: 1.8;
+  color: #666;
+  margin-bottom: 15px;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Minimize gaps between cards */
+#services .row {
+  margin-left: -5px;
+  margin-right: -5px;
+}
+
+#services .col-xl-3,
+#services .col-md-6 {
+  padding-left: 10px;
+  padding-right: 10px;
+  margin-bottom: 0px;
+}
+
+/* Publication Card Styles */
+.publication-card {
+  background: #fff;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  height: 5%;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  border: 1px solid #e9ecef;
+  min-height: 350px; /* Ensure consistent height */
+}
+
+.publication-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+}
+
+.publication-card h4 {
+  font-size: 18px;
+  font-weight: 600;
+  margin: 15px 0 0 0;
+  color: #0c1a4b;
+}
+
+.publication-card h4 a {
+  color: #0c1a4b;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.publication-card h4 a:hover {
+  color: #47b2e4;
+  text-decoration: underline;
+}
+
+.publication-card h4 span {
+  color: #666;
+}
+
+/* Publication Image Styles */
+.publication-image {
+  margin: 0 0 15px 0;
+  width: 100%;
+  height: 400px;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  flex: 1;
+}
+
+.publication-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.publication-image img:hover {
+  transform: scale(1.05);
+}
+
+/* Grid Spacing - Removed as handled above */
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+  .publication-card {
+    padding: 15px;
+    min-height: 320px;
+  }
+  
+  .publication-image {
+    height: 400px;
+  }
+}
+
+@media (max-width: 768px) {
+  #services {
+    padding: 60px 0;
+  }
+  
+  #services .section-title h2 {
+    font-size: 28px;
+  }
+  
+  #services .section-title p {
+    font-size: 15px;
+  }
+  
+  .publication-card {
+    padding: 15px;
+    min-height: 280px;
+  }
+  
+  .publication-image {
+    height: 180px;
+    margin: 0 0 10px 0;
+  }
+  
+  .publication-card h4 {
+    font-size: 16px;
+  }
+  
+  #services .col-xl-3,
+  #services .col-md-6 {
+    margin-bottom: 8px;
+  }
+}
+
+@media (max-width: 576px) {
+  #services .section-title h2 {
+    font-size: 24px;
+  }
+  
+  .publication-card {
+    padding: 12px;
+    min-height: 250px;
+  }
+  
+  .publication-image {
+    height: 150px;
+    margin: 0 0 8px 0;
+  }
+  
+  .publication-card h4 {
+    font-size: 14px;
+  }
+  
+  #services .col-xl-3,
+  #services .col-md-6 {
+    margin-bottom: 5px;
+  }
+}

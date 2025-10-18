@@ -12,6 +12,7 @@ import PressRelease from './Categories/PressRelease'
 import Locations from './More/Locations'
 import FAQ from './More/FAQ'
 import AdvertiseWithUs from './More/AdvertiseWithUs'
+import AboutUs from './WhoAreWe/AboutUs'
 
 function App() {
   useEffect(() => {
@@ -35,6 +36,7 @@ function App() {
         <Route path="/locations" element={<Locations />} />
         <Route path="/faq" element={<FAQ />} />
         <Route path="/advertise-with-us" element={<AdvertiseWithUs />} />
+        <Route path="/about-us" element={<AboutUs />} />
       </Routes>
     </Router>
   )

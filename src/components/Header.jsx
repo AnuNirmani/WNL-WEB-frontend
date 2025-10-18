@@ -1,7 +1,55 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 
 const Header = () => {
+  const handleSectionScroll = (e, sectionId) => {
+    e.preventDefault()
+    
+    // Navigate to about-us page first if not already there
+    if (window.location.pathname !== '/about-us') {
+      window.location.href = `/about-us#${sectionId}`
+      return
+    }
+    
+    // If already on about-us page, scroll to section
+    scrollToSection(sectionId)
+  }
+
+  const scrollToSection = (sectionId) => {
+    const element = document.getElementById(sectionId)
+    if (element) {
+      const headerHeight = 120 // Account for fixed header
+      const elementPosition = element.offsetTop - headerHeight
+      
+      window.scrollTo({
+        top: elementPosition,
+        behavior: 'smooth'
+      })
+    }
+  }
+
+  useEffect(() => {
+    // Handle scrolling when page loads with hash
+    const handleHashScroll = () => {
+      const hash = window.location.hash.replace('#', '')
+      if (hash && ['vision', 'mission', 'values', 'services', 'logos'].includes(hash)) {
+        // Delay to ensure page is fully loaded
+        setTimeout(() => {
+          scrollToSection(hash)
+        }, 500)
+      }
+    }
+
+    handleHashScroll()
+    
+    // Listen for hash changes
+    window.addEventListener('hashchange', handleHashScroll)
+    
+    return () => {
+      window.removeEventListener('hashchange', handleHashScroll)
+    }
+  }, [])
+
   return (
     <header id="header" className="fixed-top">
       {/* Top Bar */}
@@ -96,10 +144,11 @@ const Header = () => {
                       Who we are
                     </a>
                     <ul className="dropdown-menu" aria-labelledby="whoWeAreDropdown">
-                      <li><a className="dropdown-item" href="about-us.html">About Us</a></li>
-                      <li><a className="dropdown-item" href="about-us.html#vision">Vision</a></li>
-                      <li><a className="dropdown-item" href="about-us.html#mission">Mission</a></li>
-                      <li><a className="dropdown-item" href="about-us.html#values">Values</a></li>
+                      <li><Link className="dropdown-item" to="/about-us">About Us</Link></li>
+                      <li><a className="dropdown-item" href="/about-us#vision" onClick={(e) => handleSectionScroll(e, 'vision')}>Vision</a></li>
+                      <li><a className="dropdown-item" href="/about-us#mission" onClick={(e) => handleSectionScroll(e, 'mission')}>Mission</a></li>
+                      <li><a className="dropdown-item" href="/about-us#values" onClick={(e) => handleSectionScroll(e, 'values')}>Values</a></li>
+                      <li><a className="dropdown-item" href="/about-us#logos" onClick={(e) => handleSectionScroll(e, 'logos')}>Publications</a></li>
                       <li><a className="dropdown-item" href="our-journey.html">Our Journey</a></li>
                     </ul>
                   </li>

@@ -1,0 +1,151 @@
+/* About Us Page Styles */
+.about-us-page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.about-us-page main {
+  flex: 1;
+  margin-top: 120px; /* Account for fixed header */
+}
+
+/* Breadcrumbs */
+#breadcrumbs {
+  background: #f8f9fa;
+  padding: 20px 0;
+  margin-top: 60px;
+}
+
+#breadcrumbs ol {
+  display: flex;
+  flex-wrap: wrap;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  font-size: 14px;
+}
+
+#breadcrumbs ol li {
+  color: #7f8c8d;
+}
+
+#breadcrumbs ol li:not(:last-child)::after {
+  content: ">";
+  margin: 0 10px;
+  color: #7f8c8d;
+}
+
+#breadcrumbs ol li a {
+  color: #47b2e4;
+  text-decoration: none;
+}
+
+#breadcrumbs ol li a:hover {
+  color: #209dd8;
+  text-decoration: underline;
+}
+
+/* Inner Page Content */
+.inner-page {
+  padding: 60px 0;
+}
+
+.inner-page .container p {
+  font-size: 16px;
+  line-height: 1.8;
+  color: #444;
+  margin-bottom: 25px;
+  text-align: justify;
+}
+
+/* Services Section */
+.services {
+  padding: 80px 0;
+}
+
+.services.section-bg {
+  background-color: #f8f9fa;
+}
+
+.section-title {
+  text-align: center;
+  padding-bottom: 30px;
+}
+
+.section-title h2 {
+  font-size: 32px;
+  font-weight: 700;
+  color: #0c1a4b;
+  margin-bottom: 20px;
+  position: relative;
+}
+
+.section-title h2::after {
+  content: '';
+  position: absolute;
+  display: block;
+  width: 50px;
+  height: 3px;
+  background: #47b2e4;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.section-title p {
+  font-size: 16px;
+  line-height: 1.8;
+  color: #666;
+  margin-bottom: 0;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .about-us-page main {
+    margin-top: 100px;
+  }
+  
+  #breadcrumbs {
+    padding: 15px 0;
+    margin-top: 40px;
+  }
+  
+  #breadcrumbs h2 {
+    font-size: 24px;
+  }
+  
+  .inner-page {
+    padding: 40px 0;
+  }
+  
+  .inner-page .container p {
+    font-size: 15px;
+    text-align: left;
+  }
+  
+  .services {
+    padding: 60px 0;
+  }
+  
+  .section-title h2 {
+    font-size: 28px;
+  }
+  
+  .section-title p {
+    font-size: 15px;
+  }
+}
+
+@media (max-width: 576px) {
+  #breadcrumbs h2 {
+    font-size: 20px;
+  }
+  
+  .section-title h2 {
+    font-size: 24px;
+  }
+}

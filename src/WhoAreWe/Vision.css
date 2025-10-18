@@ -1,0 +1,66 @@
+/* Vision Component Styles */
+#vision {
+  padding: 80px 0;
+  background-color: #f8f9fa;
+}
+
+#vision .section-title {
+  text-align: center;
+  padding-bottom: 30px;
+}
+
+#vision .section-title h2 {
+  font-size: 32px;
+  font-weight: 700;
+  color: #0c1a4b;
+  margin-bottom: 20px;
+  position: relative;
+}
+
+#vision .section-title h2::after {
+  content: '';
+  position: absolute;
+  display: block;
+  width: 50px;
+  height: 3px;
+  background: #47b2e4;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+#vision .section-title p {
+  font-size: 18px;
+  line-height: 1.8;
+  color: #666;
+  margin-bottom: 0;
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
+  font-weight: 500;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  #vision {
+    padding: 60px 0;
+  }
+  
+  #vision .section-title h2 {
+    font-size: 28px;
+  }
+  
+  #vision .section-title p {
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 576px) {
+  #vision .section-title h2 {
+    font-size: 24px;
+  }
+  
+  #vision .section-title p {
+    font-size: 15px;
+  }
+}
