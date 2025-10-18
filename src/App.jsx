@@ -14,6 +14,7 @@ import FAQ from './More/FAQ'
 import AdvertiseWithUs from './More/AdvertiseWithUs'
 import AboutUs from './WhoAreWe/AboutUs'
 import Papers from './Others/Papers'
+import OurJourny from './Others/OurJourny'
 
 function App() {
   useEffect(() => {
@@ -38,6 +39,7 @@ function App() {
         <Route path="/faq" element={<FAQ />} />
         <Route path="/advertise-with-us" element={<AdvertiseWithUs />} />
         <Route path="/about-us" element={<AboutUs />} />
+        <Route path="/our-journey" element={<OurJourny />} />
         <Route path="/papers" element={<Papers />} />
       </Routes>
     </Router>

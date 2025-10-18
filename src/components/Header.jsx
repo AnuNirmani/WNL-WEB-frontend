@@ -149,7 +149,7 @@ const Header = () => {
                       <li><a className="dropdown-item" href="/about-us#mission" onClick={(e) => handleSectionScroll(e, 'mission')}>Mission</a></li>
                       <li><a className="dropdown-item" href="/about-us#values" onClick={(e) => handleSectionScroll(e, 'values')}>Values</a></li>
                       <li><a className="dropdown-item" href="/about-us#logos" onClick={(e) => handleSectionScroll(e, 'logos')}>Publications</a></li>
-                      <li><a className="dropdown-item" href="our-journey.html">Our Journey</a></li>
+                      <li><Link className="dropdown-item" to="/our-journey">Our Journey</Link></li>
                     </ul>
                   </li>
                   <li className="nav-item">
