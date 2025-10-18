@@ -9,6 +9,7 @@ import AwardDetails from './Categories/AwardDetails'
 import Careers from './Categories/Careers'
 import JobDetails from './Categories/JobDetails'
 import PressRelease from './Categories/PressRelease'
+import Locations from './Categories/Locations'
 
 function App() {
   useEffect(() => {
@@ -29,6 +30,7 @@ function App() {
         <Route path="/careers" element={<Careers />} />
         <Route path="/job/:id" element={<JobDetails />} />
         <Route path="/press-release" element={<PressRelease />} />
+        <Route path="/locations" element={<Locations />} />
       </Routes>
     </Router>
   )
