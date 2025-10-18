@@ -1,0 +1,280 @@
+/* Press Release Page Styles */
+.press-release-page {
+  min-height: 100vh;
+  padding-top: 63px; /* Account for fixed header */
+}
+
+/* Breadcrumbs */
+.breadcrumbs {
+  padding: 20px 0;
+  background: #f8f9fa;
+  margin-top: 80px; /* Account for fixed header */
+}
+
+.breadcrumbs ol {
+  display: flex;
+  flex-wrap: wrap;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  font-size: 14px;
+}
+
+.breadcrumbs ol li + li {
+  padding-left: 10px;
+}
+
+.breadcrumbs ol li + li::before {
+  display: inline-block;
+  padding-right: 10px;
+  color: #6c757d;
+  content: "/";
+}
+
+.breadcrumbs ol li a {
+  color: #0c1a4b;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.breadcrumbs ol li a:hover {
+  color: #007bff;
+}
+
+/* Section Title */
+.section-title {
+  text-align: center;
+  padding-bottom: 30px;
+}
+
+.section-title h2 {
+  font-size: 32px;
+  font-weight: 700;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+  color: #0c1a4b;
+  position: relative;
+}
+
+.section-title h2::after {
+  content: '';
+  position: absolute;
+  display: block;
+  width: 50px;
+  height: 3px;
+  background: #007bff;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+/* Press Release Section */
+.press-release {
+  background: #f8f9fa;
+  min-height: 60vh;
+}
+
+/* Filters */
+.form-control {
+  border: 2px solid #e9ecef;
+  border-radius: 8px;
+  padding: 12px 15px;
+  font-size: 14px;
+  transition: all 0.3s ease;
+  background: #fff;
+}
+
+.form-control:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+  outline: none;
+}
+
+.form-control option {
+  padding: 10px;
+}
+
+/* Press Release Cards */
+.press-item {
+  transition: transform 0.3s ease;
+}
+
+.press-item:hover {
+  transform: translateY(-5px);
+}
+
+.card {
+  border: none;
+  border-radius: 12px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  background: #fff;
+}
+
+.card:hover {
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1) !important;
+}
+
+.card-img-top {
+  height: 250px;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.card:hover .card-img-top {
+  transform: scale(1.05);
+}
+
+.card-body {
+  padding: 20px;
+}
+
+.card-title {
+  font-size: 23px !important;
+  font-weight: 600;
+  color: #0c1a4b;
+  margin-bottom: 10px;
+  line-height: 1.4;
+}
+
+.card-title:hover {
+  color: #007bff;
+  cursor: pointer;
+}
+
+.text-muted.small {
+  font-size: 12px;
+  margin-bottom: 15px;
+  color: #6c757d;
+}
+
+.card-text {
+  font-size: 16px !important;
+  color: #6c757d;
+  line-height: 1.6;
+  margin-bottom: 0;
+}
+
+/* No Results Message */
+.text-center.py-5 {
+  padding: 60px 0;
+}
+
+.text-center.py-5 .text-muted {
+  font-size: 16px;
+  color: #6c757d;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .press-release-page {
+    padding-top: 100px;
+  }
+  
+  .breadcrumbs {
+    margin-top: 60px;
+    padding: 15px 0;
+  }
+  
+  .section-title h2 {
+    font-size: 24px;
+  }
+  
+  .card-img-top {
+    height: 200px;
+  }
+  
+  .card-body {
+    padding: 15px;
+  }
+  
+  .card-title {
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 576px) {
+  .press-release-page {
+    padding-top: 80px;
+  }
+  
+  .breadcrumbs {
+    margin-top: 40px;
+  }
+  
+  .section-title h2 {
+    font-size: 20px;
+  }
+  
+  .form-control {
+    padding: 10px 12px;
+    font-size: 13px;
+  }
+  
+  .card-img-top {
+    height: 180px;
+  }
+  
+  .card-body {
+    padding: 12px;
+  }
+  
+  .card-title {
+    font-size: 15px;
+  }
+  
+  .card-text {
+    font-size: 13px;
+  }
+}
+
+/* Animation for cards */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.press-item {
+  animation: fadeInUp 0.6s ease forwards;
+}
+
+.press-item:nth-child(1) {
+  animation-delay: 0.1s;
+}
+
+.press-item:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.press-item:nth-child(3) {
+  animation-delay: 0.3s;
+}
+
+/* Loading state */
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid #007bff;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+

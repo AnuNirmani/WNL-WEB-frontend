@@ -116,7 +116,7 @@ const Header = () => {
                     <Link className="nav-link" to="/awards">Awards</Link>
                   </li>
                   <li className="nav-item">
-                    <a className="nav-link" href="press-release.html">Press Release</a>
+                    <Link className="nav-link" to="/press-release">Press Release</Link>
                   </li>
                   <li className="nav-item dropdown">
                     <a className="nav-link dropdown-toggle" href="#" id="moreDropdown" role="button" data-bs-toggle="dropdown">
