@@ -1,6 +1,9 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom'
 
 const Hero = () => {
+  const navigate = useNavigate()
+
   const newsItems = [
     {
       id: 4,
@@ -22,6 +25,10 @@ const Hero = () => {
     },
   ]
 
+  const handleViewMore = (item) => {
+    navigate('/overview', { state: item })
+  }
+
   return (
     <section id="intro-sec">
       <div className="container-fluid" style={{ marginTop: '100px' }}>
@@ -34,7 +41,12 @@ const Hero = () => {
                   <h5 className="card-title">{item.title}</h5>
                   <span className="date pb-2">{item.date}</span>
                   <br />
-                  <a href="#" className="btn btn-view">View More</a>
+                  <button 
+                    onClick={() => handleViewMore(item)} 
+                    className="btn btn-view"
+                  >
+                    View More
+                  </button>
                 </div>
               </div>
             </div>

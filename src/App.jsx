@@ -16,6 +16,7 @@ import ContactUs from './More/ContactUs'
 import AboutUs from './WhoAreWe/AboutUs'
 import Papers from './Others/Papers'
 import OurJourny from './Others/OurJourny'
+import Overview from './Others/Overview'
 
 function App() {
   useEffect(() => {
@@ -43,6 +44,7 @@ function App() {
         <Route path="/about-us" element={<AboutUs />} />
         <Route path="/our-journey" element={<OurJourny />} />
         <Route path="/papers" element={<Papers />} />
+        <Route path="/overview" element={<Overview />} />
       </Routes>
     </Router>
   )
