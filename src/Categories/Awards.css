@@ -194,6 +194,36 @@
   color: #333;
 }
 
+/* View More Button */
+.btn-view-more {
+  background-color: #0c1a4b !important;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  width: 100%;
+  margin-top: 10px;
+  text-align: center;
+  text-decoration: none;
+  display: block;
+}
+
+.btn-view-more:hover {
+  background: rgba(18, 66, 101, 0.9) !important;
+  color: #fff;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 123, 255, 0.3);
+  text-decoration: none;
+}
+
+.btn-view-more:active {
+  transform: translateY(0);
+}
+
 /* Buttons */
 .btn {
   display: inline-block;
@@ -361,6 +391,11 @@
   .award-card:hover {
     transform: none;
   }
+  
+  .btn-view-more {
+    padding: 8px 16px;
+    font-size: 13px;
+  }
 }
 
 @media (max-width: 575.98px) {
@@ -380,6 +415,11 @@
   
   .card-title {
     font-size: 1.1rem;
+  }
+  
+  .btn-view-more {
+    padding: 8px 14px;
+    font-size: 12px;
   }
 }
 

@@ -152,7 +152,32 @@
   font-size: 16px !important;
   color: #6c757d;
   line-height: 1.6;
-  margin-bottom: 0;
+  margin-bottom: 15px;
+}
+
+/* View More Button */
+.btn-view-more {
+  background-color: #0c1a4b !important;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  width: 100%;
+  margin-top: 10px;
+}
+
+.btn-view-more:hover {
+  background: rgba(18, 66, 101, 0.9) !important;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 123, 255, 0.3);
+}
+
+.btn-view-more:active {
+  transform: translateY(0);
 }
 
 /* No Results Message */
@@ -191,6 +216,11 @@
   .card-title {
     font-size: 16px;
   }
+  
+  .btn-view-more {
+    padding: 8px 16px;
+    font-size: 13px;
+  }
 }
 
 @media (max-width: 576px) {
@@ -225,6 +255,11 @@
   
   .card-text {
     font-size: 13px;
+  }
+  
+  .btn-view-more {
+    padding: 8px 14px;
+    font-size: 12px;
   }
 }
 

@@ -186,7 +186,7 @@ const Awards = () => {
                     <p className="card-text">
                       <strong>Year:</strong> {award.year} — {award.description}
                     </p>
-                    <Link to={`/award/${award.id}`} className="btn btn-sm btn-primary">View Details</Link>
+                    <Link to={`/award/${award.id}`} className="btn-view-more">View More</Link>
                   </div>
                 </div>
               </div>

@@ -115,6 +115,14 @@ const PressRelease = () => {
                     <h5 className="card-title">{release.title}</h5>
                     <p className="text-muted small">{release.date} | {release.paper}</p>
                     <p className="card-text">{release.description}</p>
+                    <Link 
+                      to={`/press-release/${release.id}`} 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="btn-view-more"
+                    >
+                      View More
+                    </Link>
                   </div>
                 </div>
               </div>

@@ -17,6 +17,7 @@ import AboutUs from './WhoAreWe/AboutUs'
 import Papers from './Others/Papers'
 import OurJourny from './Others/OurJourny'
 import Overview from './Others/Overview'
+import PressReleaseDetails from './Others/PressReleaseDetails'
 
 function App() {
   useEffect(() => {
@@ -37,6 +38,7 @@ function App() {
         <Route path="/careers" element={<Careers />} />
         <Route path="/job/:id" element={<JobDetails />} />
         <Route path="/press-release" element={<PressRelease />} />
+        <Route path="/press-release/:id" element={<PressReleaseDetails />} />
         <Route path="/locations" element={<Locations />} />
         <Route path="/faq" element={<FAQ />} />
         <Route path="/advertise-with-us" element={<AdvertiseWithUs />} />

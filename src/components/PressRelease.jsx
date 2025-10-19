@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 const PressRelease = () => {
   const pressReleases = [
@@ -49,6 +50,14 @@ const PressRelease = () => {
                     {press.date} | {press.paper}
                   </p>
                   <p className="card-text">{press.description}</p>
+                  <Link 
+                    to={`/press-release/${press.id}`} 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="btn-view-more"
+                  >
+                    View More
+                  </Link>
                 </div>
               </div>
             </div>
