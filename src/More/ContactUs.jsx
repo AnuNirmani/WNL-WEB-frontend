@@ -1,0 +1,196 @@
+import React, { useState } from 'react'
+import { Link } from 'react-router-dom'
+import Header from '../components/Header'
+import Footer from '../components/Footer'
+import './ContactUs.css'
+
+const ContactUs = () => {
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    subject: '',
+    message: ''
+  })
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [submitStatus, setSubmitStatus] = useState('')
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }))
+  }
+
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    setIsSubmitting(true)
+    setSubmitStatus('')
+
+    try {
+      // Simulate form submission
+      await new Promise(resolve => setTimeout(resolve, 2000))
+      setSubmitStatus('success')
+      setFormData({ name: '', email: '', subject: '', message: '' })
+    } catch (error) {
+      setSubmitStatus('error')
+    } finally {
+      setIsSubmitting(false)
+    }
+  }
+
+  return (
+    <div className="contact-us-page">
+      <Header />
+      
+      <main id="main">
+        {/* Breadcrumbs */}
+        <section id="breadcrumbs" className="breadcrumbs">
+          <div className="container">
+            <ol>
+              <li><Link to="/">Home</Link></li>
+              <li>Contact Us</li>
+            </ol>
+          </div>
+        </section>
+
+        {/* Contact Section */}
+        <section id="contact" className="contact">
+          <div className="container" data-aos="fade-up">
+            <div className="section-title">
+              <h2>Contact</h2>
+              <p>We Innovate and lead, Newspapers, Magazines and Digital Publishing with Powerful Advertising Solutions</p>
+            </div>
+
+            <div className="row">
+              {/* Contact Information and Map */}
+              <div className="col-lg-5 d-flex align-items-stretch">
+                <div className="info">
+                  <div className="address">
+                    <i className="fas fa-map-marker-alt"></i>
+                    <h4>Location:</h4>
+                    <p>Wijeyanewspapers Head Office, No. 8, Hunupitiya Cross Road, Colombo 02.</p>
+                  </div>
+
+                  <div className="email">
+                    <i className="fas fa-envelope"></i>
+                    <h4>Email:</h4>
+                    <p>wnlgen@wijeya.lk</p>
+                  </div>
+
+                  <div className="phone">
+                    <i className="fas fa-phone"></i>
+                    <h4>Call:</h4>
+                    <p>011 247 9479</p>
+                  </div>
+
+                  <div className="phone">
+                    <i className="fas fa-phone"></i>
+                    <h4>Fax:</h4>
+                    <p>011 244 8323</p>
+                  </div>
+
+                  <iframe 
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3960.7993540799444!2d79.85580295104413!3d6.9145770203854315!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ae2596c00ece979%3A0x53a3556932f7759d!2sWijeya%20Newspapers%20Head%20Office!5e0!3m2!1sen!2slk!4v1596169079307!5m2!1sen!2slk" 
+                    width="100%" 
+                    height="290px" 
+                    frameBorder="0" 
+                    style={{ border: 0 }} 
+                    allowFullScreen="" 
+                    aria-hidden="false" 
+                    tabIndex="0"
+                    title="Wijeya Newspapers Head Office Location"
+                  ></iframe>
+                </div>
+              </div>
+
+              {/* Contact Form */}
+              <div className="col-lg-7 mt-5 mt-lg-0 d-flex align-items-stretch">
+                <form onSubmit={handleSubmit} className="php-email-form">
+                  <div className="form-row">
+                    <div className="form-group col-md-6">
+                      <label htmlFor="name">Your Name</label>
+                      <input 
+                        type="text" 
+                        name="name" 
+                        className="form-control" 
+                        id="name" 
+                        value={formData.name}
+                        onChange={handleInputChange}
+                        required 
+                      />
+                      <div className="validate"></div>
+                    </div>
+                    <div className="form-group col-md-6">
+                      <label htmlFor="email">Your Email</label>
+                      <input 
+                        type="email" 
+                        className="form-control" 
+                        name="email" 
+                        id="email" 
+                        value={formData.email}
+                        onChange={handleInputChange}
+                        required 
+                      />
+                      <div className="validate"></div>
+                    </div>
+                  </div>
+                  <div className="form-group">
+                    <label htmlFor="subject">Subject</label>
+                    <input 
+                      type="text" 
+                      className="form-control" 
+                      name="subject" 
+                      id="subject" 
+                      value={formData.subject}
+                      onChange={handleInputChange}
+                      required 
+                    />
+                    <div className="validate"></div>
+                  </div>
+                  <div className="form-group">
+                    <label htmlFor="message">Message</label>
+                    <textarea 
+                      className="form-control" 
+                      name="message" 
+                      rows="10" 
+                      value={formData.message}
+                      onChange={handleInputChange}
+                      required
+                    ></textarea>
+                    <div className="validate"></div>
+                  </div>
+                  <div className="mb-3">
+                    {isSubmitting && <div className="loading">Loading</div>}
+                    {submitStatus === 'error' && <div className="error-message">Error sending message. Please try again.</div>}
+                    {submitStatus === 'success' && <div className="sent-message">Your message has been sent. Thank you!</div>}
+                  </div>
+                  <div className="text-center">
+                    <button type="submit" disabled={isSubmitting}>
+                      {isSubmitting ? 'Sending...' : 'Send Message'}
+                    </button>
+                  </div>
+
+                  <div className="text-center">
+                    <a 
+                      href="https://lk.linkedin.com/company/wijeya-newspapers-ltd" 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="btn btn-linkedin mt-3"
+                    >
+                      <i className="fab fa-linkedin-in"></i> Follow us on LinkedIn
+                    </a>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <Footer />
+    </div>
+  )
+}
+
+export default ContactUs
