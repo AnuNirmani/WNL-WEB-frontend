@@ -10,6 +10,7 @@
   padding: 20px 0;
   background-color: #f8f9fa;
   border-bottom: 1px solid #e9ecef;
+  animation: fadeInDown 0.5s ease forwards;
 }
 
 .breadcrumbs ol {
@@ -51,16 +52,30 @@
   object-position: center;
   border-radius: 0;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  animation: fadeInUp 0.8s ease forwards;
+  animation-delay: 0.2s;
+  opacity: 0;
+  transition: transform 0.3s ease;
+}
+
+.awards-banner-img:hover {
+  transform: scale(1.02);
 }
 
 /* Awards Section */
 .awards {
   background-color: #f8f9fa;
+  animation: fadeInUp 0.8s ease forwards;
+  animation-delay: 0.4s;
+  opacity: 0;
 }
 
 .section-title {
   text-align: center;
   padding-bottom: 30px;
+  animation: fadeInUp 0.6s ease forwards;
+  animation-delay: 0.5s;
+  opacity: 0;
 }
 
 .section-title h2 {
@@ -285,6 +300,22 @@
   margin-left: auto;
 }
 
+/* Banner Container Animation */
+.awards-page .container-fluid:first-of-type {
+  animation: fadeIn 0.6s ease forwards;
+  animation-delay: 0.1s;
+  opacity: 0;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
 /* Spacing utilities */
 .mb-4 {
   margin-bottom: 1.5rem !important;
@@ -375,6 +406,9 @@
 /* Filter section styling */
 .row.mb-4 {
   margin-bottom: 2rem;
+  animation: fadeInUp 0.6s ease forwards;
+  animation-delay: 0.6s;
+  opacity: 0;
 }
 
 .row.mb-4 .col-md-6 {
@@ -394,4 +428,27 @@
 /* Card body styling */
 .card-body {
   padding: 1.25rem;
+}
+
+/* Animations */
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }

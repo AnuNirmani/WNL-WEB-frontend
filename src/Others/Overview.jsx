@@ -1,16 +1,22 @@
 import React from 'react'
-import { useLocation } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
 import './Overview.css'
 
 const Overview = () => {
   const location = useLocation()
+  const navigate = useNavigate()
+  
   const newsItem = location.state || {
     id: 1,
     image: 'https://images.unsplash.com/photo-1511795409834-ef04bbd61622?w=800&h=600&fit=crop',
     title: 'News Headline',
     date: 'October 2025'
+  }
+
+  const handleGoBack = () => {
+    navigate(-1)
   }
 
   return (
@@ -93,6 +99,13 @@ const Overview = () => {
                     </div>
                   </div>
                 </article>
+
+                {/* Back Button */}
+                <div className="back-button-container">
+                  <button onClick={handleGoBack} className="btn-back">
+                    <i className="fas fa-arrow-left"></i> Back to Home
+                  </button>
+                </div>
               </div>
             </div>
           </div>
