@@ -1,14 +1,12 @@
 /* Press Release Page Styles */
 .press-release-page {
   min-height: 100vh;
-  padding-top: 63px; /* Account for fixed header */
 }
 
 /* Breadcrumbs */
 .breadcrumbs {
   padding: 20px 0;
   background: #f8f9fa;
-  margin-top: 80px; /* Account for fixed header */
 }
 
 .breadcrumbs ol {
@@ -57,15 +55,7 @@
 }
 
 .section-title h2::after {
-  content: '';
-  position: absolute;
-  display: block;
-  width: 50px;
-  height: 3px;
-  background: #007bff;
-  bottom: -10px;
-  left: 50%;
-  transform: translateX(-50%);
+  content: none;
 }
 
 /* Press Release Section */
@@ -192,12 +182,7 @@
 
 /* Responsive Design */
 @media (max-width: 768px) {
-  .press-release-page {
-    padding-top: 100px;
-  }
-  
   .breadcrumbs {
-    margin-top: 60px;
     padding: 15px 0;
   }
   
@@ -224,12 +209,8 @@
 }
 
 @media (max-width: 576px) {
-  .press-release-page {
-    padding-top: 80px;
-  }
-  
   .breadcrumbs {
-    margin-top: 40px;
+    padding: 15px 0;
   }
   
   .section-title h2 {

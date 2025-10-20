@@ -2,15 +2,35 @@
 
 .awards-page {
   min-height: 100vh;
-  padding-top: 17px;
+  padding-top: 100px !important;
+}
+
+/* Override global body padding for awards page */
+body.awards-page-body {
+  padding-top: 0 !important;
+}
+
+/* Reduce gap between banner and content */
+.awards-page .container-fluid {
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+.awards-page .awards {
+  margin-top: 0;
+  padding-top: 0;
+}
+
+/* Remove all spacing between banner and awards section */
+.awards-page .container-fluid + section {
+  margin-top: 0;
+  padding-top: 0;
 }
 
 /* Breadcrumbs */
 .breadcrumbs {
   padding: 20px 0;
-  background-color: #f8f9fa;
-  border-bottom: 1px solid #e9ecef;
-  animation: fadeInDown 0.5s ease forwards;
+  background: #f8f9fa;
 }
 
 .breadcrumbs ol {
@@ -47,7 +67,7 @@
   width: 100%;
   height: auto;
   display: block;
-  max-height: 500px;
+  max-height: 400px;
   object-fit: cover;
   object-position: center;
   border-radius: 0;
@@ -56,6 +76,19 @@
   animation-delay: 0.2s;
   opacity: 0;
   transition: transform 0.3s ease;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+/* Ensure no gap between banner and awards */
+.awards-page .container-fluid:last-of-type {
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+.awards-page .container-fluid + .awards {
+  margin-top: 0 !important;
+  padding-top: 1rem !important;
 }
 
 .awards-banner-img:hover {
@@ -68,6 +101,9 @@
   animation: fadeInUp 0.8s ease forwards;
   animation-delay: 0.4s;
   opacity: 0;
+  padding-top: 1rem !important;
+  padding-bottom: 3rem !important;
+  margin-top: 0 !important;
 }
 
 .section-title {
@@ -89,15 +125,7 @@
 }
 
 .section-title h2::after {
-  content: '';
-  position: absolute;
-  display: block;
-  width: 50px;
-  height: 3px;
-  background: #007bff;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
+  content: none;
 }
 
 .section-title p {
@@ -352,8 +380,8 @@
 }
 
 .py-5 {
-  padding-top: 3rem !important;
-  padding-bottom: 3rem !important;
+  padding-top: 1rem !important;
+  padding-bottom: 2rem !important;
 }
 
 .pl-0 {

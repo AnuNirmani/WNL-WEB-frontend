@@ -52,13 +52,23 @@ const Careers = () => {
   return (
     <div className="careers-page">
       <Header />
-      
-      <main id="main">
-        <section className="container" data-aos="fade-up">
-          <br />
-          <div className="section-title" data-aos="fade-up" data-aos-delay="100">
-            <h2 className="mb-4">Current Job Openings</h2>
-            {/* <p>Join our team and be part of Sri Lanka's leading media organization.</p> */}
+
+      {/* Breadcrumbs */}
+      <section id="breadcrumbs" className="breadcrumbs">
+        <div className="container">
+          <ol>
+            <li><Link to="/">Home</Link></li>
+            <li>Careers</li>
+          </ol>
+        </div>
+      </section>
+
+      {/* Careers Section */}
+      <section id="careers" className="careers section-bg">
+        <div className="container" data-aos="fade-up">
+          <div className="section-title">
+            <h2>Current Job Openings</h2>
+            <p>Join our team and be part of Sri Lanka's leading media organization.</p>
           </div>
           
           {/* Table View */}
@@ -119,8 +129,8 @@ const Careers = () => {
               ))}
             </div>
           </div> */}
-        </section>
-      </main>
+        </div>
+      </section>
 
       <Footer />
     </div>

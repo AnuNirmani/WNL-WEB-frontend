@@ -1,6 +1,51 @@
 /* Careers Page Styles */
 .careers-page {
-  font-family: 'Open Sans', sans-serif;
+  /* font-family: 'Open Sans', sans-serif; */
+  background-color: #f8f9fa;
+  min-height: 100vh;
+}
+
+/* Breadcrumbs */
+.breadcrumbs {
+  padding: 10px 0;
+  background: #f8f9fa;
+  min-height: 40px;
+}
+
+.breadcrumbs ol {
+  display: flex;
+  flex-wrap: wrap;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  font-size: 14px;
+}
+
+.breadcrumbs ol li + li {
+  padding-left: 2px;
+}
+
+.breadcrumbs ol li + li::before {
+  display: inline-block;
+  padding-right: 2px;
+  color: #6c757d;
+}
+
+.breadcrumbs ol li a {
+  color: #0563bb;
+  text-decoration: none;
+}
+
+.breadcrumbs ol li a:hover {
+  color: #024289;
+}
+
+/* Careers Section */
+.careers {
+  padding: 60px 0;
+}
+
+.section-bg {
   background-color: #f8f9fa;
 }
 
@@ -109,6 +154,18 @@
 
 /* Responsive Design */
 @media (max-width: 576px) {
+  .breadcrumbs {
+    padding: 15px 0;
+  }
+  
+  .careers {
+    padding: 40px 0;
+  }
+  
+  .section-title h2 {
+    font-size: 20px;
+  }
+  
   .careers-page .job-meta {
     display: block;
     margin-top: 5px;
@@ -141,32 +198,25 @@
 /* Main content spacing */
 .careers-page main {
   min-height: 70vh;
-  padding-top: 140px; /* Add space to account for fixed header */
-}
-
-.careers-page .container {
-  padding: 20px 15px;
 }
 
 /* Section Title Styling (similar to leaders page) */
-.careers-page .section-title {
+.section-title {
   text-align: center;
   padding-bottom: 30px;
 }
 
-.careers-page .section-title h2 {
-  color: #2c3e50;
+.section-title h2 {
   font-size: 32px;
   font-weight: bold;
   text-transform: uppercase;
   margin-bottom: 20px;
   padding-bottom: 20px;
   position: relative;
-  margin-top: 20px;
-  padding-top: 20px;
+  color: #2c3e50;
 }
 
-.careers-page .section-title h2::before {
+.section-title h2::before {
   content: '';
   position: absolute;
   display: block;
@@ -177,7 +227,7 @@
   left: calc(50% - 25px);
 }
 
-.careers-page .section-title p {
+.section-title p {
   margin-bottom: 0;
   font-size: 14px;
   color: #6c757d;

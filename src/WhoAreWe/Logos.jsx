@@ -47,16 +47,16 @@ const Logos = () => {
 
   return (
     <section id="logos" className="services section-bg">
-      <div className="container" data-aos="fade-up">
-        <div className="section-title">
+      <div className="container">
+        <div className="section-title" data-aos="fade-up">
           <h2>Our Publications</h2>
-          <p>
+          <p data-aos="fade-up" data-aos-delay="100">
             For the Sinhala speaking reader, our Sinhala newspapers and publications include 
             the Lankadeepa which appears as in daily and Sunday avatars; Wijeya, which is a 
             paper dedicated wholly for kids in primary school; and Bilindu, dedicated for 
             kids in kindergarten.
           </p>
-          <p>
+          <p data-aos="fade-up" data-aos-delay="150">
             In addition, Wijeya Newspaper also offers Tamil Mirror, the only 24-hour breaking 
             news site in Tamil.
           </p>

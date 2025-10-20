@@ -109,13 +109,13 @@ const Locations = () => {
       <main id="main">
         {/* Breadcrumbs */}
         <section id="breadcrumbs" className="breadcrumbs">
-          <div className="container">
+          {/* <div className="container">
             <br />
             <ol>
               <li><a href="/">Home</a></li>
               <li>Locations</li>
             </ol>
-          </div>
+          </div> */}
         </section>
 
          {/* Locations Content */}

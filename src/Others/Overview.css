@@ -1,17 +1,75 @@
 /* Overview Page Styles */
 
+.overview-page {
+  min-height: 100vh;
+  padding-top: 150px !important;
+}
+
+/* Mobile responsive padding adjustments */
+@media (max-width: 991.98px) {
+  .overview-page {
+    padding-top: 120px !important;
+  }
+  
+  .news-article {
+    width: 90%;
+    margin: 0 auto;
+  }
+}
+
+@media (max-width: 767.98px) {
+  .overview-page {
+    padding-top: 100px !important;
+  }
+  
+  .news-article {
+    width: 95%;
+    margin: 0 auto;
+  }
+  
+  .article-title {
+    font-size: 2rem;
+  }
+  
+  .article-image img {
+    height: 300px;
+  }
+}
+
+@media (max-width: 575.98px) {
+  .overview-page {
+    padding-top: 80px !important;
+  }
+  
+  .news-article {
+    width: 100%;
+    margin: 0;
+  }
+}
+
 .overview {
   background: #fff;
-  padding: 70px 0;
+  padding: 1rem 0;
   min-height: calc(100vh - 200px);
+}
+
+/* Override global body padding for overview page */
+body.overview-page-body {
+  padding-top: 0 !important;
+}
+
+/* Ensure no gap between header and breadcrumbs */
+.overview-page .breadcrumbs {
+  margin-top: 0;
+  padding-top: 0;
 }
 
 /* Breadcrumb Styles */
 .breadcrumbs {
-  padding: 40px 0;
+  padding: 10px 0;
   background: #f8f9fa;
-  margin-top: 80px;
   animation: fadeInDown 0.5s ease forwards;
+  margin-top: 0;
 }
 
 @keyframes fadeInDown {
@@ -261,72 +319,12 @@
 /* Responsive Design */
 @media screen and (max-width: 768px) {
   .article-header {
-    padding: 30px 25px 15px;
-  }
-
-  .article-title {
-    font-size: 2rem;
-  }
-
-  .article-image img {
-    height: 300px;
-  }
-
-  .article-content {
-    padding: 30px 25px;
-  }
-
-  .article-content .lead {
-    font-size: 1.1rem;
-  }
-
-  .article-content h3 {
-    font-size: 1.5rem;
-  }
-
-  .article-content p,
-  .article-content ul.article-list li {
-    font-size: 1rem;
-  }
-
-  .article-quote {
-    padding: 20px 25px;
-    font-size: 1.1rem;
-  }
-
-  .article-footer {
-    padding: 25px;
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .overview {
-    padding: 60px 0;
-  }
-
-  .breadcrumbs {
-    margin-top: 70px;
-    padding: 30px 0;
-  }
-
-  .back-button-container {
-    margin-top: 30px;
-    padding: 15px 0;
-  }
-
-  .btn-back {
-    padding: 10px 25px;
-    font-size: 0.95rem;
-  }
-}
-
-@media screen and (max-width: 480px) {
-  .article-header {
     padding: 20px 15px 10px;
   }
 
   .article-title {
-    font-size: 1.5rem;
+    font-size: 1.8rem;
+    line-height: 1.2;
   }
 
   .article-image img {
@@ -339,31 +337,33 @@
 
   .article-content .lead {
     font-size: 1rem;
+    line-height: 1.6;
   }
 
   .article-content h3 {
-    font-size: 1.3rem;
+    font-size: 1.4rem;
     margin-top: 25px;
   }
 
-  .article-content p,
-  .article-content ul.article-list li {
+  .article-content p {
     font-size: 0.95rem;
-    text-align: left;
-  }
-
-  .article-quote {
-    padding: 15px 20px;
-    font-size: 1rem;
-    margin: 25px 0;
+    line-height: 1.6;
   }
 
   .article-footer {
     padding: 20px 15px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
   }
 
   .overview {
-    padding: 40px 0;
+    padding: 20px 0;
+  }
+
+  .breadcrumbs {
+    margin-top: 0;
+    padding: 8px 0;
   }
 
   .back-button-container {
@@ -374,6 +374,101 @@
   .btn-back {
     padding: 10px 20px;
     font-size: 0.9rem;
+  }
+
+  /* Adjust news article width for mobile */
+  .news-article {
+    width: 100%;
+    margin: 0 auto;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .article-header {
+    padding: 15px 10px 8px;
+  }
+
+  .article-title {
+    font-size: 1.4rem;
+    line-height: 1.1;
+  }
+
+  .article-image img {
+    height: 200px;
+  }
+
+  .article-content {
+    padding: 15px 10px;
+  }
+
+  .article-content .lead {
+    font-size: 0.95rem;
+    line-height: 1.5;
+  }
+
+  .article-content h3 {
+    font-size: 1.2rem;
+    margin-top: 20px;
+  }
+
+  .article-content p {
+    font-size: 0.9rem;
+    line-height: 1.5;
+    text-align: left;
+  }
+
+  .article-footer {
+    padding: 15px 10px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .overview {
+    padding: 15px 0;
+  }
+
+  .back-button-container {
+    margin-top: 15px;
+    padding: 8px 0;
+  }
+
+  .btn-back {
+    padding: 8px 16px;
+    font-size: 0.85rem;
+  }
+
+  /* Ensure full width on very small screens */
+  .news-article {
+    width: 100%;
+    margin: 0;
+    border-radius: 5px;
+  }
+
+  /* Adjust container padding for very small screens */
+  .container {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+  
+  /* Improve touch targets for mobile */
+  .btn-back {
+    min-height: 44px;
+    min-width: 44px;
+  }
+  
+  .article-share .share-btn {
+    width: 44px;
+    height: 44px;
+  }
+  
+  /* Better spacing for mobile */
+  .article-header {
+    margin-bottom: 10px;
+  }
+  
+  .article-content {
+    margin-top: 10px;
   }
 }
 

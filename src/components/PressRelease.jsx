@@ -52,8 +52,8 @@ const PressRelease = () => {
                   <p className="card-text">{press.description}</p>
                   <Link 
                     to={`/press-release/${press.id}`} 
-                    target="_blank" 
-                    rel="noopener noreferrer"
+                    // target="_blank" 
+                    // rel="noopener noreferrer"
                     className="btn-view-more"
                   >
                     View More

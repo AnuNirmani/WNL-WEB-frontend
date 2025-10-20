@@ -7,14 +7,15 @@
 
 .about-us-page main {
   flex: 1;
-  margin-top: 120px; /* Account for fixed header */
 }
 
 /* Breadcrumbs */
 #breadcrumbs {
   background: #f8f9fa;
-  padding: 20px 0;
-  margin-top: 60px;
+  padding: 10px 0;
+  margin-top: 0;
+  border-bottom: 1px solid #e9ecef;
+  transition: all 0.3s ease;
 }
 
 #breadcrumbs ol {
@@ -28,22 +29,30 @@
 
 #breadcrumbs ol li {
   color: #7f8c8d;
+  transition: all 0.3s ease;
 }
 
 #breadcrumbs ol li:not(:last-child)::after {
   content: ">";
   margin: 0 10px;
   color: #7f8c8d;
+  transition: all 0.3s ease;
 }
 
 #breadcrumbs ol li a {
   color: #47b2e4;
   text-decoration: none;
+  padding: 5px 10px;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+  display: inline-block;
 }
 
 #breadcrumbs ol li a:hover {
   color: #209dd8;
-  text-decoration: underline;
+  background: rgba(71, 178, 228, 0.1);
+  text-decoration: none;
+  transform: translateX(2px);
 }
 
 /* Inner Page Content */
@@ -57,6 +66,12 @@
   color: #444;
   margin-bottom: 25px;
   text-align: justify;
+  transition: all 0.3s ease;
+}
+
+.inner-page .container p:hover {
+  transform: translateX(5px);
+  color: #333;
 }
 
 /* Services Section */
@@ -71,6 +86,7 @@
 .section-title {
   text-align: center;
   padding-bottom: 30px;
+  position: relative;
 }
 
 .section-title h2 {
@@ -79,18 +95,24 @@
   color: #0c1a4b;
   margin-bottom: 20px;
   position: relative;
+  display: inline-block;
+  transition: all 0.3s ease;
 }
 
 .section-title h2::after {
   content: '';
   position: absolute;
-  display: block;
-  width: 50px;
-  height: 3px;
-  background: #47b2e4;
   bottom: -10px;
   left: 50%;
   transform: translateX(-50%);
+  width: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #47b2e4, #209dd8);
+  transition: width 0.5s ease;
+}
+
+.section-title:hover h2::after {
+  width: 100%;
 }
 
 .section-title p {
@@ -105,13 +127,8 @@
 
 /* Responsive Design */
 @media (max-width: 768px) {
-  .about-us-page main {
-    margin-top: 100px;
-  }
-  
   #breadcrumbs {
     padding: 15px 0;
-    margin-top: 40px;
   }
   
   #breadcrumbs h2 {

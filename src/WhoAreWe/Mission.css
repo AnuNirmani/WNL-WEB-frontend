@@ -15,18 +15,24 @@
   color: #0c1a4b;
   margin-bottom: 20px;
   position: relative;
+  display: inline-block;
+  transition: all 0.3s ease;
 }
 
 #mission .section-title h2::after {
   content: '';
   position: absolute;
-  display: block;
-  width: 50px;
-  height: 3px;
-  background: #47b2e4;
   bottom: -10px;
   left: 50%;
   transform: translateX(-50%);
+  width: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #47b2e4, #209dd8);
+  transition: width 0.5s ease;
+}
+
+#mission .section-title:hover h2::after {
+  width: 100%;
 }
 
 #mission .section-title p {
@@ -38,6 +44,15 @@
   margin-left: auto;
   margin-right: auto;
   font-weight: 500;
+  transition: all 0.3s ease;
+  padding: 20px;
+  border-radius: 8px;
+}
+
+#mission .section-title p:hover {
+  background: rgba(71, 178, 228, 0.05);
+  transform: scale(1.01);
+  color: #555;
 }
 
 /* Responsive Design */

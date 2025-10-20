@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
@@ -15,24 +15,34 @@ const Overview = () => {
     date: 'October 2025'
   }
 
+  useEffect(() => {
+    // Add class to body to override global padding
+    document.body.classList.add('overview-page-body');
+    
+    // Cleanup on component unmount
+    return () => {
+      document.body.classList.remove('overview-page-body');
+    };
+  }, []);
+
   const handleGoBack = () => {
     navigate(-1)
   }
 
   return (
-    <>
+    <div className="overview-page">
       <Header />
       
       <main id="main">
         {/* Breadcrumbs */}
-        <section className="breadcrumbs">
+        {/* <section className="breadcrumbs">
           <div className="container">
             <ol>
               <li><a href="/">Home</a></li>
               <li>News Overview</li>
             </ol>
           </div>
-        </section>
+        </section> */}
 
         {/* Overview Section */}
         <section id="overview" className="overview">
@@ -113,7 +123,7 @@ const Overview = () => {
       </main>
 
       <Footer />
-    </>
+    </div>
   )
 }
 

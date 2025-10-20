@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
@@ -7,6 +7,16 @@ import './Awards.css';
 const Awards = () => {
   const [selectedYear, setSelectedYear] = useState('');
   const [selectedDepartment, setSelectedDepartment] = useState('');
+
+  useEffect(() => {
+    // Add class to body to override global padding
+    document.body.classList.add('awards-page-body');
+    
+    // Cleanup on component unmount
+    return () => {
+      document.body.classList.remove('awards-page-body');
+    };
+  }, []);
 
   const awardsData = [
     {
@@ -102,18 +112,17 @@ const Awards = () => {
       <Header />
       
       {/* Breadcrumbs */}
-      <section className="breadcrumbs">
+      {/* <section className="breadcrumbs">
         <div className="container">
           <ol>
             <li><Link to="/">Home</Link></li>
             <li>Awards</li>
           </ol>
         </div>
-      </section>
+      </section> */}
 
       {/* Awards Banner Image */}
-      {/* <div className="container py-5" data-aos="fade-up"> */}
-      <div className="container-fluid">
+      <div className="container-fluid" style={{marginBottom: 0, paddingBottom: 0}}>
         <div className="row">
           <div className="col-lg-12 col-sm-12 pl-0 pr-0">
             <img 
@@ -124,11 +133,10 @@ const Awards = () => {
           </div>
         </div>
       </div>
-      {/* </div> */}
 
       {/* Awards Section */}
-      <section id="awards" className="awards section-bg py-5">
-        <div className="container py-5" data-aos="fade-up">
+      <section id="awards" className="awards section-bg" style={{marginTop: 0, paddingTop: '1rem'}}>
+        <div className="container py-3" data-aos="fade-up">
           <div className="section-title" data-aos="fade-up" data-aos-delay="100">
             <h2 className="text-center mb-4">Awards</h2>
             <p className="text-center mb-4">Recognizing excellence in journalism and media innovation.</p>

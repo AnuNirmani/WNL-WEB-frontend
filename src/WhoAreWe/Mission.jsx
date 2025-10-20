@@ -4,10 +4,10 @@ import './Mission.css'
 const Mission = () => {
   return (
     <section id="mission" className="services">
-      <div className="container" data-aos="fade-up">
-        <div className="section-title">
+      <div className="container">
+        <div className="section-title" data-aos="fade-up">
           <h2>Mission</h2>
-          <p>
+          <p data-aos="fade-up" data-aos-delay="100">
             Our mission is to provide timely and comprehensive information, to everyone, 
             wherever they are. We shall report the facts as they are, while reflecting a 
             wide variety of views to keep them informed and help them shape an opinion. 
