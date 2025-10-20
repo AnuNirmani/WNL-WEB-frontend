@@ -204,7 +204,9 @@ The application supports all modern browsers:
 
 ## License
 
-Copyright © Wijeya Newspapers Limited. All Rights Reserved.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+Copyright © 2025 Wijeya Newspapers Limited.
 
 ## Contributing
 
