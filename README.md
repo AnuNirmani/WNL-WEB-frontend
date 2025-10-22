@@ -150,10 +150,6 @@ The application includes the following routes:
 - **AOS (Animate On Scroll)** - Scroll animations
 - **Custom CSS** - Component-specific styling
 
-### Utilities
-- **Axios** - HTTP client for API requests
-- **ESLint** - Code linting
-
 ## Build for Production
 
 ```bash
