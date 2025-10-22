@@ -1,12 +1,12 @@
 /* Faces Page Styles */
 
 .faces-page {
-  padding-top: 17px; /* Account for fixed header */
+  min-height: 100vh;
 }
 
 /* Breadcrumbs */
 .breadcrumbs {
-  padding: 60px 0 30px 0;
+  padding: 20px 0;
   background: #f8f9fa;
   min-height: 40px;
 }
@@ -168,10 +168,6 @@
 
 /* Responsive Design */
 @media (max-width: 768px) {
-  .faces-page {
-    padding-top: 80px;
-  }
-  
   .team {
     padding: 40px 0;
   }
@@ -196,7 +192,7 @@
 
 @media (max-width: 576px) {
   .breadcrumbs {
-    padding: 40px 0 20px 0;
+    padding: 15px 0;
   }
   
   .team {

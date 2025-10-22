@@ -1,6 +1,7 @@
 import { useEffect } from 'react'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import AOS from 'aos'
+import ScrollToTop from './ScrollToTop'
 import Dashboard from './components/Dashboard'
 import Leaders from './Leaders/Leaders'
 import Faces from './Leaders/Faces'
@@ -29,6 +30,7 @@ function App() {
 
   return (
     <Router>
+      <ScrollToTop />
       <Routes>
         <Route path="/" element={<Dashboard />} />
         <Route path="/leaders" element={<Leaders />} />

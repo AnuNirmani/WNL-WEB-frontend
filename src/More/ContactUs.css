@@ -1,6 +1,6 @@
 /* Contact Us Page Styles */
 .contact-us-page {
-  padding-top: 120px; /* Account for fixed header */
+  min-height: 100vh;
 }
 
 /* Breadcrumbs */
@@ -72,14 +72,7 @@
 }
 
 .section-title h2::after {
-  content: "";
-  position: absolute;
-  display: block;
-  width: 40px;
-  height: 3px;
-  background: #007bff;
-  bottom: 0;
-  left: calc(50% - 20px);
+  content: none;
 }
 
 .section-title p {
@@ -304,10 +297,6 @@
 
 /* Responsive Design */
 @media (max-width: 768px) {
-  .contact-us-page {
-    padding-top: 100px;
-  }
-  
   .section-title h2 {
     font-size: 28px;
   }

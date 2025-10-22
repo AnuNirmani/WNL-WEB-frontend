@@ -139,14 +139,14 @@ const OurJourny = () => {
       
       <main id="main">
         {/* Breadcrumbs */}
-        <section className="breadcrumbs">
+        {/* <section className="breadcrumbs">
           <div className="container">
             <ol>
               <li><a href="/">Home</a></li>
               <li>Our Journey</li>
             </ol>
           </div>
-        </section>
+        </section> */}
 
         {/* Our Journey Section */}
         <section id="our-journey" className="our-journey">

@@ -3,13 +3,14 @@
 .locations-page {
   min-height: 100vh;
   background-color: #f8f9fa;
+  padding-top: 30px;
 }
 
 /* Breadcrumbs */
 #breadcrumbs {
-  padding: 60px 0 0 0;
+  padding: 20px 0;
   background: #f8f9fa;
-  min-height: 40px;
+  min-height: 4px;
 }
 
 #breadcrumbs ol {
@@ -71,15 +72,7 @@
 }
 
 .section-title h2::after {
-  content: '';
-  position: absolute;
-  bottom: -10px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 50px;
-  height: 3px;
-  background: linear-gradient(90deg, #47b2e4, #0c1a4b);
-  border-radius: 2px;
+  content: none;
 }
 
 /* Contact Boxes */
@@ -167,7 +160,7 @@
 
 @media (max-width: 576px) {
   #breadcrumbs {
-    padding: 40px 0 0 0;
+    padding: 15px 0;
   }
   
   #breadcrumbs h2 {
@@ -204,6 +197,8 @@
 /* Grid Layout Adjustments */
 .row {
   margin: 0 -15px;
+  display: flex;
+  flex-wrap: wrap;
 }
 
 .col-xl-4,
@@ -225,9 +220,20 @@
 }
 
 @media (max-width: 768px) {
+  .row {
+    justify-content: center;
+  }
+  
   .col-xl-4,
   .col-md-6 {
     flex: 0 0 100%;
     max-width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+  
+  .contact-box {
+    max-width: 400px;
+    width: 100%;
   }
 }

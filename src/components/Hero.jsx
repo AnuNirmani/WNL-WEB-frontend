@@ -31,7 +31,7 @@ const Hero = () => {
 
   return (
     <section id="intro-sec">
-      <div className="container-fluid" style={{ marginTop: '100px' }}>
+      <div className="container-fluid" style={{ marginTop: '20px' }}>
         <div className="row">
           {newsItems.map((item) => (
             <div className="col-md-4" key={item.id}>

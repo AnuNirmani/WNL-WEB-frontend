@@ -1,12 +1,10 @@
 .papers-page {
   min-height: 100vh;
-  padding-top: 120px;
 }
 
 .breadcrumbs {
     background: #f8f9fa;
-    padding: 40px 0;
-    margin-top: 120px;
+    padding: 20px 0;
     animation: fadeInUp 0.6s ease forwards;
     opacity: 0;
   }
