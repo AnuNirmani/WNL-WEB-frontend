@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import Header from './Header'
 import Hero from './Hero'
-import PressRelease from './PressRelease'
+
+// import Publications from './Publications'
+import PressRelease from './PressReleasedb'
+
 import CallToAction from './CallToAction'
 import Footer from './Footer'
 import './Dashboard.css'

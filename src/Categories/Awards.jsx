@@ -1,77 +1,21 @@
-import React, { useState, useEffect } from 'react';
+// src/components/AwardsPage.jsx
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
-import './Awards.css';
+import useAwardsController from '../controllers/useAwardsController';
+import '../categories/Awards.css';
 
-const Awards = () => {
-  const [awards, setAwards] = useState([]);
-  const [filteredAwards, setFilteredAwards] = useState([]);
-  const [selectedYear, setSelectedYear] = useState('');
-  const [selectedDepartment, setSelectedDepartment] = useState('');
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-
-  const API_URL = 'http://127.0.0.1:8000/api/posts';
-
-  useEffect(() => {
-    document.body.classList.add('awards-page-body');
-    return () => document.body.classList.remove('awards-page-body');
-  }, []);
-
-  useEffect(() => {
-    fetchAwards();
-  }, []);
-
-  // 🔹 Fetch Awards from API
-  const fetchAwards = async () => {
-    try {
-      const response = await fetch(API_URL);
-      if (!response.ok) throw new Error('Network response was not ok');
-      const data = await response.json();
-
-      const posts = Array.isArray(data) ? data : data.value || [];
-
-      // Filter only visible awards
-      const awardsData = posts.filter(item => {
-        const hasAwards =
-          (item.categories && Array.isArray(item.categories) && item.categories.includes('Awards')) ||
-          item.category_name === 'Awards';
-
-        const isVisible =
-          item.status && item.status.toLowerCase() === 'visible';
-
-        return hasAwards && isVisible;
-      });
-
-      setAwards(awardsData);
-      setFilteredAwards(awardsData);
-      setLoading(false);
-    } catch (error) {
-      console.error('Error fetching Awards:', error);
-      setError('Failed to load Awards.');
-      setLoading(false);
-    }
-  };
-
-  // 🔹 Filter Awards
-  useEffect(() => {
-    if (!selectedYear && !selectedDepartment) {
-      setFilteredAwards(awards);
-      return;
-    }
-
-    const filtered = awards.filter(award => {
-      const matchesYear =
-        !selectedYear || (award.sub_topic && award.sub_topic.includes(selectedYear));
-      const matchesDept =
-        !selectedDepartment ||
-        (award.description && award.description.toLowerCase().includes(selectedDepartment.toLowerCase()));
-      return matchesYear && matchesDept;
-    });
-
-    setFilteredAwards(filtered);
-  }, [selectedYear, selectedDepartment, awards]);
+const AwardsPage = () => {
+  const {
+    filteredAwards,
+    selectedYear,
+    selectedDepartment,
+    setSelectedYear,
+    setSelectedDepartment,
+    loading,
+    error,
+  } = useAwardsController();
 
   const years = [
     '1998', '1999', '2000', '2001', '2002', '2003', '2004', '2006',
@@ -84,11 +28,16 @@ const Awards = () => {
     'ADA', 'Hokandara Factory', 'Daily FT & Weekend FT'
   ];
 
+  useEffect(() => {
+    document.body.classList.add('awards-page-body');
+    return () => document.body.classList.remove('awards-page-body');
+  }, []);
+
   return (
     <div className="awards-page">
       <Header />
 
-      {/* Banner Image */}
+      {/* Banner */}
       <div className="container-fluid" style={{ marginBottom: 0, paddingBottom: 0 }}>
         <div className="row">
           <div className="col-lg-12 col-sm-12 pl-0 pr-0">
@@ -106,10 +55,12 @@ const Awards = () => {
         <div className="container py-3" data-aos="fade-up">
           <div className="section-title" data-aos="fade-up" data-aos-delay="100">
             <h2 className="text-center mb-4">Awards</h2>
-            <p className="text-center mb-4">Recognizing excellence in journalism and media innovation.</p>
+            <p className="text-center mb-4">
+              Recognizing excellence in journalism and media innovation.
+            </p>
           </div>
 
-          {/* Filters */}
+          {/* 🔹 Filters and Dropdowns */}
           <div className="row mb-4" data-aos="fade-up" data-aos-delay="200">
             <div className="col-md-6">
               <select
@@ -119,7 +70,7 @@ const Awards = () => {
                 onChange={(e) => setSelectedYear(e.target.value)}
               >
                 <option value="">Filter by Year</option>
-                {years.map(year => (
+                {years.map((year) => (
                   <option key={year} value={year}>{year}</option>
                 ))}
               </select>
@@ -132,14 +83,14 @@ const Awards = () => {
                 onChange={(e) => setSelectedDepartment(e.target.value)}
               >
                 <option value="">Filter by Department</option>
-                {departments.map(dept => (
+                {departments.map((dept) => (
                   <option key={dept} value={dept}>{dept}</option>
                 ))}
               </select>
             </div>
           </div>
 
-          {/* Awards Grid */}
+          {/* 🔹 Awards Grid (each AwardCard shown here) */}
           <div className="row" id="awardsGrid">
             {loading ? (
               <p>Loading awards...</p>
@@ -185,4 +136,4 @@ const Awards = () => {
   );
 };
 
-export default Awards;
+export default AwardsPage;

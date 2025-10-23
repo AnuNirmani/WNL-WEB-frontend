@@ -1,46 +1,17 @@
-import React, { useState, useEffect } from 'react';
+// src/components/CareersPage.jsx
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
-import './Careers.css';
+import useCareersController from '../controllers/useCareersController';
+import '../categories/Careers.css';
 
-const Careers = () => {
-  const [careers, setCareers] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-  const API_URL = 'http://127.0.0.1:8000/api/posts';
+const CareersPage = () => {
+  const { careers, loading, error } = useCareersController();
 
-  // Fetch career data on component mount
   useEffect(() => {
-    const fetchCareers = async () => {
-      try {
-        const response = await fetch(API_URL);
-        if (!response.ok) throw new Error('Network error');
-        const data = await response.json();
-
-        console.log('API Data:', data);
-
-        // Filter only Careers category + Visible posts
-        const filteredCareers = data.filter(item => {
-          const hasCareer =
-            (item.categories && Array.isArray(item.categories) && item.categories.includes('Careers')) ||
-            item.category_name === 'Careers';
-          const isVisible = item.status && item.status.toLowerCase() === 'visible';
-          return hasCareer && isVisible;
-        });
-
-        console.log('Filtered Careers:', filteredCareers);
-
-        setCareers(filteredCareers);
-        setLoading(false);
-      } catch (err) {
-        console.error('Error loading careers:', err);
-        setError('Failed to load career listings.');
-        setLoading(false);
-      }
-    };
-
-    fetchCareers();
+    document.body.classList.add('careers-page-body');
+    return () => document.body.classList.remove('careers-page-body');
   }, []);
 
   return (
@@ -114,4 +85,4 @@ const Careers = () => {
   );
 };
 
-export default Careers;
+export default CareersPage;
