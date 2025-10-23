@@ -9,6 +9,7 @@ import './Dashboard.css'
 const Dashboard = () => {
   const [publications, setPublications] = useState([])
   const [filteredPublications, setFilteredPublications] = useState([])
+  const [categories, setCategories] = useState(['All'])
   const [activeFilter, setActiveFilter] = useState('All')
 
   // Fetch publications dynamically from Laravel API
@@ -18,7 +19,13 @@ const Dashboard = () => {
         const response = await fetch('http://127.0.0.1:8000/api/publications')
         const data = await response.json()
         setPublications(data)
-        setFilteredPublications(data) // show all initially
+        setFilteredPublications(data)
+
+        // Extract unique categories dynamically
+        const uniqueCategories = Array.from(
+          new Set(data.map((pub) => pub.category).filter(Boolean))
+        )
+        setCategories(['All', ...uniqueCategories])
       } catch (error) {
         console.error('Error fetching publications:', error)
       }
@@ -63,14 +70,11 @@ const Dashboard = () => {
   return (
     <div className="dashboard">
       <Header />
-
       <div className="clearfix"></div>
 
       <main id="main">
-        {/* ======= Hero Section ======= */}
         <Hero />
 
-        {/* ======= Publications Section ======= */}
         <section id="portfolio" className="portfolio">
           <div className="container" data-aos="fade-up">
             <div className="section-title">
@@ -91,13 +95,11 @@ const Dashboard = () => {
               data-aos="fade-up"
               data-aos-delay="100"
             >
-              {['All', 'Daily', 'Weekly', 'Magazine'].map((filter) => (
+              {categories.map((filter) => (
                 <li
                   key={filter}
                   onClick={() => handleFilter(filter)}
-                  className={
-                    activeFilter === filter ? 'filter-active' : ''
-                  }
+                  className={activeFilter === filter ? 'filter-active' : ''}
                   style={{ cursor: 'pointer' }}
                 >
                   {filter}
@@ -114,8 +116,7 @@ const Dashboard = () => {
               {filteredPublications.length > 0 ? (
                 filteredPublications.map((pub) => (
                   <div
-                    className={`col-lg-3 col-md-6 portfolio-item filter-${pub.category?.toLowerCase() || 'card'
-                      }`}
+                    className={`col-lg-3 col-md-6 portfolio-item filter-${pub.category?.toLowerCase() || 'card'}`}
                     key={pub.id}
                   >
                     <div className="portfolio-img">
@@ -159,16 +160,12 @@ const Dashboard = () => {
           </div>
         </section>
 
-        {/* ======= Press Release Section ======= */}
         <PressRelease />
-
-        {/* ======= CTA Section ======= */}
         <CallToAction />
       </main>
 
       <Footer />
 
-      {/* Scroll to top */}
       <a href="#" className="back-to-top" onClick={scrollToTop}>
         <i className="ri-arrow-up-line"></i>
       </a>
