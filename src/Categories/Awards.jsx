@@ -117,7 +117,8 @@ const AwardsPage = () => {
                     <div className="card-body">
                       <h5 className="card-title">{award.title}</h5>
                       <p className="card-text">
-                        <strong>Year:</strong> {award.sub_topic || '—'}
+                        {/* <strong>Year:</strong>  */}
+                        {award.sub_topic || '—'}
                       </p>
                       <Link to={`/award/${award.post_id}`} className="btn-view-more">
                         View More

@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import useLeadersController from '../controllers/useLeadersController';
-import '../styles/Leaders.css';
+import '../leaders/Leaders.css';
 
 const LeadersPage = () => {
   const { leaders, loading, error } = useLeadersController();
