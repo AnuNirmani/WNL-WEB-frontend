@@ -58,7 +58,7 @@ const CareersPage = () => {
                   </tr>
                 ) : careers.length === 0 ? (
                   <tr>
-                    <td colSpan="4" className="text-center">No career openings available.</td>
+                    <td colSpan="4" className="text-center">No career openings available right now.</td>
                   </tr>
                 ) : (
                   careers.map((career, index) => (

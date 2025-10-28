@@ -28,7 +28,7 @@ const AwardDetailsPage = () => {
   if (error || !award) {
     return (
       <div className="text-center py-5 text-danger">
-        <p>{error || 'Award not found.'}</p>
+        <p>{error || 'No award found.'}</p>
       </div>
     );
   }

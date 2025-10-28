@@ -110,7 +110,7 @@ const Faces = () => {
 
           {!loading && filteredFaces.length === 0 && (
             <div className="no-results" data-aos="fade-up">
-              <p>No faces found matching your search criteria.</p>
+              <p>No faces found.</p>
             </div>
           )}
         </div>
