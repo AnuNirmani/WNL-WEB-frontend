@@ -1,43 +1,22 @@
-import React, { useState, useEffect, useMemo } from 'react';
+// src/components/FacesPage.jsx
+import React from 'react';
 import { Link } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
-import './Faces.css';
+import useFacesController from '../controllers/useFacesController';
+import '../leaders/Faces.css';
 
-const Faces = () => {
-  const [faces, setFaces] = useState([]);
-  const [searchTerm, setSearchTerm] = useState('');
-  const [selectedDepartment, setSelectedDepartment] = useState('');
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(false);
-
-  useEffect(() => {
-    fetch('http://127.0.0.1:8000/api/employees')
-      .then(res => res.json())
-      .then(data => {
-        // Filter only active Faces employees
-        const facesData = data.filter(emp =>
-          (emp.position?.toLowerCase().includes('faces') ||
-           emp.department?.toLowerCase().includes('faces')) &&
-          emp.status?.toLowerCase() === 'active'
-        );
-        setFaces(facesData);
-        setLoading(false);
-      })
-      .catch(err => {
-        console.error('Error fetching employees:', err);
-        setError(true);
-        setLoading(false);
-      });
-  }, []);
-
-  const filteredFaces = useMemo(() => {
-    return faces.filter(face => {
-      const matchesName = face.name?.toLowerCase().includes(searchTerm.toLowerCase());
-      const matchesDept = selectedDepartment === '' || face.department?.toLowerCase() === selectedDepartment.toLowerCase();
-      return matchesName && matchesDept;
-    });
-  }, [faces, searchTerm, selectedDepartment]);
+const FacesPage = () => {
+  const {
+    filteredFaces,
+    departments,
+    searchTerm,
+    setSearchTerm,
+    selectedDepartment,
+    setSelectedDepartment,
+    loading,
+    error,
+  } = useFacesController();
 
   return (
     <div className="faces-page">
@@ -79,8 +58,7 @@ const Faces = () => {
                 onChange={(e) => setSelectedDepartment(e.target.value)}
               >
                 <option value="">Filter by Department</option>
-                {/* Dynamically populate departments */}
-                {Array.from(new Set(faces.map(f => f.department))).map((dept, idx) => (
+                {departments.map((dept, idx) => (
                   <option key={idx} value={dept}>{dept}</option>
                 ))}
               </select>
@@ -100,7 +78,11 @@ const Faces = () => {
                 data-aos-delay={index < 6 ? (index + 1) * 100 : 300}
               >
                 <div className="face-card">
-                  <img src={face.photo || 'https://placehold.co/200x200'} alt={face.name} />
+                  <img 
+                    src={face.photo || 'https://placehold.co/200x200'} 
+                    alt={face.name || 'Employee'} 
+                    onError={(e) => e.target.src = 'https://placehold.co/200x200'}
+                  />
                   <h3>{face.name}</h3>
                   <p>{face.position} – {face.department}</p>
                 </div>
@@ -121,4 +103,4 @@ const Faces = () => {
   );
 };
 
-export default Faces;
+export default FacesPage;
