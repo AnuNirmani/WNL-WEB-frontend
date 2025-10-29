@@ -10,11 +10,10 @@ const PressReleasePage = () => {
   const {
     filteredPressReleases,
     years,
-    papers,
     selectedYear,
     setSelectedYear,
-    selectedPaper,
-    setSelectedPaper,
+    searchTitle,
+    setSearchTitle,
     loading,
     error,
   } = usePressReleaseController();
@@ -40,12 +39,12 @@ const PressReleasePage = () => {
             <h2>Press Release</h2>
           </div>
 
-          {/* Filters */}
+          {/* 🔹 Filters (Full-width) */}
           <div className="row mb-4">
-            <div className="col-md-4 mb-2">
+            <div className="col-md-6 mb-2">
               <select
                 id="yearFilter"
-                className="form-control"
+                className="form-control w-100"
                 value={selectedYear}
                 onChange={(e) => setSelectedYear(e.target.value)}
               >
@@ -55,22 +54,19 @@ const PressReleasePage = () => {
                 ))}
               </select>
             </div>
-            <div className="col-md-4 mb-2">
-              <select
-                id="paperFilter"
-                className="form-control"
-                value={selectedPaper}
-                onChange={(e) => setSelectedPaper(e.target.value)}
-              >
-                <option value="">Filter by Paper</option>
-                {papers.map((paper) => (
-                  <option key={paper} value={paper}>{paper}</option>
-                ))}
-              </select>
+            <div className="col-md-6 mb-2">
+              <input
+                type="text"
+                id="titleFilter"
+                className="form-control w-100"
+                placeholder="Search by Title"
+                value={searchTitle}
+                onChange={(e) => setSearchTitle(e.target.value)}
+              />
             </div>
           </div>
 
-          {/* Content */}
+          {/* 🔹 Content */}
           {loading ? (
             <p className="text-center">Loading press releases...</p>
           ) : error ? (
@@ -92,11 +88,7 @@ const PressReleasePage = () => {
                     />
                     <div className="card-body">
                       <h5 className="card-title">{release.title}</h5>
-                      <p className="text-muted small">
-                        {release.sub_topic || ''}
-                        {/* {release.end_date || '—'} | {release.sub_topic || ''} */}
-                      </p>
-                      {/* <p className="card-text">{release.description || 'No description available.'}</p> */}
+                      <p className="text-muted small">{release.sub_topic || ''}</p>
                       <Link to={`/press-release/${release.post_id}`} className="btn-view-more">
                         View More
                       </Link>

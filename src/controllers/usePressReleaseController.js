@@ -5,7 +5,7 @@ import { fetchPressReleasesFromApi } from '../api/postsApi';
 export default function usePressReleaseController() {
   const [pressReleases, setPressReleases] = useState([]);
   const [selectedYear, setSelectedYear] = useState('');
-  const [selectedPaper, setSelectedPaper] = useState('');
+  const [searchTitle, setSearchTitle] = useState('');
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -47,38 +47,25 @@ export default function usePressReleaseController() {
     ).sort((a, b) => b - a);
   }, [pressReleases]);
 
-  // Unique papers (from sub_topic or paper_name)
-  const papers = useMemo(() => {
-    return Array.from(
-      new Set(
-        pressReleases
-          .map(item => item.sub_topic || item.paper_name || '')
-          .filter(Boolean)
-      )
-    );
-  }, [pressReleases]);
-
-  // Filtered press releases (based on selected filters)
+  // Filtered press releases
   const filteredPressReleases = useMemo(() => {
     return pressReleases.filter(release => {
       const releaseYear = release.end_date ? release.end_date.split('-')[0] : '';
-      const releasePaper = release.sub_topic || release.paper_name || '';
-
       const matchYear = !selectedYear || releaseYear === selectedYear;
-      const matchPaper = !selectedPaper || releasePaper === selectedPaper;
-
-      return matchYear && matchPaper;
+      const matchTitle =
+        !searchTitle ||
+        (release.title && release.title.toLowerCase().includes(searchTitle.toLowerCase()));
+      return matchYear && matchTitle;
     });
-  }, [pressReleases, selectedYear, selectedPaper]);
+  }, [pressReleases, selectedYear, searchTitle]);
 
   return {
     filteredPressReleases,
     years,
-    papers,
     selectedYear,
     setSelectedYear,
-    selectedPaper,
-    setSelectedPaper,
+    searchTitle,
+    setSearchTitle,
     loading,
     error,
   };
