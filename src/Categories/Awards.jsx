@@ -10,9 +10,9 @@ const AwardsPage = () => {
   const {
     filteredAwards,
     selectedYear,
-    selectedDepartment,
+    selectedTitle,
     setSelectedYear,
-    setSelectedDepartment,
+    setSelectedTitle,
     loading,
     error,
   } = useAwardsController();
@@ -21,11 +21,6 @@ const AwardsPage = () => {
     '1998', '1999', '2000', '2001', '2002', '2003', '2004', '2006',
     '2007', '2008', '2009', '2010', '2015', '2017', '2018', '2019',
     '2020', '2021', '2022', '2023', '2024'
-  ];
-
-  const departments = [
-    'Sunday Times', 'Daily Mirror', 'Sunday Lankadeepa', 'Daily Lankadeepa',
-    'ADA', 'Hokandara Factory', 'Daily FT & Weekend FT'
   ];
 
   useEffect(() => {
@@ -60,7 +55,7 @@ const AwardsPage = () => {
             </p>
           </div>
 
-          {/* 🔹 Filters and Dropdowns */}
+          {/* 🔹 Filters */}
           <div className="row mb-4" data-aos="fade-up" data-aos-delay="200">
             <div className="col-md-6">
               <select
@@ -76,21 +71,18 @@ const AwardsPage = () => {
               </select>
             </div>
             <div className="col-md-6">
-              <select
-                id="departmentFilter"
+              <input
+                type="text"
+                id="titleFilter"
                 className="form-control"
-                value={selectedDepartment}
-                onChange={(e) => setSelectedDepartment(e.target.value)}
-              >
-                <option value="">Filter by Department</option>
-                {departments.map((dept) => (
-                  <option key={dept} value={dept}>{dept}</option>
-                ))}
-              </select>
+                placeholder="Filter by Title"
+                value={selectedTitle}
+                onChange={(e) => setSelectedTitle(e.target.value)}
+              />
             </div>
           </div>
 
-          {/* 🔹 Awards Grid (each AwardCard shown here) */}
+          {/* 🔹 Awards Grid */}
           <div className="row" id="awardsGrid">
             {loading ? (
               <p>Loading awards...</p>
@@ -116,10 +108,7 @@ const AwardsPage = () => {
                     />
                     <div className="card-body">
                       <h5 className="card-title">{award.title}</h5>
-                      <p className="card-text">
-                        {/* <strong>Year:</strong>  */}
-                        {award.sub_topic || '—'}
-                      </p>
+                      <p className="card-text">{award.sub_topic || '—'}</p>
                       <Link to={`/award/${award.post_id}`} className="btn-view-more">
                         View More
                       </Link>

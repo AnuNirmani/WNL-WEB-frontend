@@ -6,7 +6,7 @@ export default function useAwardsController() {
   const [awards, setAwards] = useState([]);
   const [filteredAwards, setFilteredAwards] = useState([]);
   const [selectedYear, setSelectedYear] = useState('');
-  const [selectedDepartment, setSelectedDepartment] = useState('');
+  const [selectedTitle, setSelectedTitle] = useState('');
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -16,12 +16,10 @@ export default function useAwardsController() {
       setError(null);
       const posts = await fetchAwardsFromApi();
 
-      // filter visible awards
       const awardsData = posts.filter(item => {
         const hasAwards =
           (item.categories && Array.isArray(item.categories) && item.categories.includes('Awards')) ||
           item.category_name === 'Awards';
-
         const isVisible = item.status && item.status.toLowerCase() === 'visible';
         return hasAwards && isVisible;
       });
@@ -40,27 +38,26 @@ export default function useAwardsController() {
   }, [fetchAwards]);
 
   useEffect(() => {
-    if (!selectedYear && !selectedDepartment) {
+    if (!selectedYear && !selectedTitle) {
       setFilteredAwards(awards);
       return;
     }
 
     const filtered = awards.filter(award => {
       const matchesYear = !selectedYear || (award.sub_topic && award.sub_topic.includes(selectedYear));
-      const matchesDept = !selectedDepartment ||
-        (award.description && award.description.toLowerCase().includes(selectedDepartment.toLowerCase()));
-      return matchesYear && matchesDept;
+      const matchesTitle = !selectedTitle || (award.title && award.title.toLowerCase().includes(selectedTitle.toLowerCase()));
+      return matchesYear && matchesTitle;
     });
 
     setFilteredAwards(filtered);
-  }, [selectedYear, selectedDepartment, awards]);
+  }, [selectedYear, selectedTitle, awards]);
 
   return {
     filteredAwards,
     selectedYear,
-    selectedDepartment,
+    selectedTitle,
     setSelectedYear,
-    setSelectedDepartment,
+    setSelectedTitle,
     loading,
     error,
   };
