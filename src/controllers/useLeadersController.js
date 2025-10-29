@@ -11,18 +11,12 @@ export default function useLeadersController() {
     try {
       setLoading(true);
       setError(null);
-      const employees = await fetchLeadersFromApi();
-
-      // filter: only active leaders
-      const filtered = employees.filter(emp =>
-        emp.position?.toLowerCase().includes('leader') &&
-        emp.status?.toLowerCase() === 'active'
-      );
-
-      setLeaders(filtered);
+      // Model layer fetches leaders from database
+      const leadersData = await fetchLeadersFromApi();
+      setLeaders(leadersData);
     } catch (err) {
-      console.error('Error fetching leaders:', err);
-      setError('Error loading leaders.');
+      console.error('Error fetching leaders from database:', err);
+      setError(err.message || 'Error loading leaders.');
     } finally {
       setLoading(false);
     }

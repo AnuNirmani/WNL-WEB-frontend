@@ -67,7 +67,7 @@ const FacesPage = () => {
 
           {/* Faces Grid */}
           {loading && <p>Loading faces...</p>}
-          {error && <p className="text-danger">Error loading faces.</p>}
+          {error && <p className="text-danger">{typeof error === 'string' ? error : 'Error loading faces.'}</p>}
 
           <div className="row">
             {!loading && !error && filteredFaces.map((face, index) => (
