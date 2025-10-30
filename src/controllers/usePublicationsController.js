@@ -1,14 +1,9 @@
 // src/controllers/usePublicationsController.js
-<<<<<<< HEAD
 import { useState, useEffect, useCallback } from 'react';
-=======
-import { useState, useEffect, useMemo, useCallback } from 'react';
->>>>>>> 3bf38029520358042b1159c55c28b9333ea714b5
 import { fetchPublicationsFromApi } from '../api/publicationsApi';
 
 export default function usePublicationsController() {
   const [publications, setPublications] = useState([]);
-<<<<<<< HEAD
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -22,26 +17,12 @@ export default function usePublicationsController() {
     } catch (err) {
       console.error('Error fetching publications from database:', err);
       setError(err.message || 'Error loading publications.');
-=======
-  const [activeFilter, setActiveFilter] = useState('all');
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-
-  const loadPublications = useCallback(async () => {
-    try {
-      setLoading(true);
-      const data = await fetchPublicationsFromApi();
-      setPublications(data);
-    } catch (err) {
-      setError(err.message);
->>>>>>> 3bf38029520358042b1159c55c28b9333ea714b5
     } finally {
       setLoading(false);
     }
   }, []);
 
   useEffect(() => {
-<<<<<<< HEAD
     fetchPublications();
   }, [fetchPublications]);
 
@@ -58,27 +39,3 @@ export default function usePublicationsController() {
     refetch: fetchPublications 
   };
 }
-
-=======
-    loadPublications();
-  }, [loadPublications]);
-
-  // Handle filter button clicks
-  const handleFilterClick = (filter) => setActiveFilter(filter);
-
-  // Compute filtered results
-  const filteredPublications = useMemo(() => {
-    if (activeFilter === 'all') return publications;
-    return publications.filter((pub) => pub.category === activeFilter);
-  }, [activeFilter, publications]);
-
-  return {
-    publications,
-    filteredPublications,
-    activeFilter,
-    handleFilterClick,
-    loading,
-    error,
-  };
-}
->>>>>>> 3bf38029520358042b1159c55c28b9333ea714b5
