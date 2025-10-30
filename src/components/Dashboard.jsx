@@ -8,45 +8,28 @@ import PressRelease from './PressReleasedb'
 import CallToAction from './CallToAction'
 import Footer from './Footer'
 import './Dashboard.css'
+import usePublicationsController from '../controllers/usePublicationsController'
 
 const Dashboard = () => {
-  const [publications, setPublications] = useState([])
+  const { publications, loading, error, categories } = usePublicationsController()
   const [filteredPublications, setFilteredPublications] = useState([])
-  const [categories, setCategories] = useState(['All'])
   const [activeFilter, setActiveFilter] = useState('All')
 
-  // Fetch publications dynamically from Laravel API
+  // Update filtered publications when publications or filter changes
   useEffect(() => {
-    const fetchPublications = async () => {
-      try {
-        const response = await fetch('http://127.0.0.1:8000/api/publications')
-        const data = await response.json()
-        setPublications(data)
-        setFilteredPublications(data)
-
-        // Extract unique categories dynamically
-        const uniqueCategories = Array.from(
-          new Set(data.map((pub) => pub.category).filter(Boolean))
-        )
-        setCategories(['All', ...uniqueCategories])
-      } catch (error) {
-        console.error('Error fetching publications:', error)
-      }
+    if (activeFilter === 'All') {
+      setFilteredPublications(publications)
+    } else {
+      const filtered = publications.filter(
+        (pub) => pub.category?.toLowerCase() === activeFilter.toLowerCase()
+      )
+      setFilteredPublications(filtered)
     }
-    fetchPublications()
-  }, [])
+  }, [publications, activeFilter])
 
   // Handle filter button click
   const handleFilter = (category) => {
     setActiveFilter(category)
-    if (category === 'All') {
-      setFilteredPublications(publications)
-    } else {
-      const filtered = publications.filter(
-        (pub) => pub.category?.toLowerCase() === category.toLowerCase()
-      )
-      setFilteredPublications(filtered)
-    }
   }
 
   // Scroll-to-top button behavior
@@ -92,31 +75,44 @@ const Dashboard = () => {
             </div>
 
             {/* Filter Buttons */}
-            <ul
-              id="portfolio-flters"
-              className="d-flex justify-content-center"
-              data-aos="fade-up"
-              data-aos-delay="100"
-            >
-              {categories.map((filter) => (
-                <li
-                  key={filter}
-                  onClick={() => handleFilter(filter)}
-                  className={activeFilter === filter ? 'filter-active' : ''}
-                  style={{ cursor: 'pointer' }}
+            {loading ? (
+              <div className="text-center py-5">Loading publications...</div>
+            ) : error ? (
+              <div className="text-center py-5 text-danger">{error}</div>
+            ) : (
+              <>
+                <ul
+                  id="portfolio-flters"
+                  className="d-flex justify-content-center"
+                  data-aos="fade-up"
+                  data-aos-delay="100"
                 >
-                  {filter}
-                </li>
-              ))}
-            </ul>
+                  <li
+                    onClick={() => handleFilter('All')}
+                    className={activeFilter === 'All' ? 'filter-active' : ''}
+                    style={{ cursor: 'pointer' }}
+                  >
+                    All
+                  </li>
+                  {categories.map((filter) => (
+                    <li
+                      key={filter}
+                      onClick={() => handleFilter(filter)}
+                      className={activeFilter === filter ? 'filter-active' : ''}
+                      style={{ cursor: 'pointer' }}
+                    >
+                      {filter}
+                    </li>
+                  ))}
+                </ul>
 
-            {/* Publications Grid */}
-            <div
-              className="row portfolio-container"
-              data-aos="fade-up"
-              data-aos-delay="200"
-            >
-              {filteredPublications.length > 0 ? (
+                {/* Publications Grid */}
+                <div
+                  className="row portfolio-container"
+                  data-aos="fade-up"
+                  data-aos-delay="200"
+                >
+                  {filteredPublications.length > 0 ? (
                 filteredPublications.map((pub) => (
                   <div
                     className={`col-lg-3 col-md-6 portfolio-item filter-${pub.category?.toLowerCase() || 'card'}`}
@@ -156,10 +152,12 @@ const Dashboard = () => {
                     </div>
                   </div>
                 ))
-              ) : (
-                <p>No visible publications available.</p>
-              )}
-            </div>
+                  ) : (
+                    <p>No visible publications available.</p>
+                  )}
+                </div>
+              </>
+            )}
           </div>
         </section>
 

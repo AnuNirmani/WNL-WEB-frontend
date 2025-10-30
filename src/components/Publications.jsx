@@ -1,27 +1,9 @@
 import React, { useState, useEffect } from 'react'
+import usePublicationsController from '../controllers/usePublicationsController'
 
 const Publications = () => {
   const [activeFilter, setActiveFilter] = useState('all')
-  const [publications, setPublications] = useState([])
-  const [loading, setLoading] = useState(true)
-  const [error, setError] = useState(null)
-
-  useEffect(() => {
-    const fetchPublications = async () => {
-      try {
-        const response = await fetch('http://127.0.0.1:8000/api/publications')
-        if (!response.ok) throw new Error('Failed to fetch publications')
-        const data = await response.json()
-        setPublications(data)
-      } catch (err) {
-        setError(err.message)
-      } finally {
-        setLoading(false)
-      }
-    }
-
-    fetchPublications()
-  }, [])
+  const { publications, loading, error, categories } = usePublicationsController()
 
   const handleFilterClick = (filter) => setActiveFilter(filter)
 
@@ -43,14 +25,21 @@ const Publications = () => {
         </div>
 
         <ul id="portfolio-flters" className="d-flex justify-content-center" data-aos="fade-up" data-aos-delay="100">
-          {['all', 'weekly', 'daily', 'magazines'].map(filter => (
+          <li
+            className={activeFilter === 'all' ? 'filter-active' : ''}
+            onClick={() => handleFilterClick('all')}
+            style={{ cursor: 'pointer' }}
+          >
+            All
+          </li>
+          {categories.map(filter => (
             <li
               key={filter}
               className={activeFilter === filter ? 'filter-active' : ''}
               onClick={() => handleFilterClick(filter)}
               style={{ cursor: 'pointer' }}
             >
-              {filter.charAt(0).toUpperCase() + filter.slice(1)}
+              {filter}
             </li>
           ))}
         </ul>
@@ -59,15 +48,35 @@ const Publications = () => {
           {filteredPublications.map((pub) => (
             <div className="col-lg-3 col-md-6 portfolio-item" key={pub.id}>
               <div className="portfolio-img">
-                <img src={`http://127.0.0.1:8000/${pub.image}`} className="img-fluid" alt={pub.title} />
+                {pub.cover_image && (
+                  <img 
+                    src={`http://127.0.0.1:8000/storage/${pub.cover_image}`} 
+                    className="img-fluid" 
+                    alt={pub.name} 
+                  />
+                )}
               </div>
               <div className="portfolio-info">
-                <h4>{pub.title}</h4>
-                <a href={`http://127.0.0.1:8000/${pub.image}`} data-gall="portfolioGallery" className="venobox preview-link" title={pub.title}>
-                  <i className="bx bx-plus"></i>
-                </a>
+                <h4>{pub.name}</h4>
+                <p>{pub.category}</p>
+                {pub.cover_image && (
+                  <a 
+                    href={`http://127.0.0.1:8000/storage/${pub.cover_image}`} 
+                    data-gall="portfolioGallery" 
+                    className="venobox preview-link" 
+                    title={pub.name}
+                  >
+                    <i className="bx bx-plus"></i>
+                  </a>
+                )}
                 {pub.link && (
-                  <a href={pub.link} className="details-link" title="More Details">
+                  <a 
+                    href={pub.link} 
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="details-link" 
+                    title="More Details"
+                  >
                     <i className="bx bx-link"></i>
                   </a>
                 )}
