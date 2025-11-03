@@ -14,8 +14,6 @@ export async function fetchAwardsFromApi() {
   }
 }
 
-
-
 // src/api/careersApi.js
 export async function fetchCareersFromApi() {
   try {
@@ -28,10 +26,6 @@ export async function fetchCareersFromApi() {
     throw error;
   }
 }
-
-
-
-
 
 // src/api/pressReleaseApi.js
 export async function fetchPressReleasesFromApi() {
@@ -95,6 +89,42 @@ export async function fetchPressReleaseDetails(id) {
     };
   } catch (error) {
     console.error('Error fetching press release details:', error);
+    throw error;
+  }
+}
+
+
+// src/api/overviewApi.js
+const API_BASE_URL = 'http://127.0.0.1:8000/api';
+
+/**
+ * Fetch a single post by ID
+ */
+export async function fetchPostById(id) {
+  if (!id) throw new Error('No post ID provided.');
+
+  try {
+    const response = await fetch(`${API_BASE_URL}/posts/${id}`);
+    if (!response.ok) {
+      const errorData = await response.json().catch(() => ({}));
+      const errorMessage =
+        errorData.error || `HTTP ${response.status}: ${response.statusText}`;
+      throw new Error(`Failed to fetch post: ${errorMessage}`);
+    }
+
+    const data = await response.json();
+
+    // ✅ Fix relative image paths inside the description
+    if (data.description) {
+      data.description = data.description.replace(
+        /src=["'](\/storage[^"']+)["']/g,
+        `src="http://127.0.0.1:8000$1"`
+      );
+    }
+
+    return data;
+  } catch (error) {
+    console.error('Error fetching post by ID:', error);
     throw error;
   }
 }

@@ -1,54 +1,17 @@
+// src/pages/OverviewPage.jsx
 import React from 'react';
 import { Link, useParams, useLocation } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
-import { useState, useEffect, useCallback } from 'react';
-import '../categories/AwardDetails.css'; // reuse the same CSS (optional)
+import useOverviewController from '../controllers/useOverviewController';
+import '../others/Overview.css'; // You can reuse this CSS
 
-const Overview = () => {
+const OverviewPage = () => {
   const location = useLocation();
-  const newsItem = location.state;
-  const id = newsItem?.id;
+  const stateItem = location.state;
+  const id = stateItem?.id || useParams().id;
 
-  const [post, setPost] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-
-  // Fetch post details
-  const fetchPost = useCallback(async () => {
-    if (!id) {
-      setError('No post ID provided');
-      setLoading(false);
-      return;
-    }
-
-    try {
-      setLoading(true);
-      setError(null);
-      const res = await fetch(`http://127.0.0.1:8000/api/posts/${id}`);
-      if (!res.ok) throw new Error(`Error ${res.status}`);
-      const data = await res.json();
-
-      // Fix relative image paths inside the description
-      if (data.description) {
-        data.description = data.description.replace(
-          /src=["'](\/storage[^"']+)["']/g,
-          `src="http://127.0.0.1:8000$1"`
-        );
-      }
-
-      setPost(data);
-    } catch (err) {
-      console.error('Error fetching post:', err);
-      setError(`Failed to load post details: ${err.message}`);
-    } finally {
-      setLoading(false);
-    }
-  }, [id]);
-
-  useEffect(() => {
-    fetchPost();
-  }, [fetchPost]);
+  const { post, loading, error } = useOverviewController(id);
 
   if (loading) {
     return (
@@ -85,36 +48,13 @@ const Overview = () => {
           )}
         </div>
 
-        {/* Description */}
+        {/* ✅ Description with embedded images */}
         <div
           className="award-content"
           data-aos="fade-up"
           data-aos-delay="100"
           dangerouslySetInnerHTML={{ __html: post.description }}
         ></div>
-
-        {/* Featured Image (or carousel) */}
-        {post.image && (
-          <div
-            // className="carousel slide mb-5"
-            // id="overviewGallery"
-            // data-aos="fade-up"
-            // data-aos-delay="200"
-          >
-            {/* <div className="carousel-inner">
-              <div className="carousel-item active">
-                <img
-                  src={post.image}
-                  className="d-block w-100 gallery-img"
-                  alt={post.title}
-                  onError={(e) =>
-                    (e.target.src = '/assets/img/awards/dummy.jpg')
-                  }
-                />
-              </div>
-            </div> */}
-          </div>
-        )}
 
         {/* Back Button */}
         <div className="text-center" data-aos="fade-up" data-aos-delay="300">
@@ -129,4 +69,4 @@ const Overview = () => {
   );
 };
 
-export default Overview;
+export default OverviewPage;
