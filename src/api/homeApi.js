@@ -24,3 +24,22 @@ export async function fetchPublicationsFromApi() {
     throw error;
   }
 }
+
+// Model: Latest Posts API - Fetches latest posts from database
+export async function fetchLatestPosts() {
+  try {
+    const response = await fetch(`${API_URL}/latest-posts`);
+
+    if (!response.ok) {
+      const errorData = await response.json().catch(() => ({}));
+      const message = errorData.error || `HTTP ${response.status}: ${response.statusText}`;
+      throw new Error(`Failed to fetch latest posts: ${message}`);
+    }
+
+    const data = await response.json();
+    return Array.isArray(data) ? data : [];
+  } catch (error) {
+    console.error('Error fetching latest posts:', error);
+    throw error;
+  }
+}

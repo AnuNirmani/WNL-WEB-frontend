@@ -1,6 +1,6 @@
 // src/controllers/usePublicationsController.js
 import { useState, useEffect, useCallback } from 'react';
-import { fetchPublicationsFromApi } from '../api/publicationsApi';
+import { fetchPublicationsFromApi } from '../api/homeApi';
 
 export default function usePublicationsController() {
   const [publications, setPublications] = useState([]);

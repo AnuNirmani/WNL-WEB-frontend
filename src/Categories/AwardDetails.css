@@ -43,6 +43,17 @@
   text-align: justify;
 }
 
+/* Style images in description to match gallery image */
+.award-content img {
+  height: 400px;
+  object-fit: cover;
+  width: 100%;
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  margin: 20px 0;
+  display: block;
+}
+
 /* Carousel Styles */
 .carousel.slide {
   max-width: 800px;
@@ -135,6 +146,10 @@
     padding: 0 15px;
   }
 
+  .award-content img {
+    height: 250px;
+  }
+
   .gallery-img {
     height: 250px;
   }
@@ -180,6 +195,10 @@
 
   .award-content p {
     text-align: left;
+  }
+
+  .award-content img {
+    height: 200px;
   }
 
   .gallery-img {

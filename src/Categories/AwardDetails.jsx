@@ -59,12 +59,12 @@ const AwardDetailsPage = () => {
         {/* Image Carousel */}
         {award.image && (
           <div
-            className="carousel slide mb-5"
-            id="awardGallery"
-            data-aos="fade-up"
-            data-aos-delay="200"
+            // className="carousel slide mb-5"
+            // id="awardGallery"
+            // data-aos="fade-up"
+            // data-aos-delay="200"
           >
-            <div className="carousel-inner">
+            {/* <div className="carousel-inner">
               <div className="carousel-item active">
                 <img
                   src={award.image}
@@ -73,10 +73,10 @@ const AwardDetailsPage = () => {
                   onError={(e) => (e.target.src = '/assets/img/awards/dummy.jpg')}
                 />
               </div>
-            </div>
+            </div> */}
 
             {/* (Optional) Navigation buttons */}
-            {award.images && award.images.length > 1 && (
+            {/* {award.images && award.images.length > 1 && (
               <>
                 <button
                   className="carousel-control-prev"
@@ -93,7 +93,7 @@ const AwardDetailsPage = () => {
                   <span className="carousel-control-next-icon" />
                 </button>
               </>
-            )}
+            )} */}
           </div>
         )}
 
