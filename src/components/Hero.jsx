@@ -58,8 +58,7 @@ const HeroSection = () => {
                   )}
                   <div className="card-body">
                     <h5 className="card-title">{item.title}</h5>
-                    <p className="text-muted mb-1">{item.sub_topic}</p>
-                    {item.date && <span className="date pb-2">{item.date}</span>}
+                    {item.sub_topic && <span className="date pb-2">{item.sub_topic}</span>}
                     <br />
                     <button
                       onClick={() => handleViewMore(item)}

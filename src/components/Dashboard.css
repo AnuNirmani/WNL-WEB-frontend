@@ -259,9 +259,10 @@ h1, h2, h3, h4, h5, h6 {
   margin: 10px;
   border-radius: 8px;
   overflow: hidden;
-  transition: transform 0.3s ease;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
   animation: fadeInUp 0.6s ease forwards;
   opacity: 0;
+  cursor: pointer;
 }
 
 .col-md-4:nth-child(1) .news-card {
@@ -277,7 +278,8 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .news-card:hover {
-  transform: translateY(-5px);
+  transform: scale(1.05);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
 }
 
 .news-card img {
@@ -325,8 +327,8 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .btn-view {
-  background-color: #ff7402 !important;
-  color: #000;
+  background-color: #ffffff !important;
+  color: #0c1a4b;
   font-weight: bold;
   border: none;
   padding: 8px 20px;
@@ -336,9 +338,11 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .btn-view:hover {
-  background: rgba(255, 255, 0, 0.9) !important;
-  transform: translateY(-2px) !important;
-  box-shadow: 0 4px 8px rgba(195, 149, 74, 0.3) !important;
+  background: rgba(255, 255, 255, 0.9) !important;
+  color: #0c1a4b;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(227, 228, 228, 0.3);
+  text-decoration: none;
 }
 
 
