@@ -1,5 +1,5 @@
 // src/controllers/useAwardsController.js
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import { fetchAwardsFromApi } from '../api/postsApi';
 
 export default function useAwardsController() {
@@ -8,13 +8,24 @@ export default function useAwardsController() {
   const [selectedYear, setSelectedYear] = useState('');
   const [selectedTitle, setSelectedTitle] = useState('');
   const [loading, setLoading] = useState(true);
+  const [loadingMore, setLoadingMore] = useState(false);
   const [error, setError] = useState(null);
+  const [page, setPage] = useState(1);
+  const [hasMore, setHasMore] = useState(true);
+  const previousFiltersRef = useRef({ year: '', title: '' });
 
-  const fetchAwards = useCallback(async () => {
+  const ITEMS_PER_PAGE = 12;
+
+  const fetchAwards = useCallback(async (pageNum = 1, isLoadMore = false) => {
     try {
-      setLoading(true);
+      if (isLoadMore) {
+        setLoadingMore(true);
+      } else {
+        setLoading(true);
+      }
       setError(null);
-      const posts = await fetchAwardsFromApi();
+
+      const posts = await fetchAwardsFromApi(pageNum, ITEMS_PER_PAGE);
 
       const awardsData = posts.filter(item => {
         const hasAwards =
@@ -24,20 +35,60 @@ export default function useAwardsController() {
         return hasAwards && isVisible;
       });
 
-      setAwards(awardsData);
-      setFilteredAwards(awardsData);
+      // Check if we got fewer items than requested (means no more data)
+      if (awardsData.length < ITEMS_PER_PAGE) {
+        setHasMore(false);
+      }
+
+      if (isLoadMore) {
+        setAwards(prev => [...prev, ...awardsData]);
+      } else {
+        setAwards(awardsData);
+      }
     } catch (err) {
       setError('Failed to load Awards.');
+      setHasMore(false);
     } finally {
       setLoading(false);
+      setLoadingMore(false);
     }
   }, []);
 
+  // Initial load
   useEffect(() => {
-    fetchAwards();
+    fetchAwards(1, false);
   }, [fetchAwards]);
 
+  // Load more function to be called when scrolling
+  const loadMore = useCallback(() => {
+    if (!loadingMore && !loading && hasMore && !selectedYear && !selectedTitle) {
+      const nextPage = page + 1;
+      setPage(nextPage);
+      fetchAwards(nextPage, true);
+    }
+  }, [loadingMore, loading, hasMore, page, selectedYear, selectedTitle, fetchAwards]);
+
+  // Apply filters
   useEffect(() => {
+    const filtersChanged = 
+      previousFiltersRef.current.year !== selectedYear ||
+      previousFiltersRef.current.title !== selectedTitle;
+
+    // If filters changed, reset to first page
+    if (filtersChanged && (selectedYear || selectedTitle)) {
+      previousFiltersRef.current = { year: selectedYear, title: selectedTitle };
+      setPage(1);
+      setHasMore(false); // Disable infinite scroll when filtering
+    } else if (!selectedYear && !selectedTitle && filtersChanged) {
+      // If filters are cleared, reset and allow infinite scroll
+      previousFiltersRef.current = { year: '', title: '' };
+      setPage(1);
+      setHasMore(true);
+      setAwards([]);
+      fetchAwards(1, false);
+      return;
+    }
+
     if (!selectedYear && !selectedTitle) {
       setFilteredAwards(awards);
       return;
@@ -50,7 +101,7 @@ export default function useAwardsController() {
     });
 
     setFilteredAwards(filtered);
-  }, [selectedYear, selectedTitle, awards]);
+  }, [selectedYear, selectedTitle, awards, fetchAwards]);
 
   return {
     filteredAwards,
@@ -59,6 +110,9 @@ export default function useAwardsController() {
     setSelectedYear,
     setSelectedTitle,
     loading,
+    loadingMore,
     error,
+    hasMore,
+    loadMore,
   };
 }

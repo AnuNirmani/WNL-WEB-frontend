@@ -2,9 +2,9 @@
 const API_URL = 'http://127.0.0.1:8000/api/posts';
 
 // src/api/awardsApi.js
-export async function fetchAwardsFromApi() {
+export async function fetchAwardsFromApi(page = 1, limit = 12) {
   try {
-    const response = await fetch(API_URL);
+    const response = await fetch(`${API_URL}?page=${page}&limit=${limit}`);
     if (!response.ok) throw new Error('Network error');
     const data = await response.json();
     return Array.isArray(data) ? data : data.value || [];

@@ -1,5 +1,5 @@
 // src/components/AwardsPage.jsx
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
@@ -14,8 +14,26 @@ const AwardsPage = () => {
     setSelectedYear,
     setSelectedTitle,
     loading,
+    loadingMore,
     error,
+    hasMore,
+    loadMore,
   } = useAwardsController();
+
+  // Ref for the sentinel element (last item observer)
+  const observerRef = useRef(null);
+  const lastAwardElementRef = useCallback(node => {
+    if (loading || loadingMore) return;
+    if (observerRef.current) observerRef.current.disconnect();
+
+    observerRef.current = new IntersectionObserver(entries => {
+      if (entries[0].isIntersecting && hasMore) {
+        loadMore();
+      }
+    });
+
+    if (node) observerRef.current.observe(node);
+  }, [loading, loadingMore, hasMore, loadMore]);
 
   const years = [
     '1998', '1999', '2000', '2001', '2002', '2003', '2004', '2006',
@@ -84,38 +102,54 @@ const AwardsPage = () => {
 
           {/* 🔹 Awards Grid */}
           <div className="row" id="awardsGrid">
-            {loading ? (
+            {loading && filteredAwards.length === 0 ? (
               <p>Loading awards...</p>
             ) : error ? (
               <p className="text-danger">{error}</p>
             ) : filteredAwards.length === 0 ? (
               <p>No Awards Found.</p>
             ) : (
-              filteredAwards.map((award, index) => (
-                <div
-                  key={award.post_id}
-                  className="col-lg-4 col-md-6 mb-4 award-card"
-                  data-aos="zoom-in"
-                  data-aos-delay={index < 3 ? (index + 1) * 100 : 300}
-                  style={index >= 3 ? { marginTop: '1.5rem' } : {}}
-                >
-                  <div className="card h-100 shadow-sm">
-                    <img
-                      src={award.image || 'assets/img/awards/dummy.jpg'}
-                      className="card-img-top"
-                      alt={award.title || 'Award Image'}
-                      onError={(e) => (e.target.src = 'assets/img/awards/dummy.jpg')}
-                    />
-                    <div className="card-body">
-                      <h5 className="card-title">{award.title}</h5>
-                      <p className="card-text">{award.sub_topic || '—'}</p>
-                      <Link to={`/award/${award.post_id}`} className="btn-view-more">
-                        View More
-                      </Link>
+              <>
+                {filteredAwards.map((award, index) => {
+                  const isLastElement = index === filteredAwards.length - 1;
+                  return (
+                    <div
+                      key={award.post_id}
+                      ref={isLastElement ? lastAwardElementRef : null}
+                      className="col-lg-4 col-md-6 mb-4 award-card"
+                      data-aos="zoom-in"
+                      data-aos-delay={index < 3 ? (index + 1) * 100 : 300}
+                      style={index >= 3 ? { marginTop: '1.5rem' } : {}}
+                    >
+                      <div className="card h-100 shadow-sm">
+                        <img
+                          src={award.image || 'assets/img/awards/dummy.jpg'}
+                          className="card-img-top"
+                          alt={award.title || 'Award Image'}
+                          onError={(e) => (e.target.src = 'assets/img/awards/dummy.jpg')}
+                        />
+                        <div className="card-body">
+                          <h5 className="card-title">{award.title}</h5>
+                          <p className="card-text">{award.sub_topic || '—'}</p>
+                          <Link to={`/award/${award.post_id}`} className="btn-view-more">
+                            View More
+                          </Link>
+                        </div>
+                      </div>
                     </div>
+                  );
+                })}
+                {loadingMore && (
+                  <div className="col-12 text-center my-4">
+                    <p>Loading more awards...</p>
                   </div>
-                </div>
-              ))
+                )}
+                {!hasMore && !selectedYear && !selectedTitle && filteredAwards.length > 0 && (
+                  <div className="col-12 text-center my-4">
+                    <p>No more awards to load.</p>
+                  </div>
+                )}
+              </>
             )}
           </div>
         </div>
