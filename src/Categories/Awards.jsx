@@ -141,7 +141,7 @@ const AwardsPage = () => {
                 })}
                 {loadingMore && (
                   <div className="col-12 text-center my-4">
-                    <p>Loading more awards...</p>
+                    {/* <p>Loading more awards...</p> */}
                   </div>
                 )}
                 {!hasMore && !selectedYear && !selectedTitle && filteredAwards.length > 0 && (
