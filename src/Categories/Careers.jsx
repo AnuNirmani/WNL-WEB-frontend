@@ -65,7 +65,7 @@ const CareersPage = () => {
                     <tr key={career.post_id || index} data-aos="fade-up" data-aos-delay={300 + (index * 100)}>
                       <td>{career.title || '—'}</td>
                       <td>{career.sub_topic || '—'}</td>
-                      <td>{career.end_date || '—'}</td>
+                      <td>{career.end_date ? career.end_date.split('T')[0] : '—'}</td>
                       <td>
                         <Link to={`/job/${career.post_id || index + 1}`} className="btn btn-danger btn-sm">
                           View

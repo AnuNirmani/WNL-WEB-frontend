@@ -96,7 +96,7 @@ const Header = () => {
               <div className="d-flex align-items-center justify-content-between">
                 <div className="contact-info d-flex align-items-center">
                   <i className="fas fa-envelope me-2" style={{ color: '#fff' }}></i>
-                  <a href="mailto:contact@example.com" style={{ color: '#fff', textDecoration: 'none' }}>
+                  <a href="mailto:www.wijeyanewspapers.lk" style={{ color: '#fff', textDecoration: 'none' }}>
                     www.wijeyanewspapers.lk
                   </a>
                   <span style={{ color: '#fff', margin: '0 10px' }}>|</span>
@@ -104,16 +104,16 @@ const Header = () => {
                   <span style={{ color: '#fff' }}>011 247 9479</span>
                 </div>
                 <div className="social-icons d-flex align-items-center">
-                  <a href="https://facebook.com" className="social-icon facebook me-2" target="_blank" rel="noopener noreferrer">
+                  <a href="https://www.facebook.com/share/1AFp19ePAD/" className="social-icon facebook me-2" target="_blank" rel="noopener noreferrer">
                     <i className="fab fa-facebook-f"></i>
                   </a>
-                  <a href="https://twitter.com" className="social-icon twitter me-2" target="_blank" rel="noopener noreferrer">
+                  <a href="https://x.com/dailymirror_sl?s=21" className="social-icon twitter me-2" target="_blank" rel="noopener noreferrer">
                     <i className="fab fa-twitter"></i>
                   </a>
-                  <a href="https://linkedin.com" className="social-icon linkedin me-2" target="_blank" rel="noopener noreferrer">
+                  <a href="https://www.linkedin.com/company/wijeya-newspapers-ltd/" className="social-icon linkedin me-2" target="_blank" rel="noopener noreferrer">
                     <i className="fab fa-linkedin-in"></i>
                   </a>
-                  <a href="https://instagram.com" className="social-icon instagram" target="_blank" rel="noopener noreferrer">
+                  <a href="https://www.instagram.com/hi_online_lk?igsh=MWd6dnliaHdxMXZpNw==" className="social-icon instagram" target="_blank" rel="noopener noreferrer">
                     <i className="fab fa-instagram"></i>
                   </a>
                 </div>
