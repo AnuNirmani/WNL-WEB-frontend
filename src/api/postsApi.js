@@ -129,3 +129,40 @@ export async function fetchPostById(id) {
   }
 }
 
+
+
+/**
+ * API functions for Press Release data
+ */
+
+/**
+ * Normalize image URLs
+ */
+export const normalizeImages = (list) =>
+  list.map((item) => ({
+    ...item,
+    image: item.image?.startsWith('/storage')
+      ? `http://127.0.0.1:8000${item.image}`
+      : item.image,
+  }));
+
+/**
+ * Fetch paginated press releases from the server
+ * @param {number} page - Page number
+ * @param {number} limit - Items per page
+ * @returns {Promise<Array>} - Array of press releases
+ */
+export const fetchPressReleases = async (page = 1, limit = 6) => {
+  const url = `${API_BASE_URL}/press/latest?page=${page}&limit=${limit}`;
+  const response = await fetch(url);
+  
+  if (!response.ok) {
+    throw new Error(`Error ${response.status}`);
+  }
+  
+  const data = await response.json();
+  const normalizedData = normalizeImages(Array.isArray(data) ? data : []);
+  
+  return normalizedData;
+};
+

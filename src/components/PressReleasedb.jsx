@@ -1,103 +1,13 @@
-import React, { useEffect, useState, useRef, useCallback } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
+import { usePressReleaseDbController } from '../controllers/usePressReleaseDbController';
 
+/**
+ * Press Release View Component
+ * Displays a list of press releases with infinite scroll
+ */
 const PressRelease = () => {
-  // Visible items
-  const [pressReleases, setPressReleases] = useState([]);
-  // Full dataset when server doesn't paginate
-  const [allPressReleases, setAllPressReleases] = useState([]);
-  const [page, setPage] = useState(1);
-  const [hasMore, setHasMore] = useState(true);
-  const [loading, setLoading] = useState(true);
-  const [loadingMore, setLoadingMore] = useState(false);
-  const [serverPaginated, setServerPaginated] = useState(true);
-
-  const ITEMS_PER_PAGE = 6;
-
-  const normalizeImages = (list) =>
-    list.map((item) => ({
-      ...item,
-      image: item.image?.startsWith('/storage')
-        ? `http://127.0.0.1:8000${item.image}`
-        : item.image,
-    }));
-
-  const fetchPage = useCallback(async (pageNum = 1, isLoadMore = false) => {
-    try {
-      if (isLoadMore) setLoadingMore(true);
-      else setLoading(true);
-
-      // Try server-side pagination first
-      const url = `http://127.0.0.1:8000/api/press/latest?page=${pageNum}&limit=${ITEMS_PER_PAGE}`;
-      const res = await fetch(url);
-      if (!res.ok) throw new Error(`Error ${res.status}`);
-      const data = await res.json();
-      const fixedData = normalizeImages(Array.isArray(data) ? data : []);
-
-      // If server ignored pagination and returned a big list on first page, fallback to client slicing
-      if (!isLoadMore && pageNum === 1 && fixedData.length > ITEMS_PER_PAGE) {
-        setServerPaginated(false);
-        setAllPressReleases(fixedData);
-        setPressReleases(fixedData.slice(0, ITEMS_PER_PAGE));
-        setHasMore(fixedData.length > ITEMS_PER_PAGE);
-        return;
-      }
-
-      // Server-side paginated path
-      setServerPaginated(true);
-      if (fixedData.length < ITEMS_PER_PAGE) setHasMore(false);
-
-      if (isLoadMore) setPressReleases((prev) => [...prev, ...fixedData]);
-      else setPressReleases(fixedData);
-    } catch (error) {
-      console.error('Error fetching latest press releases:', error);
-      setHasMore(false);
-    } finally {
-      setLoading(false);
-      setLoadingMore(false);
-    }
-  }, []);
-
-  useEffect(() => {
-    fetchPage(1, false);
-  }, [fetchPage]);
-
-  const loadMore = useCallback(() => {
-    if (loading || loadingMore || !hasMore) return;
-
-    // Client-side slicing fallback
-    if (!serverPaginated) {
-      const nextPage = page + 1;
-      const start = (nextPage - 1) * ITEMS_PER_PAGE;
-      const end = start + ITEMS_PER_PAGE;
-      const nextSlice = allPressReleases.slice(start, end);
-      setPage(nextPage);
-      setPressReleases((prev) => [...prev, ...nextSlice]);
-      setHasMore(end < allPressReleases.length);
-      return;
-    }
-
-    // Server-side paginated path
-    const nextPage = page + 1;
-    setPage(nextPage);
-    fetchPage(nextPage, true);
-  }, [loading, loadingMore, hasMore, serverPaginated, page, allPressReleases, fetchPage]);
-
-  // IntersectionObserver sentinel
-  const observerRef = useRef(null);
-  const lastItemRef = useCallback(
-    (node) => {
-      if (loading || loadingMore) return;
-      if (observerRef.current) observerRef.current.disconnect();
-      observerRef.current = new IntersectionObserver((entries) => {
-        if (entries[0].isIntersecting && hasMore) {
-          loadMore();
-        }
-      });
-      if (node) observerRef.current.observe(node);
-    },
-    [loading, loadingMore, hasMore, loadMore]
-  );
+  const { pressReleases, loading, lastItemRef } = usePressReleaseDbController();
 
   return (
     <section id="press-release" className="press">
