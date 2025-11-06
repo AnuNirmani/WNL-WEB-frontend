@@ -1,3 +1,11 @@
+/* Remove underline from contact info links */
+.info a {
+  text-decoration: none;
+}
+
+.info a:hover {
+  text-decoration: none;
+}
 /* Contact Us Page Styles */
 .contact-us-page {
   min-height: 100vh;

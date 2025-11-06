@@ -58,7 +58,7 @@ const ContactUs = () => {
         <section id="contact" className="contact">
           <div className="container" data-aos="fade-up">
             <div className="section-title">
-              <h2>Contact</h2>
+              <h2>Contact US</h2>
               <p>We Innovate and lead, Newspapers, Magazines and Digital Publishing with Powerful Advertising Solutions</p>
             </div>
 
@@ -66,28 +66,59 @@ const ContactUs = () => {
               {/* Contact Information and Map */}
               <div className="col-lg-5 d-flex align-items-stretch">
                 <div className="info">
+
                   <div className="address">
                     <i className="fas fa-map-marker-alt"></i>
                     <h4>Location:</h4>
-                    <p>Wijeyanewspapers Head Office, No. 8, Hunupitiya Cross Road, Colombo 02.</p>
+                    <p>
+                      <a
+                        href="https://www.google.com/maps/search/?api=1&query=Wijeyanewspapers+Head+Office,+No.+8,+Hunupitiya+Cross+Road,+Colombo+02"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        style={{ color: 'inherit', cursor: 'pointer' }}
+                      >
+                        Wijeyanewspapers Head Office, No. 8, Hunupitiya Cross Road, Colombo 02.
+                      </a>
+                    </p>
                   </div>
 
                   <div className="email">
                     <i className="fas fa-envelope"></i>
                     <h4>Email:</h4>
-                    <p>wnlgen@wijeya.lk</p>
+                    <p>
+                      <a
+                        href="mailto:wnlgen@wijeya.lk"
+                        style={{ color: 'inherit', cursor: 'pointer' }}
+                      >
+                        wnlgen@wijeya.lk
+                      </a>
+                    </p>
                   </div>
 
                   <div className="phone">
                     <i className="fas fa-phone"></i>
                     <h4>Call:</h4>
-                    <p>011 247 9479</p>
+                    <p>
+                      <a
+                        href="tel:0112479479"
+                        style={{ color: 'inherit', cursor: 'pointer' }}
+                      >
+                        011 247 9479
+                      </a>
+                    </p>
                   </div>
 
                   <div className="phone">
                     <i className="fas fa-phone"></i>
                     <h4>Fax:</h4>
-                    <p>011 244 8323</p>
+                    <p>
+                      <a
+                        href="tel:0112448323"
+                        style={{ color: 'inherit', cursor: 'pointer' }}
+                      >
+                        011 244 8323
+                      </a>
+                    </p>
                   </div>
 
                   <iframe 
@@ -173,7 +204,7 @@ const ContactUs = () => {
 
                   <div className="text-center">
                     <a 
-                      href="https://lk.linkedin.com/company/wijeya-newspapers-ltd" 
+                      href="https://www.linkedin.com/company/wijeya-newspapers-ltd/" 
                       target="_blank" 
                       rel="noopener noreferrer"
                       className="btn btn-linkedin mt-3"

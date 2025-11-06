@@ -101,7 +101,9 @@ const Header = () => {
                   </a>
                   <span style={{ color: '#fff', margin: '0 10px' }}>|</span>
                   <i className="fa fa-phone me-2" style={{ color: '#fff' }}></i>
-                  <span style={{ color: '#fff' }}>011 247 9479</span>
+                  <a href="tel:+94112479479" style={{ color: '#fff', textDecoration: 'none' }} aria-label="Call 011 247 9479">
+                    011 247 9479
+                  </a>
                 </div>
                 <div className="social-icons d-flex align-items-center">
                   <a href="https://www.facebook.com/share/1AFp19ePAD/" className="social-icon facebook me-2" target="_blank" rel="noopener noreferrer">
