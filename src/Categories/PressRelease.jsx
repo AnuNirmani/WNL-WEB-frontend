@@ -1,5 +1,5 @@
 // src/components/PressReleasePage.jsx
-import React from 'react';
+import React, { useEffect, useRef, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
@@ -9,14 +9,39 @@ import '../categories/PressRelease.css';
 const PressReleasePage = () => {
   const {
     filteredPressReleases,
-    years,
     selectedYear,
-    setSelectedYear,
     searchTitle,
+    setSelectedYear,
     setSearchTitle,
     loading,
+    loadingMore,
     error,
+    hasMore,
+    loadMore,
   } = usePressReleaseController();
+
+  // 🔹 Infinite scroll observer
+  const observerRef = useRef(null);
+  const lastPressElementRef = useCallback(
+    (node) => {
+      if (loading || loadingMore) return;
+      if (observerRef.current) observerRef.current.disconnect();
+
+      observerRef.current = new IntersectionObserver((entries) => {
+        if (entries[0].isIntersecting && hasMore) {
+          loadMore();
+        }
+      });
+
+      if (node) observerRef.current.observe(node);
+    },
+    [loading, loadingMore, hasMore, loadMore]
+  );
+
+  useEffect(() => {
+    document.body.classList.add('press-release-page-body');
+    return () => document.body.classList.remove('press-release-page-body');
+  }, []);
 
   return (
     <div className="press-release-page">
@@ -37,9 +62,10 @@ const PressReleasePage = () => {
         <div className="container">
           <div className="section-title">
             <h2>Press Release</h2>
+            <p>Official statements and updates from Wijeya Newspapers.</p>
           </div>
 
-          {/* 🔹 Filters (Full-width) */}
+          {/* 🔹 Filters */}
           <div className="row mb-4">
             <div className="col-md-6 mb-2">
               <select
@@ -49,9 +75,15 @@ const PressReleasePage = () => {
                 onChange={(e) => setSelectedYear(e.target.value)}
               >
                 <option value="">Filter by Year</option>
-                {years.map((year) => (
-                  <option key={year} value={year}>{year}</option>
-                ))}
+                {Array.from(new Set(
+                  filteredPressReleases
+                    .map(item => (item.end_date ? item.end_date.split('-')[0] : ''))
+                    .filter(Boolean)
+                ))
+                  .sort((a, b) => b - a)
+                  .map((year) => (
+                    <option key={year} value={year}>{year}</option>
+                  ))}
               </select>
             </div>
             <div className="col-md-6 mb-2">
@@ -66,38 +98,62 @@ const PressReleasePage = () => {
             </div>
           </div>
 
-          {/* 🔹 Content */}
-          {loading ? (
-            <p className="text-center">Loading press releases...</p>
-          ) : error ? (
-            <p className="text-danger text-center">{error}</p>
-          ) : filteredPressReleases.length === 0 ? (
-            <div className="text-center py-5">
-              <p className="text-muted">No press releases found matching your criteria.</p>
-            </div>
-          ) : (
-            <div className="row" id="pressList">
-              {filteredPressReleases.map((release) => (
-                <div key={release.post_id} className="col-lg-4 col-md-6 mb-4 press-item">
-                  <div className="card h-100 shadow-sm">
-                    <img
-                      src={release.image || 'https://via.placeholder.com/400x250?text=Press+Release'}
-                      className="card-img-top"
-                      alt="Press Release"
-                      onError={(e) => (e.target.src = 'https://via.placeholder.com/400x250?text=Press+Release')}
-                    />
-                    <div className="card-body">
-                      <h5 className="card-title">{release.title}</h5>
-                      <p className="text-muted small">{release.sub_topic || ''}</p>
-                      <Link to={`/press-release/${release.post_id}`} className="btn-view-more">
-                        View More
-                      </Link>
+          {/* 🔹 Press Release Cards */}
+          <div className="row" id="pressList">
+            {loading && filteredPressReleases.length === 0 ? (
+              <p className="text-center">Loading press releases...</p>
+            ) : error ? (
+              <p className="text-danger text-center">{error}</p>
+            ) : filteredPressReleases.length === 0 ? (
+              <div className="text-center py-5">
+                <p className="text-muted">No press releases found matching your criteria.</p>
+              </div>
+            ) : (
+              <>
+                {filteredPressReleases.map((release, index) => {
+                  const isLastElement = index === filteredPressReleases.length - 1;
+                  return (
+                    <div
+                      key={release.post_id}
+                      ref={isLastElement ? lastPressElementRef : null}
+                      className="col-lg-4 col-md-6 mb-4 press-item"
+                      data-aos="zoom-in"
+                      data-aos-delay={index < 3 ? (index + 1) * 100 : 300}
+                      style={index >= 3 ? { marginTop: '1.5rem' } : {}}
+                    >
+                      <div className="card h-100 shadow-sm">
+                        <img
+                          src={release.image || 'https://via.placeholder.com/400x250?text=Press+Release'}
+                          className="card-img-top"
+                          alt={release.title || 'Press Release'}
+                          onError={(e) =>
+                            (e.target.src = 'https://via.placeholder.com/400x250?text=Press+Release')
+                          }
+                        />
+                        <div className="card-body">
+                          <h5 className="card-title">{release.title}</h5>
+                          <p className="text-muted small">{release.sub_topic || ''}</p>
+                          <Link to={`/press-release/${release.post_id}`} className="btn-view-more">
+                            View More
+                          </Link>
+                        </div>
+                      </div>
                     </div>
+                  );
+                })}
+                {loadingMore && (
+                  <div className="col-12 text-center my-4">
+                    {/* <p>Loading more press releases...</p> */}
                   </div>
-                </div>
-              ))}
-            </div>
-          )}
+                )}
+                {!hasMore && !selectedYear && !searchTitle && filteredPressReleases.length > 0 && (
+                  <div className="col-12 text-center my-4">
+                    {/* <p>No more press releases to load.</p> */}
+                  </div>
+                )}
+              </>
+            )}
+          </div>
         </div>
       </section>
 

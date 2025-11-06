@@ -28,9 +28,9 @@ export async function fetchCareersFromApi() {
 }
 
 // src/api/pressReleaseApi.js
-export async function fetchPressReleasesFromApi() {
+export async function fetchPressReleasesFromApi(page = 1, limit = 12) {
   try {
-    const response = await fetch(API_URL);
+    const response = await fetch(`${API_URL}?page=${page}&limit=${limit}`);
     if (!response.ok) throw new Error('Network error');
     const data = await response.json();
     return Array.isArray(data) ? data : data.value || [];
@@ -39,6 +39,9 @@ export async function fetchPressReleasesFromApi() {
     throw error;
   }
 }
+
+
+
 
 
 

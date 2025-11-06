@@ -128,9 +128,71 @@ body {
   font-weight: 500;
   padding: 8px 15px !important;
   transition: color 0.3s ease;
+  border: none !important;
+  border-bottom: none !important;
 }
 
 .nav-link:hover {
+  color: #007bff !important;
+  border-bottom: none !important;
+}
+
+.nav-link.active {
+  color: #007bff !important;
+  font-weight: 600;
+  position: relative;
+  border-bottom: none !important;
+  text-decoration: none !important;
+}
+
+.nav-link.active::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 15px;
+  right: 15px;
+  height: 2px !important;
+  background-color: #007bff !important;
+  border: none !important;
+}
+
+.nav-link.dropdown-toggle {
+  border: none !important;
+  border-bottom: none !important;
+}
+
+.nav-link.dropdown-toggle::after {
+  border: none !important;
+}
+
+.nav-link.dropdown-toggle.active {
+  border-bottom: none !important;
+  text-decoration: none !important;
+}
+
+.nav-link.dropdown-toggle.active::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 15px;
+  right: 15px;
+  height: 2px;
+  background-color: #007bff !important;
+  border: none !important;
+}
+
+/* Force active link text color (including dropdown toggles and their children)
+   This ensures the link text (and any child elements/icons) turn blue
+   and overrides any remaining white color rules. */
+.navbar-nav .nav-link.active,
+.navbar-nav .nav-link.dropdown-toggle.active,
+.nav-link.active,
+.nav-link.dropdown-toggle.active {
+  color: #007bff !important;
+}
+
+.nav-link.active *,
+.nav-link.dropdown-toggle.active * {
   color: #007bff !important;
 }
 
@@ -158,6 +220,12 @@ body {
   background: #0c1a4b;
   color: #fff !important;
   padding-left: 25px;
+}
+
+.dropdown-item.active {
+  background: #007bff;
+  color: #fff !important;
+  font-weight: 600;
 }
 
 @keyframes fadeIn {
@@ -260,7 +328,7 @@ body {
 
   .navbar-nav .nav-item {
     width: 100%;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    /* border-bottom: 1px solid rgba(255, 255, 255, 0.1); */
   }
 
   .navbar-nav .nav-item:last-child {
