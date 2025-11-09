@@ -4,11 +4,12 @@ import { Link } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import usePressReleaseController from '../controllers/usePressReleaseController';
-import '../categories/PressRelease.css';
+import './PressRelease.css';
 
 const PressReleasePage = () => {
   const {
     filteredPressReleases,
+    years,
     selectedYear,
     searchTitle,
     setSelectedYear,
@@ -68,23 +69,20 @@ const PressReleasePage = () => {
           {/* 🔹 Filters */}
           <div className="row mb-4">
             <div className="col-md-6 mb-2">
-              <select
-                id="yearFilter"
-                className="form-control w-100"
-                value={selectedYear}
-                onChange={(e) => setSelectedYear(e.target.value)}
-              >
-                <option value="">Filter by Year</option>
-                {Array.from(new Set(
-                  filteredPressReleases
-                    .map(item => (item.end_date ? item.end_date.split('-')[0] : ''))
-                    .filter(Boolean)
-                ))
-                  .sort((a, b) => b - a)
-                  .map((year) => (
-                    <option key={year} value={year}>{year}</option>
-                  ))}
-              </select>
+<select
+  id="yearFilter"
+  className="form-control w-100"
+  value={selectedYear}
+  onChange={(e) => setSelectedYear(e.target.value)}
+>
+  <option value="">Filter by Year</option>
+  {years.map((year) => (
+    <option key={year} value={year}>
+      {year}
+    </option>
+  ))}
+</select>
+
             </div>
             <div className="col-md-6 mb-2">
               <input

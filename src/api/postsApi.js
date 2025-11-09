@@ -47,9 +47,15 @@ export async function fetchCareersFromApi() {
 }
 
 // src/api/pressReleaseApi.js
-export async function fetchPressReleasesFromApi(page = 1, limit = 12) {
+// src/api/postsApi.js
+
+
+// Fetch press releases with optional year filter
+export async function fetchPressReleasesFromApi(page = 1, limit = 12, year = '') {
   try {
-    const response = await fetch(`${API_URL}?page=${page}&limit=${limit}`);
+    let url = `${API_BASE_URL}/posts?page=${page}&limit=${limit}`;
+    if (year) url += `&year=${year}`;
+    const response = await fetch(url);
     if (!response.ok) throw new Error('Network error');
     const data = await response.json();
     return Array.isArray(data) ? data : data.value || [];
@@ -58,6 +64,19 @@ export async function fetchPressReleasesFromApi(page = 1, limit = 12) {
     throw error;
   }
 }
+
+// Fetch available years from backend
+// export async function fetchYearsFromApi() {
+//   try {
+//     const response = await fetch(`${API_BASE_URL}/years`);
+//     if (!response.ok) throw new Error('Network error');
+//     return await response.json();
+//   } catch (error) {
+//     console.error('Error fetching years:', error);
+//     return [];
+//   }
+// }
+
 
 // src/api/awardDetailsApi.js
 export async function fetchAwardById(id) {
