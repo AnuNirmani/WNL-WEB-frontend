@@ -1,4 +1,3 @@
-// src/components/AwardsPage.jsx
 import React, { useEffect, useRef, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import Header from '../components/Header';
@@ -9,6 +8,7 @@ import '../categories/Awards.css';
 const AwardsPage = () => {
   const {
     filteredAwards,
+    years,
     selectedYear,
     selectedTitle,
     setSelectedYear,
@@ -20,26 +20,22 @@ const AwardsPage = () => {
     loadMore,
   } = useAwardsController();
 
-  // Ref for the sentinel element (last item observer)
   const observerRef = useRef(null);
-  const lastAwardElementRef = useCallback(node => {
-    if (loading || loadingMore) return;
-    if (observerRef.current) observerRef.current.disconnect();
+  const lastAwardElementRef = useCallback(
+    (node) => {
+      if (loading || loadingMore) return;
+      if (observerRef.current) observerRef.current.disconnect();
 
-    observerRef.current = new IntersectionObserver(entries => {
-      if (entries[0].isIntersecting && hasMore) {
-        loadMore();
-      }
-    });
+      observerRef.current = new IntersectionObserver((entries) => {
+        if (entries[0].isIntersecting && hasMore) {
+          loadMore();
+        }
+      });
 
-    if (node) observerRef.current.observe(node);
-  }, [loading, loadingMore, hasMore, loadMore]);
-
-  const years = [
-    '1998', '1999', '2000', '2001', '2002', '2003', '2004', '2006',
-    '2007', '2008', '2009', '2010', '2015', '2017', '2018', '2019',
-    '2020', '2021', '2022', '2023', '2024'
-  ];
+      if (node) observerRef.current.observe(node);
+    },
+    [loading, loadingMore, hasMore, loadMore]
+  );
 
   useEffect(() => {
     document.body.classList.add('awards-page-body');
@@ -76,17 +72,22 @@ const AwardsPage = () => {
           {/* 🔹 Filters */}
           <div className="row mb-4" data-aos="fade-up" data-aos-delay="200">
             <div className="col-md-6">
-              <select
-                id="yearFilter"
-                className="form-control"
-                value={selectedYear}
-                onChange={(e) => setSelectedYear(e.target.value)}
-              >
-                <option value="">Filter by Year</option>
-                {years.map((year) => (
-                  <option key={year} value={year}>{year}</option>
-                ))}
-              </select>
+<select
+  id="yearFilter"
+  className="form-control"
+  value={selectedYear}
+  onChange={(e) => {
+    setSelectedYear(e.target.value);
+  }}
+>
+  <option value="">Filter by Year</option>
+  {years.map((year) => (
+    <option key={year} value={year}>
+      {year}
+    </option>
+  ))}
+</select>
+
             </div>
             <div className="col-md-6">
               <input
@@ -141,12 +142,12 @@ const AwardsPage = () => {
                 })}
                 {loadingMore && (
                   <div className="col-12 text-center my-4">
-                    {/* <p>Loading more awards...</p> */}
+                    <p>Loading more awards...</p>
                   </div>
                 )}
                 {!hasMore && !selectedYear && !selectedTitle && filteredAwards.length > 0 && (
                   <div className="col-12 text-center my-4">
-                    <p>No more awards to load.</p>
+                    {/* <p>No more awards to load.</p> */}
                   </div>
                 )}
               </>

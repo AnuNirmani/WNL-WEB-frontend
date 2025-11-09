@@ -2,15 +2,34 @@
 const API_URL = 'http://127.0.0.1:8000/api/posts';
 
 // src/api/awardsApi.js
-export async function fetchAwardsFromApi(page = 1, limit = 12) {
+const API_BASE = "http://127.0.0.1:8000/api";
+
+
+// src/api/overviewApi.js
+const API_BASE_URL = 'http://127.0.0.1:8000/api';
+
+
+export async function fetchAwardsFromApi(page = 1, limit = 12, year = '') {
   try {
-    const response = await fetch(`${API_URL}?page=${page}&limit=${limit}`);
+    let url = `${API_BASE}/awards?page=${page}&limit=${limit}&category_name=Awards`;
+    if (year) url += `&year=${year}`;
+    const response = await fetch(url);
     if (!response.ok) throw new Error('Network error');
-    const data = await response.json();
-    return Array.isArray(data) ? data : data.value || [];
+    return await response.json();
   } catch (error) {
     console.error('Error fetching awards:', error);
     throw error;
+  }
+}
+
+export async function fetchYearsFromApi() {
+  try {
+    const response = await fetch(`${API_BASE}/years`);
+    if (!response.ok) throw new Error('Network error');
+    return await response.json();
+  } catch (error) {
+    console.error('Error fetching years:', error);
+    return [];
   }
 }
 
@@ -40,11 +59,6 @@ export async function fetchPressReleasesFromApi(page = 1, limit = 12) {
   }
 }
 
-
-
-
-
-
 // src/api/awardDetailsApi.js
 export async function fetchAwardById(id) {
   if (!id) throw new Error('No award ID provided');
@@ -61,8 +75,6 @@ export async function fetchAwardById(id) {
     throw error;
   }
 }
-
-
 
 // src/api/pressReleaseDetailsApi.js
 export async function fetchPressReleaseDetails(id) {
@@ -96,13 +108,7 @@ export async function fetchPressReleaseDetails(id) {
   }
 }
 
-
-// src/api/overviewApi.js
-const API_BASE_URL = 'http://127.0.0.1:8000/api';
-
-/**
- * Fetch a single post by ID
- */
+//Fetch a single post by ID
 export async function fetchPostById(id) {
   if (!id) throw new Error('No post ID provided.');
 
@@ -133,14 +139,8 @@ export async function fetchPostById(id) {
 }
 
 
-
-/**
- * API functions for Press Release data
- */
-
-/**
- * Normalize image URLs
- */
+// API functions for Press Release data
+// Normalize image URLs
 export const normalizeImages = (list) =>
   list.map((item) => ({
     ...item,
