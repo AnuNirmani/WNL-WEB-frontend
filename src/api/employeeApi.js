@@ -1,49 +1,65 @@
-const API_URL = 'http://127.0.0.1:8000/api';
+const API_URL = 'http://127.0.0.1:8000/api/employees';
 
-// Model: Faces API - Fetches faces from database
-export async function fetchFacesFromApi(search = '', department = '') {
+// src/api/facesApi.js
+export async function fetchFacesFromApi(page = 1, perPage = 12) {
   try {
-    let url = `${API_URL}/faces`;
-    const params = new URLSearchParams();
-    
-    if (search) params.append('search', search);
-    if (department) params.append('department', department);
-    
-    if (params.toString()) {
-      url += `?${params.toString()}`;
-    }
-    
-    const response = await fetch(url);
-    
-    if (!response.ok) {
-      const errorData = await response.json().catch(() => ({}));
-      const errorMessage = errorData.error || `HTTP ${response.status}: ${response.statusText}`;
-      throw new Error(`Failed to fetch faces: ${errorMessage}`);
-    }
-    
+    const response = await fetch(`${API_URL}?page=${page}&per_page=${perPage}`);
+    if (!response.ok) throw new Error('Network error while fetching employees');
     const data = await response.json();
-    return Array.isArray(data) ? data : [];
+    // Handle paginated response or regular array
+    if (data.data && Array.isArray(data.data)) {
+      return {
+        data: data.data,
+        current_page: data.current_page || page,
+        last_page: data.last_page || 1,
+        per_page: data.per_page || perPage,
+        total: data.total || data.data.length,
+      };
+    }
+    // If not paginated, return as regular array for backward compatibility
+    const employees = Array.isArray(data) ? data : data.value || [];
+    return {
+      data: employees,
+      current_page: 1,
+      last_page: 1,
+      per_page: employees.length,
+      total: employees.length,
+    };
   } catch (error) {
-    console.error('Error fetching faces from database:', error);
+    console.error('Error fetching faces:', error);
     throw error;
   }
 }
 
-// Model: Leaders API - Fetches leaders from database
-export async function fetchLeadersFromApi() {
+
+// src/api/leadersApi.js
+export async function fetchLeadersFromApi(page = 1, perPage = 12) {
+  
   try {
-    const response = await fetch(`${API_URL}/leaders`);
-    
-    if (!response.ok) {
-      const errorData = await response.json().catch(() => ({}));
-      const errorMessage = errorData.error || `HTTP ${response.status}: ${response.statusText}`;
-      throw new Error(`Failed to fetch leaders: ${errorMessage}`);
-    }
-    
+    const response = await fetch(`${API_URL}?page=${page}&per_page=${perPage}`);
+    if (!response.ok) throw new Error('Network error while fetching leaders');
     const data = await response.json();
-    return Array.isArray(data) ? data : [];
+    // Handle paginated response or regular array
+    if (data.data && Array.isArray(data.data)) {
+      return {
+        data: data.data,
+        current_page: data.current_page || page,
+        last_page: data.last_page || 1,
+        per_page: data.per_page || perPage,
+        total: data.total || data.data.length,
+      };
+    }
+    // If not paginated, return as regular array for backward compatibility
+    const employees = Array.isArray(data) ? data : data.value || [];
+    return {
+      data: employees,
+      current_page: 1,
+      last_page: 1,
+      per_page: employees.length,
+      total: employees.length,
+    };
   } catch (error) {
-    console.error('Error fetching leaders from database:', error);
+    console.error('Error fetching leaders:', error);
     throw error;
   }
 }
