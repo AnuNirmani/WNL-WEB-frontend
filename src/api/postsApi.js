@@ -36,8 +36,13 @@ export async function fetchYearsFromApi() {
 // src/api/careersApi.js
 export async function fetchCareersFromApi() {
   try {
-    const response = await fetch(API_URL);
-    if (!response.ok) throw new Error('Network error');
+    // Fetch careers from dedicated careers endpoint with category filter
+    const response = await fetch(`${API_BASE}/careers?category_name=Careers`);
+    if (!response.ok) {
+      const errorData = await response.json().catch(() => ({}));
+      const errorMessage = errorData.error || `HTTP ${response.status}: ${response.statusText}`;
+      throw new Error(`Failed to fetch careers: ${errorMessage}`);
+    }
     const data = await response.json();
     return Array.isArray(data) ? data : data.value || [];
   } catch (error) {

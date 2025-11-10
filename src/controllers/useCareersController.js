@@ -12,20 +12,17 @@ export default function useCareersController() {
       setLoading(true);
       setError(null);
 
-      const posts = await fetchCareersFromApi();
+      const careers = await fetchCareersFromApi();
 
-      // filter: only Careers + Visible
-      const filtered = posts.filter(item => {
-        const hasCareer =
-          (item.categories && Array.isArray(item.categories) && item.categories.includes('Careers')) ||
-          item.category_name === 'Careers';
-        const isVisible = item.status && item.status.toLowerCase() === 'visible';
-        return hasCareer && isVisible;
-      });
+      // Filter only visible careers (backend should handle category filtering)
+      const filtered = careers.filter(item => 
+        item.status && item.status.toLowerCase() === 'visible'
+      );
 
       setCareers(filtered);
     } catch (err) {
       setError('Failed to load career listings.');
+      console.error('Error in fetchCareers:', err);
     } finally {
       setLoading(false);
     }
