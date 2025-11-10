@@ -1,5 +1,5 @@
 // src/components/FacesPage.jsx
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
@@ -15,8 +15,36 @@ const FacesPage = () => {
     selectedDepartment,
     setSelectedDepartment,
     loading,
+    loadingMore,
     error,
+    loadMore,
+    hasMore,
   } = useFacesController();
+
+  // Infinite scroll observer
+  const observerTarget = useRef(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      entries => {
+        if (entries[0].isIntersecting && hasMore && !loadingMore && !loading) {
+          loadMore();
+        }
+      },
+      { threshold: 0.1 }
+    );
+
+    const currentTarget = observerTarget.current;
+    if (currentTarget) {
+      observer.observe(currentTarget);
+    }
+
+    return () => {
+      if (currentTarget) {
+        observer.unobserve(currentTarget);
+      }
+    };
+  }, [hasMore, loadingMore, loading, loadMore]);
 
   return (
     <div className="faces-page">
@@ -66,8 +94,8 @@ const FacesPage = () => {
           </div>
 
           {/* Faces Grid */}
-          {loading && <p>Loading faces...</p>}
-          {error && <p className="text-danger">{typeof error === 'string' ? error : 'Error loading faces.'}</p>}
+          {loading && <p className="text-center">Loading faces...</p>}
+          {error && <p className="text-danger text-center">Error loading faces.</p>}
 
           <div className="row">
             {!loading && !error && filteredFaces.map((face, index) => (
@@ -90,9 +118,18 @@ const FacesPage = () => {
             ))}
           </div>
 
+          {/* Infinite scroll sentinel */}
+          {!loading && !error && hasMore && (
+            <div ref={observerTarget} style={{ height: '20px', marginTop: '20px' }}>
+              {loadingMore && (
+                <p className="text-center text-muted">Loading more faces...</p>
+              )}
+            </div>
+          )}
+
           {!loading && filteredFaces.length === 0 && (
             <div className="no-results" data-aos="fade-up">
-              <p>No faces found.</p>
+              <p className="text-center">No faces found.</p>
             </div>
           )}
         </div>

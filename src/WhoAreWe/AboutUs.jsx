@@ -4,7 +4,7 @@ import Header from '../components/Header'
 import Footer from '../components/Footer'
 import Vision from './Vision'
 import Mission from './Mission'
-import Logos from './Logos'
+import Logos from './logos'
 import './AboutUs.css'
 
 const AboutUs = () => {

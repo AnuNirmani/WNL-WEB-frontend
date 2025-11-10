@@ -1,5 +1,5 @@
 // src/components/LeadersPage.jsx
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
@@ -7,7 +7,39 @@ import useLeadersController from '../controllers/useLeadersController';
 import '../leaders/Leaders.css';
 
 const LeadersPage = () => {
-  const { leaders, loading, error } = useLeadersController();
+  const { 
+    leaders, 
+    loading, 
+    loadingMore,
+    error, 
+    loadMore,
+    hasMore,
+  } = useLeadersController();
+
+  // Infinite scroll observer
+  const observerTarget = useRef(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      entries => {
+        if (entries[0].isIntersecting && hasMore && !loadingMore && !loading) {
+          loadMore();
+        }
+      },
+      { threshold: 0.1 }
+    );
+
+    const currentTarget = observerTarget.current;
+    if (currentTarget) {
+      observer.observe(currentTarget);
+    }
+
+    return () => {
+      if (currentTarget) {
+        observer.unobserve(currentTarget);
+      }
+    };
+  }, [hasMore, loadingMore, loading, loadMore]);
 
   return (
     <div className="leaders-page">
@@ -61,6 +93,15 @@ const LeadersPage = () => {
               </div>
             ))}
           </div>
+
+          {/* Infinite scroll sentinel */}
+          {!loading && !error && hasMore && (
+            <div ref={observerTarget} style={{ height: '20px', marginTop: '20px', width: '100%' }}>
+              {loadingMore && (
+                <p className="text-center text-muted">Loading more leaders...</p>
+              )}
+            </div>
+          )}
         </div>
       </section>
 

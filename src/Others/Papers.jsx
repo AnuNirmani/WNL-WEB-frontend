@@ -2,7 +2,6 @@
 import React from 'react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
-import usePublicationsController from '../controllers/usePublicationsController';
 import PublicationsPage from '../components/Publications'; // ✅ import new MVC-based Publications
 import '../others/Papers.css';
 import '../components/Dashboard.css';
