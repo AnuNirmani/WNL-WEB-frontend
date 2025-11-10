@@ -1,20 +1,43 @@
-// src/controllers/usePressReleaseController.js
-import { useState, useEffect, useMemo, useCallback } from 'react';
-import { fetchPressReleasesFromApi } from '../api/postsApi';
+import { useState, useEffect, useCallback } from 'react';
+import { fetchPressReleasesFromApi, fetchYearsFromApi } from '../api/postsApi';
 
 export default function usePressReleaseController() {
   const [pressReleases, setPressReleases] = useState([]);
+  const [filteredPressReleases, setFilteredPressReleases] = useState([]);
+  const [years, setYears] = useState([]);
   const [selectedYear, setSelectedYear] = useState('');
   const [searchTitle, setSearchTitle] = useState('');
   const [loading, setLoading] = useState(true);
+  const [loadingMore, setLoadingMore] = useState(false);
   const [error, setError] = useState(null);
+  const [page, setPage] = useState(1);
+  const [hasMore, setHasMore] = useState(true);
 
-  const fetchPressReleases = useCallback(async () => {
+  const ITEMS_PER_PAGE = 12;
+
+  // ✅ Fetch all available years from backend
+  useEffect(() => {
+    const loadYears = async () => {
+      try {
+        const data = await fetchYearsFromApi();
+        setYears(data || []);
+      } catch (err) {
+        console.error('Error loading years:', err);
+      }
+    };
+    loadYears();
+  }, []);
+
+  // ✅ Fetch press releases
+  const fetchPressReleases = useCallback(async (pageNum = 1, yearFilter = '', isLoadMore = false) => {
     try {
-      setLoading(true);
+      if (isLoadMore) setLoadingMore(true);
+      else setLoading(true);
       setError(null);
-      const posts = await fetchPressReleasesFromApi();
 
+      const posts = await fetchPressReleasesFromApi(pageNum, ITEMS_PER_PAGE, yearFilter);
+
+      // Filter only visible press releases
       const filtered = posts.filter(item => {
         const isPressRelease =
           (item.categories && Array.isArray(item.categories) && item.categories.includes('Press Release')) ||
@@ -23,50 +46,72 @@ export default function usePressReleaseController() {
         return isPressRelease && isVisible;
       });
 
-      setPressReleases(filtered);
+      if (filtered.length < ITEMS_PER_PAGE) setHasMore(false);
+
+      if (isLoadMore) {
+        setPressReleases(prev => [...prev, ...filtered]);
+      } else {
+        setPressReleases(filtered);
+      }
     } catch (err) {
       console.error('Error fetching press releases:', err);
       setError('Failed to load press releases.');
+      setHasMore(false);
     } finally {
       setLoading(false);
+      setLoadingMore(false);
     }
   }, []);
 
+  // ✅ Initial load
   useEffect(() => {
-    fetchPressReleases();
+    fetchPressReleases(1, '');
   }, [fetchPressReleases]);
 
-  // Unique years (from end_date or created_at)
-  const years = useMemo(() => {
-    return Array.from(
-      new Set(
-        pressReleases
-          .map(item => (item.end_date ? item.end_date.split('-')[0] : ''))
-          .filter(Boolean)
-      )
-    ).sort((a, b) => b - a);
-  }, [pressReleases]);
+  // ✅ Refetch when year changes
+  useEffect(() => {
+    // When the year filter changes, reset pagination and reload
+    setPage(1);
+    setHasMore(true);
+    if (selectedYear) {
+      fetchPressReleases(1, selectedYear);
+    } else {
+      fetchPressReleases(1, '');
+    }
+  }, [selectedYear, fetchPressReleases]);
 
-  // Filtered press releases
-  const filteredPressReleases = useMemo(() => {
-    return pressReleases.filter(release => {
-      const releaseYear = release.end_date ? release.end_date.split('-')[0] : '';
-      const matchYear = !selectedYear || releaseYear === selectedYear;
-      const matchTitle =
-        !searchTitle ||
-        (release.title && release.title.toLowerCase().includes(searchTitle.toLowerCase()));
-      return matchYear && matchTitle;
-    });
-  }, [pressReleases, selectedYear, searchTitle]);
+  // ✅ Filter by title (frontend)
+  useEffect(() => {
+    if (searchTitle) {
+      setFilteredPressReleases(
+        pressReleases.filter(release =>
+          release.title?.toLowerCase().includes(searchTitle.toLowerCase())
+        )
+      );
+    } else {
+      setFilteredPressReleases(pressReleases);
+    }
+  }, [searchTitle, pressReleases]);
+
+  // ✅ Load more for infinite scroll
+  const loadMore = useCallback(() => {
+    if (loading || loadingMore || !hasMore) return;
+    const nextPage = page + 1;
+    setPage(nextPage);
+    fetchPressReleases(nextPage, selectedYear, true);
+  }, [loading, loadingMore, hasMore, page, fetchPressReleases, selectedYear]);
 
   return {
     filteredPressReleases,
     years,
     selectedYear,
-    setSelectedYear,
     searchTitle,
+    setSelectedYear,
     setSearchTitle,
     loading,
+    loadingMore,
     error,
+    hasMore,
+    loadMore,
   };
 }

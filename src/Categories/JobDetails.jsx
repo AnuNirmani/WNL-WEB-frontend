@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
@@ -6,96 +6,113 @@ import './JobDetails.css';
 
 const JobDetails = () => {
   const { id } = useParams();
+  const [jobData, setJobData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-  // Sample job data - in a real app, this would come from an API or props
-  const jobData = {
-    id: id || '1',
-    title: "Assistant Manager - Contracts - Group Legal and Regulatory",
-    company: "Wijeya Newspapers PLC",
-    location: "Colombo",
-    closingDate: "31/08/2025",
-    // vacancyCount: "01",
-    description: "We are seeking an experienced Assistant Manager to join our Group Legal and Regulatory team. The selected candidate will be responsible for managing contract negotiations, compliance matters, and providing legal support for various business operations.",
-    keyResponsibilities: [
-      "Draft, review, and negotiate contracts and agreements.",
-      "Provide legal advice on corporate, regulatory, and compliance issues.",
-      "Coordinate with internal departments to ensure legal compliance.",
-      "Assist in resolving disputes and managing litigation matters."
-    ],
-    requirements: [
-      "Bachelor's degree in Law or related field (LLB/Attorney-at-Law preferred).",
-      "Minimum 5 years' experience in corporate legal work.",
-      "Strong understanding of Sri Lankan regulatory frameworks.",
-      "Excellent communication and negotiation skills."
-    ]
-  };
+  useEffect(() => {
+    const fetchJob = async () => {
+      try {
+        const res = await fetch(`http://127.0.0.1:8000/api/careers/${id}`);
+        if (!res.ok) throw new Error(`Error ${res.status}`);
+        const data = await res.json();
+
+        // Fix relative image URLs inside description
+        if (data.description) {
+          data.description = data.description.replace(
+            /src=["'](\/storage[^"']+)["']/g,
+            `src="http://127.0.0.1:8000$1"`
+          );
+        }
+
+        setJobData(data);
+      } catch (err) {
+        console.error('Error fetching job details:', err);
+        setError('Failed to load job details.');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchJob();
+  }, [id]);
 
   const handleShare = () => {
     if (navigator.share) {
       navigator.share({
-        title: jobData.title,
-        text: `Check out this job opportunity at ${jobData.company}`,
+        title: jobData?.title,
+        text: `Check out this job opportunity at Wijeya Newspapers PLC`,
         url: window.location.href,
       });
     } else {
-      // Fallback for browsers that don't support Web Share API
       navigator.clipboard.writeText(window.location.href);
       alert('Link copied to clipboard!');
     }
   };
 
   const handleApply = () => {
-    // In a real app, this would redirect to an application form or external link
-    alert('Application functionality would be implemented here');
+    alert('Application functionality would be implemented here.');
   };
+
+  if (loading) {
+    return (
+      <div className="text-center py-5">
+        <p>Loading job details...</p>
+      </div>
+    );
+  }
+
+  if (error || !jobData) {
+    return (
+      <div className="text-center py-5 text-danger">
+        <p>{error || 'Job not found.'}</p>
+        <Link to="/careers" className="btn btn-secondary mt-3">
+          <i className="fas fa-arrow-left"></i> Back to Careers
+        </Link>
+      </div>
+    );
+  }
 
   return (
     <div className="job-details-page">
       <Header />
-      
+
       <main id="main">
         <div className="container">
           {/* Job Header */}
           <div className="job-header">
             <div className="job-title">
               {jobData.title}
-              <span className="vacancy-badge" style={{background: '#a57c1b'}}>
-                {jobData.vacancyCount}
-              </span>
             </div>
-            <div className="company-name">{jobData.company}</div>
+            <div className="company-name">Wijeya Newspapers PLC</div>
 
             <div className="job-meta">
+              {jobData.sub_topic && (
+                <span>
+                  <i></i> {jobData.sub_topic}
+                </span>
+              )}
+              {jobData.end_date && (
+                <span>
+                  <i className="fas fa-calendar-alt"></i> Closing Date: {jobData.end_date}
+                </span>
+              )}
               <span>
-                <i className="fas fa-map-marker-alt"></i> {jobData.location}
-              </span>
-              <span>
-                <i className="fas fa-calendar-alt"></i> Closing Date: {jobData.closingDate}
-              </span>
-              <span>
-                <i className="fas fa-share-alt share-icon" onClick={handleShare}></i> Share
+                <i
+                  className="fas fa-share-alt share-icon"
+                  onClick={handleShare}
+                  style={{ cursor: 'pointer' }}
+                ></i>{' '}
+                Share
               </span>
             </div>
           </div>
 
           {/* Job Description */}
           <div className="job-description">
-            <h4>Job Description</h4>
-            <p>{jobData.description}</p>
-
-            <h4>Key Responsibilities</h4>
-            <ul>
-              {jobData.keyResponsibilities.map((responsibility, index) => (
-                <li key={index}>{responsibility}</li>
-              ))}
-            </ul>
-
-            <h4>Requirements</h4>
-            <ul>
-              {jobData.requirements.map((requirement, index) => (
-                <li key={index}>{requirement}</li>
-              ))}
-            </ul>
+            <div
+              dangerouslySetInnerHTML={{ __html: jobData.description }}
+            ></div>
 
             <button className="btn-apply" onClick={handleApply}>
               Apply for this position

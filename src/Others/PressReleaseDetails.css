@@ -43,6 +43,18 @@
   text-align: justify;
 }
 
+/* Images within description */
+.press-content img {
+  height: 400px;
+  object-fit: cover;
+  width: 100%;
+  max-width: 800px;
+  margin: 20px auto;
+  display: block;
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
 /* Carousel Styles */
 .carousel.slide {
   max-width: 800px;
@@ -140,6 +152,10 @@
     height: 250px;
   }
 
+  .press-content img {
+    height: 250px;
+  }
+
   .carousel-control-prev,
   .carousel-control-next {
     width: 40px;
@@ -184,6 +200,10 @@
   }
 
   .gallery-img {
+    height: 200px;
+  }
+
+  .press-content img {
     height: 200px;
   }
 }

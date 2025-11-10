@@ -61,18 +61,31 @@ const CareersPage = () => {
                     <td colSpan="4" className="text-center">No career openings available right now.</td>
                   </tr>
                 ) : (
-                  careers.map((career, index) => (
-                    <tr key={career.post_id || index} data-aos="fade-up" data-aos-delay={300 + (index * 100)}>
-                      <td>{career.title || '—'}</td>
-                      <td>{career.sub_topic || '—'}</td>
-                      <td>{career.end_date || '—'}</td>
-                      <td>
-                        <Link to={`/job/${career.post_id || index + 1}`} className="btn btn-danger btn-sm">
-                          View
-                        </Link>
-                      </td>
-                    </tr>
-                  ))
+                  careers.map((career, index) => {
+                    // Format the closing date from backend
+                    const formatDate = (dateString) => {
+                      if (!dateString) return '—';
+                      const date = new Date(dateString);
+                      if (isNaN(date.getTime())) return '—';
+                      return date.toLocaleDateString('en-GB'); // DD/MM/YYYY format
+                    };
+
+                    // Get closing date from various possible field names
+                    const closingDate = career.end_date || career.closing_date || career.deadline || null;
+
+                    return (
+                      <tr key={career.post_id || index} data-aos="fade-up" data-aos-delay={300 + (index * 100)}>
+                        <td>{career.title || '—'}</td>
+                        <td>{career.sub_topic || career.description || '—'}</td>
+                        <td>{formatDate(closingDate)}</td>
+                        <td>
+                          <Link to={`/job/${career.post_id || index + 1}`} className="btn btn-danger btn-sm">
+                            View
+                          </Link>
+                        </td>
+                      </tr>
+                    );
+                  })
                 )}
               </tbody>
             </table>

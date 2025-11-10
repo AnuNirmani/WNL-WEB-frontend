@@ -1,15 +1,24 @@
 import React, { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import logo from '../assets/logo.png'
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const location = useLocation()
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen)
   }
 
   const closeMenu = () => {
     setIsMenuOpen(false)
+  }
+
+  const isActive = (path) => {
+    return location.pathname === path
+  }
+
+  const isActiveParent = (paths) => {
+    return paths.some(path => location.pathname === path)
   }
 
   const handleSectionScroll = (e, sectionId) => {
@@ -88,7 +97,7 @@ const Header = () => {
       <section id="topbar" className="d-none d-lg-block" style={{ 
         background: '#0c1a4b', 
         padding: '8px 0',
-        borderBottom: '1px solid rgba(255, 255, 255, 0.1)'
+        // borderBottom: '1px solid rgba(255, 255, 255, 0.1)'
       }}>
         <div className="container">
           <div className="row">
@@ -96,24 +105,26 @@ const Header = () => {
               <div className="d-flex align-items-center justify-content-between">
                 <div className="contact-info d-flex align-items-center">
                   <i className="fas fa-envelope me-2" style={{ color: '#fff' }}></i>
-                  <a href="mailto:contact@example.com" style={{ color: '#fff', textDecoration: 'none' }}>
+                  <a href="mailto:www.wijeyanewspapers.lk" style={{ color: '#fff', textDecoration: 'none' }}>
                     www.wijeyanewspapers.lk
                   </a>
                   <span style={{ color: '#fff', margin: '0 10px' }}>|</span>
                   <i className="fa fa-phone me-2" style={{ color: '#fff' }}></i>
-                  <span style={{ color: '#fff' }}>011 247 9479</span>
+                  <a href="tel:+94112479479" style={{ color: '#fff', textDecoration: 'none' }} aria-label="Call 011 247 9479">
+                    011 247 9479
+                  </a>
                 </div>
                 <div className="social-icons d-flex align-items-center">
-                  <a href="https://facebook.com" className="social-icon facebook me-2" target="_blank" rel="noopener noreferrer">
+                  <a href="https://www.facebook.com/share/1AFp19ePAD/" className="social-icon facebook me-2" target="_blank" rel="noopener noreferrer">
                     <i className="fab fa-facebook-f"></i>
                   </a>
-                  <a href="https://twitter.com" className="social-icon twitter me-2" target="_blank" rel="noopener noreferrer">
+                  <a href="https://x.com/dailymirror_sl?s=21" className="social-icon twitter me-2" target="_blank" rel="noopener noreferrer">
                     <i className="fab fa-twitter"></i>
                   </a>
-                  <a href="https://linkedin.com" className="social-icon linkedin me-2" target="_blank" rel="noopener noreferrer">
+                  <a href="https://www.linkedin.com/company/wijeya-newspapers-ltd/" className="social-icon linkedin me-2" target="_blank" rel="noopener noreferrer">
                     <i className="fab fa-linkedin-in"></i>
                   </a>
-                  <a href="https://instagram.com" className="social-icon instagram" target="_blank" rel="noopener noreferrer">
+                  <a href="https://www.instagram.com/hi_online_lk?igsh=MWd6dnliaHdxMXZpNw==" className="social-icon instagram" target="_blank" rel="noopener noreferrer">
                     <i className="fab fa-instagram"></i>
                   </a>
                 </div>
@@ -127,7 +138,7 @@ const Header = () => {
       <div className="header-main" style={{ 
         background: '#0c1a4b', 
         padding: '15px 0',
-        borderBottom: '1px solid rgba(255, 255, 255, 0.1)'
+        // borderBottom: '1px solid rgba(255, 255, 255, 0.1)'
       }}>
         <div className="container">
           <div className="row align-items-center">
@@ -167,10 +178,10 @@ const Header = () => {
                 <div className={`navbar-collapse ${isMenuOpen ? 'show' : ''}`} id="wijeyaNavbar">
                   <ul className="navbar-nav ms-auto">
                     <li className="nav-item">
-                      <Link className="nav-link" to="/" onClick={closeMenu}>Home</Link>
+                      <Link className={`nav-link ${isActive('/') ? 'active' : ''}`} to="/" onClick={closeMenu}>Home</Link>
                     </li>
                     <li className="nav-item dropdown">
-                      <a className="nav-link dropdown-toggle" href="#" id="whoWeAreDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                      <a className={`nav-link dropdown-toggle ${isActiveParent(['/about-us', '/our-journey']) ? 'active' : ''}`} href="#" id="whoWeAreDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         Who we are
                       </a>
                       <ul className="dropdown-menu" aria-labelledby="whoWeAreDropdown">
@@ -183,22 +194,22 @@ const Header = () => {
                       </ul>
                     </li>
                     <li className="nav-item">
-                      <Link className="nav-link" to="/leaders" onClick={closeMenu}>Leadership</Link>
+                      <Link className={`nav-link ${isActive('/leaders') ? 'active' : ''}`} to="/leaders" onClick={closeMenu}>Leadership</Link>
                     </li>
                     <li className="nav-item">
-                      <Link className="nav-link" to="/papers" onClick={closeMenu}>Our Network</Link>
+                      <Link className={`nav-link ${isActive('/papers') ? 'active' : ''}`} to="/papers" onClick={closeMenu}>Our Network</Link>
                     </li>
                     <li className="nav-item">
-                      <Link className="nav-link" to="/faces" onClick={closeMenu}>Faces</Link>
+                      <Link className={`nav-link ${isActive('/faces') ? 'active' : ''}`} to="/faces" onClick={closeMenu}>Faces</Link>
                     </li>
                     <li className="nav-item">
-                      <Link className="nav-link" to="/awards" onClick={closeMenu}>Awards</Link>
+                      <Link className={`nav-link ${isActive('/awards') ? 'active' : ''}`} to="/awards" onClick={closeMenu}>Awards</Link>
                     </li>
                     <li className="nav-item">
-                      <Link className="nav-link" to="/press-release" onClick={closeMenu}>Press Release</Link>
+                      <Link className={`nav-link ${isActive('/press-release') ? 'active' : ''}`} to="/press-release" onClick={closeMenu}>Press Release</Link>
                     </li>
                     <li className="nav-item dropdown">
-                      <a className="nav-link dropdown-toggle" href="#" id="moreDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                      <a className={`nav-link dropdown-toggle ${isActiveParent(['/faq', '/locations', '/careers', '/advertise-with-us', '/contact-us']) ? 'active' : ''}`} href="#" id="moreDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         More
                       </a>
                       <ul className="dropdown-menu" aria-labelledby="moreDropdown">

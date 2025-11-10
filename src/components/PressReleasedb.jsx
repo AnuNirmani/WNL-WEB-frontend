@@ -1,36 +1,13 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { usePressReleaseDbController } from '../controllers/usePressReleaseDbController';
 
+/**
+ * Press Release View Component
+ * Displays a list of press releases with infinite scroll
+ */
 const PressRelease = () => {
-  const pressReleases = [
-    {
-      id: 1,
-      image: 'https://images.unsplash.com/photo-1511795409834-ef04bbd61622?w=800&h=600&fit=crop',
-      title: 'Dailymirror announces new editorial team',
-      date: '10 Jan 2025',
-      paper: 'Dailymirror',
-      description: 'Dailymirror introduces its new editorial board, aiming to expand investigative reporting and digital reach...',
-      year: '2025',
-    },
-    {
-      id: 2,
-      image: 'https://images.unsplash.com/photo-1511795409834-ef04bbd61622?w=800&h=600&fit=crop',
-      title: 'Lankadeepa celebrates 30 years of excellence',
-      date: '20 Dec 2024',
-      paper: 'Lankadeepa',
-      description: 'Marking three decades of impactful journalism, Lankadeepa held an anniversary event recognizing its dedicated staff...',
-      year: '2024',
-    },
-    {
-      id: 3,
-      image: 'https://images.unsplash.com/photo-1511795409834-ef04bbd61622?w=800&h=600&fit=crop',
-      title: 'Sundaytimes launches youth journalism program',
-      date: '05 Nov 2024',
-      paper: 'Sundaytimes',
-      description: 'A new initiative to train aspiring journalists under senior reporters of Sundaytimes has been officially launched...',
-      year: '2024',
-    },
-  ]
+  const { pressReleases, loading, lastItemRef } = usePressReleaseDbController();
 
   return (
     <section id="press-release" className="press">
@@ -40,33 +17,47 @@ const PressRelease = () => {
         </div>
 
         <div className="row" id="pressList">
-          {pressReleases.map((press) => (
-            <div className="col-lg-4 col-md-6 mb-4 press-item" data-year={press.year} data-paper={press.paper} key={press.id}>
-              <div className="card h-100 shadow-sm">
-                <img src={press.image} className="card-img-top" alt="Press Release" />
-                <div className="card-body">
-                  <h5 className="card-title">{press.title}</h5>
-                  <p className="text-muted small">
-                    {press.date} | {press.paper}
-                  </p>
-                  <p className="card-text">{press.description}</p>
-                  <Link 
-                    to={`/press-release/${press.id}`} 
-                    // target="_blank" 
-                    // rel="noopener noreferrer"
-                    className="btn-view-more"
-                  >
-                    View More
-                  </Link>
+          {loading && pressReleases.length === 0 ? (
+            <div className="text-center py-5">Loading press releases...</div>
+          ) : pressReleases.length > 0 ? (
+            pressReleases.map((press, index) => (
+              <div
+                className="col-lg-4 col-md-6 mb-4 press-item"
+                key={press.post_id}
+                ref={index === pressReleases.length - 1 ? lastItemRef : null}
+              >
+                <div className="card h-100 shadow-sm">
+                  <img
+                    src={press.image}
+                    className="card-img-top"
+                    alt={press.title}
+                    onError={(e) =>
+                      (e.target.src = '/assets/img/press/default.jpg')
+                    }
+                  />
+                  <div className="card-body">
+                    <h5 className="card-title">{press.title}</h5>
+                    {press.sub_topic && (
+                      <p className="text-muted small">{press.sub_topic}</p>
+                    )}
+                    <Link
+                      to={`/press-release/${press.post_id}`}
+                      state={press}
+                      className="btn-view-more"
+                    >
+                      View More
+                    </Link>
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
+            ))
+          ) : (
+            <div className="text-center py-5">No press releases available.</div>
+          )}
         </div>
       </div>
     </section>
-  )
-}
+  );
+};
 
-export default PressRelease
-
+export default PressRelease;

@@ -54,12 +54,12 @@ const PressReleaseDetailsPage = () => {
         {/* Image (if available) */}
         {release.image && (
           <div
-            className="carousel slide mb-5"
-            id="pressGallery"
-            data-aos="fade-up"
-            data-aos-delay="200"
+            // className="carousel slide mb-5"
+            // id="pressGallery"
+            // data-aos="fade-up"
+            // data-aos-delay="200"
           >
-            <div className="carousel-inner">
+            {/* <div className="carousel-inner">
               <div className="carousel-item active">
                 <img
                   src={release.image}
@@ -68,7 +68,7 @@ const PressReleaseDetailsPage = () => {
                   onError={(e) => (e.target.src = '/assets/img/press/dummy.jpg')}
                 />
               </div>
-            </div>
+            </div> */}
           </div>
         )}
 
