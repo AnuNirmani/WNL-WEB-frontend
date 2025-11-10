@@ -13,8 +13,11 @@ export default function useLocationsController() {
       setError('');
       const data = await fetchLocationsFromApi();
 
+      // ✅ Filter out deleted departments (soft deletes or is_active flag)
+      const activeDepartments = data.filter(dep => !dep.deleted_at && dep.is_active !== false);
+
       // ✅ Format Laravel data into usable structure
-      const formatted = data.map((dep) => ({
+      const formatted = activeDepartments.map((dep) => ({
         id: dep.id,
         title: dep.department_name,
         address: dep.address ? dep.address.split('\n') : [],
