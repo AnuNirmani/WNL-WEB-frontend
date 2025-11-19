@@ -14,9 +14,9 @@ export default function useCareersController() {
 
       const careers = await fetchCareersFromApi();
 
-      // Filter only visible careers (backend should handle category filtering)
+      // Filter only visible careers (status = 1 means visible/active)
       const filtered = careers.filter(item => 
-        item.status && item.status.toLowerCase() === 'visible'
+        item.status === 1 || item.status === '1'
       );
 
       setCareers(filtered);

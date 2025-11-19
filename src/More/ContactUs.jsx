@@ -28,11 +28,27 @@ const ContactUs = () => {
     setSubmitStatus('')
 
     try {
-      // Simulate form submission
-      await new Promise(resolve => setTimeout(resolve, 2000))
-      setSubmitStatus('success')
-      setFormData({ name: '', email: '', subject: '', message: '' })
+      const response = await fetch(
+        "http://localhost/wnl_ci/index.php/api/send-email",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify(formData)
+        }
+      )
+
+      const data = await response.json()
+
+      if (response.ok && data.status === "success") {
+        setSubmitStatus('success')
+        setFormData({ name: '', email: '', subject: '', message: '' })
+      } else {
+        setSubmitStatus('error')
+      }
     } catch (error) {
+      console.error("Error submitting form:", error)
       setSubmitStatus('error')
     } finally {
       setIsSubmitting(false)
@@ -42,7 +58,7 @@ const ContactUs = () => {
   return (
     <div className="contact-us-page">
       <Header />
-      
+
       <main id="main">
         {/* Breadcrumbs */}
         <section id="breadcrumbs" className="breadcrumbs">
@@ -86,10 +102,7 @@ const ContactUs = () => {
                     <i className="fas fa-envelope"></i>
                     <h4>Email:</h4>
                     <p>
-                      <a
-                        href="mailto:wnlgen@wijeya.lk"
-                        style={{ color: 'inherit', cursor: 'pointer' }}
-                      >
+                      <a href="mailto:wnlgen@wijeya.lk" style={{ color: 'inherit' }}>
                         wnlgen@wijeya.lk
                       </a>
                     </p>
@@ -98,40 +111,26 @@ const ContactUs = () => {
                   <div className="phone">
                     <i className="fas fa-phone"></i>
                     <h4>Call:</h4>
-                    <p>
-                      <a
-                        href="tel:0112479479"
-                        style={{ color: 'inherit', cursor: 'pointer' }}
-                      >
-                        011 247 9479
-                      </a>
-                    </p>
+                    <p><a href="tel:0112479479">011 247 9479</a></p>
                   </div>
 
                   <div className="phone">
                     <i className="fas fa-phone"></i>
                     <h4>Fax:</h4>
-                    <p>
-                      <a
-                        href="tel:0112448323"
-                        style={{ color: 'inherit', cursor: 'pointer' }}
-                      >
-                        011 244 8323
-                      </a>
-                    </p>
+                    <p><a href="tel:0112448323">011 244 8323</a></p>
                   </div>
 
-                  <iframe 
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3960.7993540799444!2d79.85580295104413!3d6.9145770203854315!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ae2596c00ece979%3A0x53a3556932f7759d!2sWijeya%20Newspapers%20Head%20Office!5e0!3m2!1sen!2slk!4v1596169079307!5m2!1sen!2slk" 
-                    width="100%" 
-                    height="290px" 
-                    frameBorder="0" 
-                    style={{ border: 0 }} 
-                    allowFullScreen="" 
-                    aria-hidden="false" 
+                  <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3960.7993540799444!2d79.85580295104413!3d6.9145770203854315!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ae2596c00ece979%3A0x53a3556932f7759d!2sWijeya%20Newspapers%20Head%20Office!5e0!3m2!1sen!2slk!4v1596169079307!5m2!1sen!2slk"
+                    width="100%"
+                    height="290px"
+                    style={{ border: 0 }}
+                    allowFullScreen=""
+                    aria-hidden="false"
                     tabIndex="0"
                     title="Wijeya Newspapers Head Office Location"
                   ></iframe>
+
                 </div>
               </div>
 
@@ -143,59 +142,60 @@ const ContactUs = () => {
                       <label htmlFor="name">Your Name</label>
                       <input 
                         type="text" 
-                        name="name" 
-                        className="form-control" 
-                        id="name" 
+                        name="name"
+                        className="form-control"
                         value={formData.name}
                         onChange={handleInputChange}
-                        required 
+                        required
                       />
-                      <div className="validate"></div>
                     </div>
                     <div className="form-group col-md-6">
                       <label htmlFor="email">Your Email</label>
                       <input 
                         type="email" 
-                        className="form-control" 
-                        name="email" 
-                        id="email" 
+                        name="email"
+                        className="form-control"
                         value={formData.email}
                         onChange={handleInputChange}
-                        required 
+                        required
                       />
-                      <div className="validate"></div>
                     </div>
                   </div>
+
                   <div className="form-group">
                     <label htmlFor="subject">Subject</label>
                     <input 
                       type="text" 
-                      className="form-control" 
                       name="subject" 
-                      id="subject" 
+                      className="form-control"
                       value={formData.subject}
                       onChange={handleInputChange}
-                      required 
+                      required
                     />
-                    <div className="validate"></div>
                   </div>
+
                   <div className="form-group">
                     <label htmlFor="message">Message</label>
-                    <textarea 
-                      className="form-control" 
-                      name="message" 
-                      rows="10" 
+                    <textarea
+                      name="message"
+                      rows="10"
+                      className="form-control"
                       value={formData.message}
                       onChange={handleInputChange}
                       required
                     ></textarea>
-                    <div className="validate"></div>
                   </div>
+
                   <div className="mb-3">
-                    {isSubmitting && <div className="loading">Loading</div>}
-                    {submitStatus === 'error' && <div className="error-message">Error sending message. Please try again.</div>}
-                    {submitStatus === 'success' && <div className="sent-message">Your message has been sent. Thank you!</div>}
+                    {isSubmitting && <div className="loading">Sending...</div>}
+                    {submitStatus === 'error' && (
+                      <div className="error-message">Error sending message. Please try again.</div>
+                    )}
+                    {submitStatus === 'success' && (
+                      <div className="sent-message">Your message has been sent. Thank you!</div>
+                    )}
                   </div>
+
                   <div className="text-center">
                     <button type="submit" disabled={isSubmitting}>
                       {isSubmitting ? 'Sending...' : 'Send Message'}
@@ -203,15 +203,16 @@ const ContactUs = () => {
                   </div>
 
                   <div className="text-center">
-                    <a 
-                      href="https://www.linkedin.com/company/wijeya-newspapers-ltd/" 
-                      target="_blank" 
+                    <a
+                      href="https://www.linkedin.com/company/wijeya-newspapers-ltd/"
+                      target="_blank"
                       rel="noopener noreferrer"
                       className="btn btn-linkedin mt-3"
                     >
                       <i className="fab fa-linkedin-in"></i> Follow us on LinkedIn
                     </a>
                   </div>
+
                 </form>
               </div>
             </div>

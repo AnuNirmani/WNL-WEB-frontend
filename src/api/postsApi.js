@@ -44,7 +44,14 @@ export async function fetchCareersFromApi() {
       throw new Error(`Failed to fetch careers: ${errorMessage}`);
     }
     const data = await response.json();
-    return Array.isArray(data) ? data : data.value || [];
+    // Handle both array and single object responses
+    if (Array.isArray(data)) {
+      return data;
+    } else if (data && typeof data === 'object') {
+      // If single object returned, wrap in array
+      return [data];
+    }
+    return data.value || data.data || [];
   } catch (error) {
     console.error('Error fetching careers:', error);
     throw error;
@@ -69,18 +76,6 @@ export async function fetchPressReleasesFromApi(page = 1, limit = 12, year = '')
     throw error;
   }
 }
-
-// Fetch available years from backend
-// export async function fetchYearsFromApi() {
-//   try {
-//     const response = await fetch(`${API_BASE_URL}/years`);
-//     if (!response.ok) throw new Error('Network error');
-//     return await response.json();
-//   } catch (error) {
-//     console.error('Error fetching years:', error);
-//     return [];
-//   }
-// }
 
 
 // src/api/awardDetailsApi.js
