@@ -1,6 +1,7 @@
 // src/controllers/useCareersController.js
 import { useState, useEffect, useCallback } from 'react';
 import { fetchCareersFromApi } from '../api/postsApi';
+import { formatFriendlyError } from '../utils/formatError';
 
 export default function useCareersController() {
   const [careers, setCareers] = useState([]);
@@ -21,7 +22,7 @@ export default function useCareersController() {
 
       setCareers(filtered);
     } catch (err) {
-      setError('Failed to load career listings.');
+      setError(formatFriendlyError(err));
       console.error('Error in fetchCareers:', err);
     } finally {
       setLoading(false);

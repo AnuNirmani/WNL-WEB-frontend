@@ -1,6 +1,7 @@
 // src/controllers/useLeadersController.js
 import { useState, useEffect, useCallback } from 'react';
 import { fetchLeadersFromApi } from '../api/employeeApi';
+import { formatFriendlyError } from '../utils/formatError';
 
 export default function useLeadersController() {
   const [leaders, setLeaders] = useState([]);
@@ -58,7 +59,7 @@ export default function useLeadersController() {
       setTotalLeaders(response.total || filtered.length);
     } catch (err) {
       console.error('Error fetching leaders:', err);
-      setError(`Error loading leaders: ${err.message || 'Unknown error'}`);
+      setError(formatFriendlyError(err));
     } finally {
       setLoading(false);
       setLoadingMore(false);

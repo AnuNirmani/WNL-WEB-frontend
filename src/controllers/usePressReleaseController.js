@@ -1,5 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
 import { fetchPressReleasesFromApi, fetchYearsFromApi } from '../api/postsApi';
+import { formatFriendlyError } from '../utils/formatError';
 
 export default function usePressReleaseController() {
   const [pressReleases, setPressReleases] = useState([]);
@@ -54,7 +55,7 @@ export default function usePressReleaseController() {
       }
     } catch (err) {
       console.error('Error fetching press releases:', err);
-      setError('Failed to load press releases.');
+      setError(formatFriendlyError(err));
       setHasMore(false);
     } finally {
       setLoading(false);

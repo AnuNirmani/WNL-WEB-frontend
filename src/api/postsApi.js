@@ -1,21 +1,11 @@
 // src/api/postsApi.js
-const API_URL = 'http://127.0.0.1:8000/api/posts';
-
-// src/api/awardsApi.js
-const API_BASE = "http://127.0.0.1:8000/api";
-
-
-// src/api/overviewApi.js
-const API_BASE_URL = 'http://127.0.0.1:8000/api';
-
+import { authFetch } from './client';
 
 export async function fetchAwardsFromApi(page = 1, limit = 12, year = '') {
   try {
-    let url = `${API_BASE}/awards?page=${page}&limit=${limit}&category_name=Awards`;
-    if (year) url += `&year=${year}`;
-    const response = await fetch(url);
-    if (!response.ok) throw new Error('Network error');
-    return await response.json();
+    let path = `/awards?page=${page}&limit=${limit}&category_name=Awards`;
+    if (year) path += `&year=${year}`;
+    return await authFetch(path);
   } catch (error) {
     console.error('Error fetching awards:', error);
     throw error;
@@ -24,9 +14,7 @@ export async function fetchAwardsFromApi(page = 1, limit = 12, year = '') {
 
 export async function fetchYearsFromApi() {
   try {
-    const response = await fetch(`${API_BASE}/years`);
-    if (!response.ok) throw new Error('Network error');
-    return await response.json();
+    return await authFetch('/years');
   } catch (error) {
     console.error('Error fetching years:', error);
     return [];
@@ -37,13 +25,7 @@ export async function fetchYearsFromApi() {
 export async function fetchCareersFromApi() {
   try {
     // Fetch careers from dedicated careers endpoint with category filter
-    const response = await fetch(`${API_BASE}/careers?category_name=Careers`);
-    if (!response.ok) {
-      const errorData = await response.json().catch(() => ({}));
-      const errorMessage = errorData.error || `HTTP ${response.status}: ${response.statusText}`;
-      throw new Error(`Failed to fetch careers: ${errorMessage}`);
-    }
-    const data = await response.json();
+    const data = await authFetch('/careers?category_name=Careers');
     // Handle both array and single object responses
     if (Array.isArray(data)) {
       return data;
@@ -65,11 +47,9 @@ export async function fetchCareersFromApi() {
 // Fetch press releases with optional year filter
 export async function fetchPressReleasesFromApi(page = 1, limit = 12, year = '') {
   try {
-    let url = `${API_BASE}/posts?page=${page}&limit=${limit}&category_name=Press Release`;
-    if (year) url += `&year=${year}`;
-    const response = await fetch(url);
-    if (!response.ok) throw new Error('Network error');
-    const data = await response.json();
+    let path = `/posts?page=${page}&limit=${limit}&category_name=Press Release`;
+    if (year) path += `&year=${year}`;
+    const data = await authFetch(path);
     // Handle Laravel pagination response format
     return data.value || data.data || (Array.isArray(data) ? data : []);
   } catch (error) {
@@ -83,12 +63,8 @@ export async function fetchPressReleasesFromApi(page = 1, limit = 12, year = '')
 export async function fetchAwardById(id) {
   if (!id) throw new Error('No award ID provided');
 
-  const API_URL = `http://127.0.0.1:8000/api/posts/${id}`;
-
   try {
-    const response = await fetch(API_URL);
-    if (!response.ok) throw new Error(`Network error: ${response.status}`);
-    const data = await response.json();
+    const data = await authFetch(`/posts/${id}`);
     return data;
   } catch (error) {
     console.error('Error fetching award:', error);
@@ -98,12 +74,8 @@ export async function fetchAwardById(id) {
 
 // src/api/pressReleaseDetailsApi.js
 export async function fetchPressReleaseDetails(id) {
-  const API_URL = `http://127.0.0.1:8000/api/posts/${id}`;
-
   try {
-    const response = await fetch(API_URL);
-    if (!response.ok) throw new Error('Failed to fetch press release details');
-    const data = await response.json();
+    const data = await authFetch(`/posts/${id}`);
 
     let description = data.description || '';
 
@@ -133,15 +105,7 @@ export async function fetchPostById(id) {
   if (!id) throw new Error('No post ID provided.');
 
   try {
-    const response = await fetch(`${API_BASE_URL}/posts/${id}`);
-    if (!response.ok) {
-      const errorData = await response.json().catch(() => ({}));
-      const errorMessage =
-        errorData.error || `HTTP ${response.status}: ${response.statusText}`;
-      throw new Error(`Failed to fetch post: ${errorMessage}`);
-    }
-
-    const data = await response.json();
+    const data = await authFetch(`/posts/${id}`);
 
     // ✅ Fix relative image paths inside the description
     if (data.description) {
@@ -176,14 +140,7 @@ export const normalizeImages = (list) =>
  * @returns {Promise<Array>} - Array of press releases
  */
 export const fetchPressReleases = async (page = 1, limit = 6) => {
-  const url = `${API_BASE_URL}/press/latest?page=${page}&limit=${limit}`;
-  const response = await fetch(url);
-  
-  if (!response.ok) {
-    throw new Error(`Error ${response.status}`);
-  }
-  
-  const data = await response.json();
+  const data = await authFetch(`/press/latest?page=${page}&limit=${limit}`);
   const normalizedData = normalizeImages(Array.isArray(data) ? data : []);
   
   return normalizedData;

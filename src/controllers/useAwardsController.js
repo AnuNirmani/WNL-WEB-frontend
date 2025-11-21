@@ -1,5 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
 import { fetchAwardsFromApi, fetchYearsFromApi } from '../api/postsApi';
+import { formatFriendlyError } from '../utils/formatError';
 
 export default function useAwardsController() {
   const [awards, setAwards] = useState([]);
@@ -43,7 +44,7 @@ export default function useAwardsController() {
 
       setFilteredAwards(posts);
     } catch (err) {
-      setError('Failed to load Awards.');
+      setError(formatFriendlyError(err));
       setHasMore(false);
     } finally {
       setLoading(false);

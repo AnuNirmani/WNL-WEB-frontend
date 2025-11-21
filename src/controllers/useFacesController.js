@@ -1,6 +1,7 @@
 // src/controllers/useFacesController.js
 import { useState, useEffect, useMemo, useCallback, useRef } from 'react';
 import { fetchFacesFromApi } from '../api/employeeApi';
+import { formatFriendlyError } from '../utils/formatError';
 
 export default function useFacesController() {
   const [faces, setFaces] = useState([]);
@@ -60,7 +61,7 @@ export default function useFacesController() {
       setHasMore(page < totalPages);
       setTotalFaces(response.total || facesData.length);
     } catch (err) {
-      setError(true);
+      setError(formatFriendlyError(err));
     } finally {
       setLoading(false);
       setLoadingMore(false);

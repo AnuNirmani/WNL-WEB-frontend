@@ -1,6 +1,7 @@
 // src/controllers/useLocationsController.js
 import { useState, useEffect, useCallback } from 'react';
 import { fetchLocationsFromApi } from '../api/locationsApi';
+import { formatFriendlyError } from '../utils/formatError';
 
 export default function useLocationsController() {
   const [locations, setLocations] = useState([]);
@@ -28,7 +29,7 @@ export default function useLocationsController() {
       setLocations(formatted);
     } catch (err) {
       console.error('Error fetching locations:', err);
-      setError(err?.message || 'Failed to load locations.');
+      setError(formatFriendlyError(err));
     } finally {
       setLoading(false);
     }
