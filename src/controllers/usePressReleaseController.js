@@ -37,13 +37,12 @@ export default function usePressReleaseController() {
 
       const posts = await fetchPressReleasesFromApi(pageNum, ITEMS_PER_PAGE, yearFilter);
 
-      // Filter only visible press releases
+      // Filter only visible press releases (API already filters by category)
+      // Status can be 1 (visible) or "visible" string
       const filtered = posts.filter(item => {
-        const isPressRelease =
-          (item.categories && Array.isArray(item.categories) && item.categories.includes('Press Release')) ||
-          item.category_name === 'Press Release';
-        const isVisible = item.status && item.status.toLowerCase() === 'visible';
-        return isPressRelease && isVisible;
+        if (typeof item.status === 'number') return item.status === 1;
+        if (typeof item.status === 'string') return item.status.toLowerCase() === 'visible';
+        return false;
       });
 
       if (filtered.length < ITEMS_PER_PAGE) setHasMore(false);

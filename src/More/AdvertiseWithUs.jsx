@@ -1,13 +1,58 @@
-import React from 'react'
+import React, { useState } from 'react'
+import { Link } from 'react-router-dom'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
 import './AdvertiseWithUs.css'
 
 const AdvertiseWithUs = () => {
-  const handleSubmit = (e) => {
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    subject: '',
+    message: ''
+  })
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [submitStatus, setSubmitStatus] = useState('')
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }))
+  }
+
+  const handleSubmit = async (e) => {
     e.preventDefault()
-    // Handle form submission here
-    console.log('Form submitted')
+    setIsSubmitting(true)
+    setSubmitStatus('')
+
+    try {
+      const response = await fetch(
+        "http://localhost/wnl_ci/index.php/api/send-email",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify(formData)
+        }
+      )
+
+      const data = await response.json()
+
+      if (response.ok && data.status === 'success') {
+        setSubmitStatus('success')
+        setFormData({ name: '', email: '', subject: '', message: '' })
+      } else {
+        setSubmitStatus('error')
+      }
+    } catch (err) {
+      console.error('Advertise form submit error:', err)
+      setSubmitStatus('error')
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   return (
@@ -18,7 +63,7 @@ const AdvertiseWithUs = () => {
       <section id="breadcrumbs" className="breadcrumbs">
         <div className="container">
           <ol>
-            <li><a href="/">Home</a></li>
+            <li><Link to="/">Home</Link></li>
             <li>Advertise With Us</li>
           </ol>
         </div>
@@ -57,24 +102,67 @@ const AdvertiseWithUs = () => {
             <div className="col-lg-6 mb-4 advertise-item">
               <div className="p-4 border rounded shadow-sm">
                 <h4 className="mb-3">Send Us a Message</h4>
-                <form onSubmit={handleSubmit}>
+                <form onSubmit={handleSubmit} className="php-email-form">
                   <div className="form-group mb-3">
                     <label htmlFor="name">Name</label>
-                    <input type="text" className="form-control" id="name" name="name" required />
+                    <input
+                      type="text"
+                      className="form-control"
+                      id="name"
+                      name="name"
+                      value={formData.name}
+                      onChange={handleInputChange}
+                      required
+                    />
                   </div>
                   <div className="form-group mb-3">
                     <label htmlFor="email">Email</label>
-                    <input type="email" className="form-control" id="email" name="email" required />
+                    <input
+                      type="email"
+                      className="form-control"
+                      id="email"
+                      name="email"
+                      value={formData.email}
+                      onChange={handleInputChange}
+                      required
+                    />
                   </div>
                   <div className="form-group mb-3">
                     <label htmlFor="subject">Subject</label>
-                    <input type="text" className="form-control" id="subject" name="subject" required />
+                    <input
+                      type="text"
+                      className="form-control"
+                      id="subject"
+                      name="subject"
+                      value={formData.subject}
+                      onChange={handleInputChange}
+                      required
+                    />
                   </div>
                   <div className="form-group mb-3">
                     <label htmlFor="message">Message</label>
-                    <textarea className="form-control" id="message" name="message" rows="5" required></textarea>
+                    <textarea
+                      className="form-control"
+                      id="message"
+                      name="message"
+                      rows="5"
+                      value={formData.message}
+                      onChange={handleInputChange}
+                      required
+                    ></textarea>
                   </div>
-                  <button type="submit" className="btn btn-primary btn-block">Submit</button>
+                  <div className="mb-3">
+                    {isSubmitting && <div className="loading">Sending...</div>}
+                    {submitStatus === 'error' && (
+                      <div className="error-message">Error sending message. Please try again.</div>
+                    )}
+                    {submitStatus === 'success' && (
+                      <div className="sent-message">Your message has been sent. Thank you!</div>
+                    )}
+                  </div>
+                  <button type="submit" className="btn btn-primary btn-block" disabled={isSubmitting}>
+                    {isSubmitting ? 'Sending...' : 'Submit'}
+                  </button>
                 </form>
               </div>
             </div>

@@ -65,12 +65,13 @@ export async function fetchCareersFromApi() {
 // Fetch press releases with optional year filter
 export async function fetchPressReleasesFromApi(page = 1, limit = 12, year = '') {
   try {
-    let url = `${API_BASE_URL}/posts?page=${page}&limit=${limit}`;
+    let url = `${API_BASE}/posts?page=${page}&limit=${limit}&category_name=Press Release`;
     if (year) url += `&year=${year}`;
     const response = await fetch(url);
     if (!response.ok) throw new Error('Network error');
     const data = await response.json();
-    return Array.isArray(data) ? data : data.value || [];
+    // Handle Laravel pagination response format
+    return data.value || data.data || (Array.isArray(data) ? data : []);
   } catch (error) {
     console.error('Error fetching press releases:', error);
     throw error;
