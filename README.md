@@ -125,83 +125,20 @@ WNL-WEB-frontend/
 │
 ├── src/                        # Source code
 │   ├── api/                    # API service layer
-│   │   ├── client.js           # API client configuration
-│   │   ├── employeeApi.js      # Employee/leadership data
-│   │   ├── homeApi.js          # Home page data (publications, posts)
-│   │   ├── locationsApi.js     # Location data
-│   │   └── postsApi.js         # Posts and press releases
 │   │
 │   ├── controllers/            # Business logic controllers (MVC pattern)
-│   │   ├── useAwardDetailsController.js
-│   │   ├── useAwardsController.js
-│   │   ├── useCareersController.js
-│   │   ├── useFacesController.js
-│   │   ├── useHeroController.js
-│   │   ├── useLeadersController.js
-│   │   ├── useLocationsController.js
-│   │   ├── useOverviewController.js
-│   │   ├── usePressReleaseController.js
-│   │   ├── usePressReleaseDbController.js
-│   │   ├── usePressReleaseDetailsController.js
-│   │   └── usePublicationsController.js
 │   │
 │   ├── components/             # Reusable UI components
-│   │   ├── CallToAction.jsx    # Call-to-action component
-│   │   ├── Dashboard.jsx       # Main dashboard/home page
-│   │   ├── Dashboard.css       # Dashboard styles
-│   │   ├── Footer.jsx          # Footer component
-│   │   ├── Header.jsx          # Navigation header
-│   │   ├── Hero.jsx            # Hero section with carousel
-│   │   ├── PressReleasedb.jsx  # Press release component
-│   │   └── Publications.jsx    # Publications showcase
 │   │
 │   ├── WhoAreWe/              # About Us section
-│   │   ├── AboutUs.jsx         # Company about page
-│   │   ├── AboutUs.css
-│   │   ├── Logos.jsx           # Company logos showcase
-│   │   ├── Logos.css
-│   │   ├── Mission.jsx         # Mission statement
-│   │   ├── Mission.css
-│   │   ├── Vision.jsx          # Vision statement
-│   │   └── Vision.css
 │   │
 │   ├── Leaders/               # Leadership section
-│   │   ├── Faces.jsx           # Faces behind WNL
-│   │   ├── Faces.css
-│   │   ├── Leaders.jsx         # Leadership team page
-│   │   └── Leaders.css
 │   │
 │   ├── Categories/            # Content categories
-│   │   ├── AwardDetails.jsx    # Individual award details
-│   │   ├── AwardDetails.css
-│   │   ├── Awards.jsx          # Awards listing
-│   │   ├── Awards.css
-│   │   ├── Careers.jsx         # Job listings
-│   │   ├── Careers.css
-│   │   ├── JobDetails.jsx      # Job detail page
-│   │   ├── JobDetails.css
-│   │   ├── PressRelease.jsx    # Press releases listing
-│   │   └── PressRelease.css
 │   │
 │   ├── Others/                # Additional pages
-│   │   ├── OurJourny.jsx       # Company journey/history
-│   │   ├── OurJourny.css
-│   │   ├── Overview.jsx        # Company overview
-│   │   ├── Overview.css
-│   │   ├── Papers.jsx          # Publications/papers
-│   │   ├── Papers.css
-│   │   ├── PressReleaseDetails.jsx  # Press release detail page
-│   │   └── PressReleaseDetails.css
 │   │
 │   ├── More/                  # Supplementary pages
-│   │   ├── AdvertiseWithUs.jsx # Advertising information
-│   │   ├── AdvertiseWithUs.css
-│   │   ├── ContactUs.jsx       # Contact form and information
-│   │   ├── ContactUs.css
-│   │   ├── FAQ.jsx             # Frequently asked questions
-│   │   ├── FAQ.css
-│   │   ├── Locations.jsx       # Office locations
-│   │   └── Locations.css
 │   │
 │   ├── utils/                 # Utility functions
 │   │   ├── formatError.js      # Error formatting utilities
@@ -264,96 +201,6 @@ The application integrates with a Laravel backend API (default: `http://127.0.0.
 | `/posts` | GET | Fetch all posts |
 | `/posts/{id}` | GET | Fetch single post details |
 
-### API Service Structure
-
-```javascript
-// Example: src/api/homeApi.js
-const API_URL = 'http://127.0.0.1:8000/api';
-
-export async function fetchPublicationsFromApi() {
-  try {
-    const response = await fetch(`${API_URL}/publications`);
-    if (!response.ok) throw new Error('Failed to fetch');
-    return await response.json();
-  } catch (error) {
-    console.error('Error:', error);
-    throw error;
-  }
-}
-```
-
-### Controller Hook Pattern
-
-```javascript
-// Example: src/controllers/usePublicationsController.js
-import { useState, useEffect } from 'react';
-import { fetchPublicationsFromApi } from '../api/homeApi';
-
-export function usePublicationsController() {
-  const [publications, setPublications] = useState([]);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    async function loadData() {
-      try {
-        const data = await fetchPublicationsFromApi();
-        setPublications(data);
-      } catch (error) {
-        console.error(error);
-      } finally {
-        setLoading(false);
-      }
-    }
-    loadData();
-  }, []);
-
-  return { publications, loading };
-}
-```
-
-## 🗺️ Routes
-
-The application includes the following client-side routes:
-
-| Route | Component | Description | Dynamic |
-|-------|-----------|-------------|---------|
-| `/` | Dashboard | Home page with hero carousel and highlights | No |
-| `/about-us` | AboutUs | Company information and history | No |
-| `/leaders` | Leaders | Executive leadership team profiles | No |
-| `/faces` | Faces | Team members behind WNL | No |
-| `/awards` | Awards | Awards and recognition showcase | No |
-| `/award/:id` | AwardDetails | Individual award details | Yes |
-| `/careers` | Careers | Current job openings | No |
-| `/job/:id` | JobDetails | Detailed job posting | Yes |
-| `/press-release` | PressRelease | Press releases listing | No |
-| `/press-release/:id` | PressReleaseDetails | Detailed press release | Yes |
-| `/papers` | Papers | Publications portfolio | No |
-| `/overview` | Overview | Company overview | No |
-| `/our-journey` | OurJourny | Company history and milestones | No |
-| `/locations` | Locations | Office locations and map | No |
-| `/faq` | FAQ | Frequently asked questions | No |
-| `/advertise-with-us` | AdvertiseWithUs | Advertising opportunities | No |
-| `/contact-us` | ContactUs | Contact form and information | No |
-
-### Route Configuration
-
-Routes are configured in `src/App.jsx`:
-
-```javascript
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-
-<BrowserRouter>
-  <ScrollToTop />
-  <Header />
-  <Routes>
-    <Route path="/" element={<Dashboard />} />
-    <Route path="/about-us" element={<AboutUs />} />
-    {/* ... more routes */}
-  </Routes>
-  <Footer />
-</BrowserRouter>
-```
-
 ## 💻 Development
 
 ### Code Style & Guidelines
@@ -381,93 +228,6 @@ npm run lint
 5. **Routing**: All routes defined in `App.jsx`
 6. **Animations**: AOS library initialized globally in `App.jsx`
 
-#### Project Conventions
-
-```javascript
-// ✅ Good: Separation of concerns
-import { useAwardsController } from '../controllers/useAwardsController';
-
-function Awards() {
-  const { awards, loading } = useAwardsController();
-  // Component logic
-}
-
-// ❌ Avoid: API calls directly in components
-function Awards() {
-  const [awards, setAwards] = useState([]);
-  fetch('/api/awards')... // Don't do this
-}
-```
-
-### Adding New Features
-
-#### 1. Create API Service (if needed)
-
-```javascript
-// src/api/newFeatureApi.js
-const API_URL = 'http://127.0.0.1:8000/api';
-
-export async function fetchNewFeatureData() {
-  const response = await fetch(`${API_URL}/new-feature`);
-  return await response.json();
-}
-```
-
-#### 2. Create Controller Hook
-
-```javascript
-// src/controllers/useNewFeatureController.js
-import { useState, useEffect } from 'react';
-import { fetchNewFeatureData } from '../api/newFeatureApi';
-
-export function useNewFeatureController() {
-  const [data, setData] = useState([]);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    async function loadData() {
-      const result = await fetchNewFeatureData();
-      setData(result);
-      setLoading(false);
-    }
-    loadData();
-  }, []);
-
-  return { data, loading };
-}
-```
-
-#### 3. Create Component
-
-```javascript
-// src/components/NewFeature.jsx
-import { useNewFeatureController } from '../controllers/useNewFeatureController';
-import './NewFeature.css';
-
-function NewFeature() {
-  const { data, loading } = useNewFeatureController();
-  
-  if (loading) return <div>Loading...</div>;
-  
-  return (
-    <div className="new-feature">
-      {/* Component JSX */}
-    </div>
-  );
-}
-
-export default NewFeature;
-```
-
-#### 4. Add Route
-
-```javascript
-// src/App.jsx
-import NewFeature from './components/NewFeature';
-
-<Route path="/new-feature" element={<NewFeature />} />
-```
-
 ### Development Best Practices
 
 - **Hot Reload**: Vite provides instant hot module replacement
@@ -476,143 +236,6 @@ import NewFeature from './components/NewFeature';
 - **Error Handling**: Always include try-catch blocks in async operations
 - **Loading States**: Show loading indicators for async data fetching
 - **Responsive Design**: Test on multiple screen sizes using browser dev tools
-
-### Common Development Tasks
-
-```bash
-# Install a new dependency
-npm install package-name
-
-# Update dependencies
-npm update
-
-# Check for outdated packages
-npm outdated
-
-# Clear node_modules and reinstall
-rm -rf node_modules package-lock.json
-npm install
-```
-
-## 📦 Build & Deployment
-
-### Production Build
-
-```bash
-npm run build
-```
-
-This creates an optimized production build in the `dist/` directory:
-- Minified JavaScript and CSS
-- Optimized assets
-- Source maps for debugging
-
-### Build Output Structure
-
-```
-dist/
-├── index.html
-├── assets/
-│   ├── index-[hash].js
-│   ├── index-[hash].css
-│   └── [other assets]
-└── [public files]
-```
-
-### Preview Production Build
-
-Test the production build locally before deployment:
-
-```bash
-npm run preview
-```
-
-This starts a local server at `http://localhost:4173` to preview the production build.
-
-### Deployment Options
-
-#### 1. Static Hosting (Recommended)
-
-**Netlify:**
-```bash
-# Install Netlify CLI
-npm install -g netlify-cli
-
-# Deploy
-npm run build
-netlify deploy --prod
-```
-
-**Vercel:**
-```bash
-# Install Vercel CLI
-npm install -g vercel
-
-# Deploy
-vercel --prod
-```
-
-**GitHub Pages:**
-```bash
-# Install gh-pages
-npm install -D gh-pages
-
-# Add to package.json scripts
-"deploy": "npm run build && gh-pages -d dist"
-
-# Deploy
-npm run deploy
-```
-
-#### 2. Traditional Web Server
-
-1. Build the application: `npm run build`
-2. Copy `dist/` contents to your web server (Apache, Nginx, IIS)
-3. Configure server for SPA routing
-
-**Nginx Configuration:**
-```nginx
-server {
-    listen 80;
-    server_name yourdomain.com;
-    root /path/to/dist;
-    index index.html;
-
-    location / {
-        try_files $uri $uri/ /index.html;
-    }
-}
-```
-
-**Apache (.htaccess):**
-```apache
-<IfModule mod_rewrite.c>
-  RewriteEngine On
-  RewriteBase /
-  RewriteRule ^index\.html$ - [L]
-  RewriteCond %{REQUEST_FILENAME} !-f
-  RewriteCond %{REQUEST_FILENAME} !-d
-  RewriteRule . /index.html [L]
-</IfModule>
-```
-
-### Environment Configuration
-
-For different environments (dev, staging, production), create environment-specific API configurations:
-
-```javascript
-// src/config/environment.js
-const ENV = {
-  development: {
-    apiUrl: 'http://127.0.0.1:8000/api',
-  },
-  production: {
-    apiUrl: 'https://api.wnl.lk/api',
-  },
-};
-
-export const API_URL = ENV[process.env.NODE_ENV || 'development'].apiUrl;
-```
 
 ## 🌐 Browser Support
 
@@ -627,16 +250,6 @@ The application supports all modern browsers:
 | Opera | Latest |
 
 **Note:** Internet Explorer is not supported.
-
-## 📚 Assets Setup
-
-For detailed information about setting up images and assets, please refer to [ASSETS_SETUP.md](ASSETS_SETUP.md).
-
-**Quick Overview:**
-- Place assets in the `public/assets/` directory
-- Images go in `public/assets/img/`
-- Organize by categories: `slider/`, `portfolio/`, `leaders/`, etc.
-- Supported formats: JPG, PNG, SVG, WebP
 
 ## 🔧 Troubleshooting
 
@@ -700,10 +313,8 @@ of this software and associated documentation files...
 **Wijeya Newspapers Limited**  
 Sri Lanka's Premier Media Organization
 
-**Development Team:**
-- Frontend Development: React Team
-- Backend Integration: API Team
-- Design & UX: Creative Team
+**Developed by:**
+- Anuttara Nirmani
 
 ## 📞 Support
 
@@ -724,4 +335,4 @@ For technical support or questions:
 
 **Built with ❤️ by the WNL Development Team**
 
-*Last Updated: November 10, 2025*
+*Last Updated: November 21, 2025*
