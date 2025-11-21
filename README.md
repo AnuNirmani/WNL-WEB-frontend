@@ -7,20 +7,6 @@
 [![Bootstrap](https://img.shields.io/badge/Bootstrap-5.3.2-7952B3.svg)](https://getbootstrap.com/)
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
-## 📋 Table of Contents
-
-- [Overview](#overview)
-- [Features](#features)
-- [Tech Stack](#tech-stack)
-- [Getting Started](#getting-started)
-- [Project Structure](#project-structure)
-- [Architecture](#architecture)
-- [API Integration](#api-integration)
-- [Routes](#routes)
-- [Development](#development)
-- [Build & Deployment](#build--deployment)
-- [License](#license)
-
 ## 🌟 Overview
 
 WNL Web Frontend is a comprehensive single-page application (SPA) built for Wijeya Newspapers Limited, showcasing the company's rich portfolio of publications, leadership team, achievements, career opportunities, and corporate information. The application provides an engaging user experience with smooth animations, responsive design, and seamless navigation.
@@ -52,22 +38,22 @@ WNL Web Frontend is a comprehensive single-page application (SPA) built for Wije
 ## 🛠️ Tech Stack
 
 ### Frontend
-| Technology | Version | Purpose |
-|------------|---------|---------|
-| React | 18.3.1 | UI library for building component-based interfaces |
-| Vite | 5.4.1 | Next-generation frontend build tool |
-| React Router DOM | 7.9.4 | Declarative routing for React applications |
-| Bootstrap | 5.3.2 | CSS framework for responsive design |
-| AOS | 2.3.4 | Animate On Scroll library |
-| Axios | 1.12.2 | Promise-based HTTP client |
+| Technology | Version |
+|------------|---------|
+| React | 18.3.1 |
+| Vite | 5.4.1 |
+| React Router DOM | 7.9.4 |
+| Bootstrap | 5.3.2 |
+| AOS | 2.3.4 |
+| Axios | 1.12.2 |
 
 ### Development Tools
-| Tool | Version | Purpose |
-|------|---------|---------|
-| ESLint | 9.9.0 | Code linting and quality checks |
-| @vitejs/plugin-react | 4.3.1 | Official Vite plugin for React |
-| eslint-plugin-react | 7.35.0 | React-specific linting rules |
-| eslint-plugin-react-hooks | 5.1.0-rc.0 | Enforce Rules of Hooks |
+| Tool | Version |
+|------|---------|
+| ESLint | 9.9.0 |
+| @vitejs/plugin-react | 4.3.1 |
+| eslint-plugin-react | 7.35.0 |
+| eslint-plugin-react-hooks | 5.1.0-rc.0 |
 
 ## 🚀 Getting Started
 
@@ -98,18 +84,14 @@ yarn install
    - Default: `http://127.0.0.1:8000/api`
    - Update the `API_URL` constant if your backend is hosted elsewhere
 
-4. **Set up assets**: 
-   - See [ASSETS_SETUP.md](ASSETS_SETUP.md) for detailed asset configuration
-   - Place images in `public/assets/img/` directory
-
-5. **Start the development server**:
+4. **Start the development server**:
 ```bash
 npm run dev
 # or
 yarn dev
 ```
 
-The application will be available at **`http://localhost:5173`**
+The application will be available at **`http://localhost:5174`**
 
 ### 📜 Available Scripts
 
@@ -134,17 +116,22 @@ npm run dev
 
 ```
 WNL-WEB-frontend/
-├── public/                      # Static files served directly
-│   └── assets/                  # Public assets (images, icons)
+├── .env                        # Environment variables
+├── .gitignore                  # Git ignore file
+├── dist/                       # Production build output (generated)
+├── node_modules/               # NPM dependencies (generated)
+├── public/                     # Static files served directly
+│   └── .gitkeep                # Placeholder for empty directory
 │
-├── src/                         # Source code
-│   ├── api/                     # API service layer
-│   │   ├── employeeApi.js       # Employee/leadership data
-│   │   ├── homeApi.js           # Home page data (publications, posts)
-│   │   ├── locationsApi.js      # Location data
-│   │   └── postsApi.js          # Posts and press releases
+├── src/                        # Source code
+│   ├── api/                    # API service layer
+│   │   ├── client.js           # API client configuration
+│   │   ├── employeeApi.js      # Employee/leadership data
+│   │   ├── homeApi.js          # Home page data (publications, posts)
+│   │   ├── locationsApi.js     # Location data
+│   │   └── postsApi.js         # Posts and press releases
 │   │
-│   ├── controllers/             # Business logic controllers (MVC pattern)
+│   ├── controllers/            # Business logic controllers (MVC pattern)
 │   │   ├── useAwardDetailsController.js
 │   │   ├── useAwardsController.js
 │   │   ├── useCareersController.js
@@ -158,77 +145,82 @@ WNL-WEB-frontend/
 │   │   ├── usePressReleaseDetailsController.js
 │   │   └── usePublicationsController.js
 │   │
-│   ├── components/              # Reusable UI components
-│   │   ├── Dashboard.jsx        # Main dashboard/home page
-│   │   ├── Dashboard.css        # Dashboard styles
-│   │   ├── Header.jsx           # Navigation header
-│   │   ├── Footer.jsx           # Footer component
-│   │   ├── Hero.jsx             # Hero section with carousel
-│   │   ├── Publications.jsx     # Publications showcase
-│   │   ├── PressReleasedb.jsx   # Press release component
-│   │   └── CallToAction.jsx     # Call-to-action component
+│   ├── components/             # Reusable UI components
+│   │   ├── CallToAction.jsx    # Call-to-action component
+│   │   ├── Dashboard.jsx       # Main dashboard/home page
+│   │   ├── Dashboard.css       # Dashboard styles
+│   │   ├── Footer.jsx          # Footer component
+│   │   ├── Header.jsx          # Navigation header
+│   │   ├── Hero.jsx            # Hero section with carousel
+│   │   ├── PressReleasedb.jsx  # Press release component
+│   │   └── Publications.jsx    # Publications showcase
 │   │
-│   ├── WhoAreWe/               # About Us section
-│   │   ├── AboutUs.jsx          # Company about page
+│   ├── WhoAreWe/              # About Us section
+│   │   ├── AboutUs.jsx         # Company about page
 │   │   ├── AboutUs.css
-│   │   ├── Mission.jsx          # Mission statement
+│   │   ├── Logos.jsx           # Company logos showcase
+│   │   ├── Logos.css
+│   │   ├── Mission.jsx         # Mission statement
 │   │   ├── Mission.css
-│   │   ├── Vision.jsx           # Vision statement
-│   │   ├── Vision.css
-│   │   ├── Logos.jsx            # Company logos showcase
-│   │   └── Logos.css
+│   │   ├── Vision.jsx          # Vision statement
+│   │   └── Vision.css
 │   │
-│   ├── Leaders/                # Leadership section
-│   │   ├── Leaders.jsx          # Leadership team page
-│   │   ├── Leaders.css
-│   │   ├── Faces.jsx            # Faces behind WNL
-│   │   └── Faces.css
+│   ├── Leaders/               # Leadership section
+│   │   ├── Faces.jsx           # Faces behind WNL
+│   │   ├── Faces.css
+│   │   ├── Leaders.jsx         # Leadership team page
+│   │   └── Leaders.css
 │   │
-│   ├── Categories/             # Content categories
-│   │   ├── Awards.jsx           # Awards listing
-│   │   ├── Awards.css
-│   │   ├── AwardDetails.jsx     # Individual award details
+│   ├── Categories/            # Content categories
+│   │   ├── AwardDetails.jsx    # Individual award details
 │   │   ├── AwardDetails.css
-│   │   ├── Careers.jsx          # Job listings
+│   │   ├── Awards.jsx          # Awards listing
+│   │   ├── Awards.css
+│   │   ├── Careers.jsx         # Job listings
 │   │   ├── Careers.css
-│   │   ├── JobDetails.jsx       # Job detail page
+│   │   ├── JobDetails.jsx      # Job detail page
 │   │   ├── JobDetails.css
-│   │   ├── PressRelease.jsx     # Press releases listing
+│   │   ├── PressRelease.jsx    # Press releases listing
 │   │   └── PressRelease.css
 │   │
-│   ├── Others/                 # Additional pages
-│   │   ├── Overview.jsx         # Company overview
-│   │   ├── Overview.css
-│   │   ├── OurJourny.jsx        # Company journey/history
+│   ├── Others/                # Additional pages
+│   │   ├── OurJourny.jsx       # Company journey/history
 │   │   ├── OurJourny.css
-│   │   ├── Papers.jsx           # Publications/papers
+│   │   ├── Overview.jsx        # Company overview
+│   │   ├── Overview.css
+│   │   ├── Papers.jsx          # Publications/papers
 │   │   ├── Papers.css
 │   │   ├── PressReleaseDetails.jsx  # Press release detail page
 │   │   └── PressReleaseDetails.css
 │   │
-│   ├── More/                   # Supplementary pages
-│   │   ├── Locations.jsx        # Office locations
-│   │   ├── Locations.css
-│   │   ├── FAQ.jsx              # Frequently asked questions
-│   │   ├── FAQ.css
-│   │   ├── AdvertiseWithUs.jsx  # Advertising information
+│   ├── More/                  # Supplementary pages
+│   │   ├── AdvertiseWithUs.jsx # Advertising information
 │   │   ├── AdvertiseWithUs.css
-│   │   ├── ContactUs.jsx        # Contact form and information
-│   │   └── ContactUs.css
+│   │   ├── ContactUs.jsx       # Contact form and information
+│   │   ├── ContactUs.css
+│   │   ├── FAQ.jsx             # Frequently asked questions
+│   │   ├── FAQ.css
+│   │   ├── Locations.jsx       # Office locations
+│   │   └── Locations.css
 │   │
-│   ├── assets/                 # Local assets
-│   ├── App.jsx                 # Root component with routing
-│   ├── ScrollToTop.jsx         # Scroll to top utility
-│   ├── main.jsx                # Application entry point
-│   └── index.css               # Global styles
+│   ├── utils/                 # Utility functions
+│   │   ├── formatError.js      # Error formatting utilities
+│   │   └── sanitize.js         # Input sanitization utilities
+│   │
+│   ├── assets/                # Local assets (images, fonts, etc.)
+│   ├── App.jsx                # Root component with routing
+│   ├── ScrollToTop.jsx        # Scroll to top utility component
+│   ├── main.jsx               # Application entry point
+│   └── index.css              # Global styles
 │
-├── ASSETS_SETUP.md             # Asset configuration guide
-├── eslint.config.js            # ESLint configuration
-├── index.html                  # HTML entry point
-├── LICENSE                     # MIT License
-├── package.json                # Dependencies and scripts
-├── README.md                   # Project documentation
-└── vite.config.js              # Vite configuration
+├── eslint.config.js           # ESLint configuration
+├── index.html                 # HTML entry point
+├── LICENSE                    # MIT License
+├── package.json               # Dependencies and scripts
+├── package-lock.json          # NPM lockfile
+├── README.md                  # Project documentation
+├── SECURITY_IMPLEMENTATION.md # Security implementation guide
+└── vite.config.js             # Vite configuration
 ```
 
 ## 🏗️ Architecture
