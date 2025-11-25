@@ -90,30 +90,30 @@ const Footer = () => {
                 <div className="contact-section">
                   <div className="contact-item">
                     <h5 className="contact-subheading">Editorial:</h5>
-                    <p className="contact-details">Phone - +94 112 479 356</p>
-                    <p className="contact-details">E-mail - dmonlinelk@gmail.com</p>
+                    <p className="contact-details">Phone - <a href="tel:+94112479356" style={{ color: '#ffffffff', textDecoration: 'none' }}>+94 112 479 356</a></p>
+                    <p className="contact-details">E-mail - <a href="mailto:dmonlinelk@gmail.com" style={{ color: '#ffffffff', textDecoration: 'none' }}>dmonlinelk@gmail.com</a></p>
                   </div>
                   
                   <div className="contact-item">
                     <h5 className="contact-subheading">Technical:</h5>
-                    <p className="contact-details">Phone - +94 112 479 884</p>
-                    <p className="contact-details">E-mail - helpdesk@wijeya.lk</p>
+                    <p className="contact-details">Phone - <a href="tel:+94112479884" style={{ color: '#ffffffff', textDecoration: 'none' }}>+94 112 479 884</a></p>
+                    <p className="contact-details">E-mail - <a href="mailto:helpdesk@wijeya.lk" style={{ color: '#ffffffff', textDecoration: 'none' }}>helpdesk@wijeya.lk</a></p>
                   </div>
                   
                   <div className="contact-item">
                     <h5 className="contact-subheading">Web Advertising:</h5>
-                    <p className="contact-details">Phone (Dilan) - +94 77 372 7288</p>
-                    <p className="contact-details">E-mail - dilanj@wnl.lk</p>
-                    <p className="contact-details">Phone (Dushyanth) - +94 77 912 5988</p>
-                    <p className="contact-details">E-mail - dushyantha@wijeyadigital.lk</p>
-                    <p className="contact-details">Phone (Sanjaya) - +94 76 685 3168</p>
-                    <p className="contact-details">E-mail - sanjaya@wijeyadigital.lk</p>
+                    <p className="contact-details">Phone (Dilan) - <a href="tel:+94773727288" style={{ color: '#ffffffff', textDecoration: 'none' }}>+94 77 372 7288</a></p>
+                    <p className="contact-details">E-mail - <a href="mailto:dilanj@wnl.lk" style={{ color: '#ffffffff', textDecoration: 'none' }}>dilanj@wnl.lk</a></p>
+                    <p className="contact-details">Phone (Dushyanth) - <a href="tel:+94779125988" style={{ color: '#ffffffff', textDecoration: 'none' }}>+94 77 912 5988</a></p>
+                    <p className="contact-details">E-mail - <a href="mailto:dushyantha@wijeyadigital.lk" style={{ color: '#ffffffff', textDecoration: 'none' }}>dushyantha@wijeyadigital.lk</a></p>
+                    <p className="contact-details">Phone (Sanjaya) - <a href="tel:+94766853168" style={{ color: '#ffffffff', textDecoration: 'none' }}>+94 76 685 3168</a></p>
+                    <p className="contact-details">E-mail - <a href="mailto:sanjaya@wijeyadigital.lk" style={{ color: '#ffffffff', textDecoration: 'none' }}>sanjaya@wijeyadigital.lk</a></p>
                   </div>
                   
                   <div className="contact-item">
                     <h5 className="contact-subheading">Print Advertising:</h5>
-                    <p className="contact-details">Phone (Indika) - +94 77 385 0781</p>
-                    <p className="contact-details">E-mail - indikaj@wijeya.lk</p>
+                    <p className="contact-details">Phone (Indika) - <a href="tel:+94773850781" style={{ color: '#ffffffff', textDecoration: 'none' }}>+94 77 385 0781</a></p>
+                    <p className="contact-details">E-mail - <a href="mailto:indikaj@wijeya.lk" style={{ color: '#ffffffff', textDecoration: 'none' }}>indikaj@wijeya.lk</a></p>
                   </div>
                 </div>
               </div>
@@ -132,11 +132,13 @@ const Footer = () => {
       }}>
         <div className="container">
           <div className="row align-items-center">
-            <div className="col-md-6">
-              <div className="copyright" style={{ color: '#fff', margin: 0 }}>
-                &copy; Copyright <strong>WNL</strong>. All Rights Reserved
+            
+              <div className="copyright" >
+                
+                <center>© 2025 Developed and Maintained by WNL in collaboration with Web Publishing Department </center>
+                  <center>© All rights reserved, 2008 - Wijeya Newspapers Ltd. </center>
               </div>
-            </div>
+         
             <div className="col-md-6 text-end">
               <a href="#" className="back-to-top" style={{
                 display: 'inline-flex',

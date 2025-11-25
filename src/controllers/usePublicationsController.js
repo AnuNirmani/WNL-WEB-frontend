@@ -1,6 +1,7 @@
 // src/controllers/usePublicationsController.js
 import { useState, useEffect, useCallback } from 'react';
 import { fetchPublicationsFromApi } from '../api/homeApi';
+import { formatFriendlyError } from '../utils/formatError';
 
 export default function usePublicationsController() {
   const [publications, setPublications] = useState([]);
@@ -16,7 +17,7 @@ export default function usePublicationsController() {
       setPublications(publicationsData);
     } catch (err) {
       console.error('Error fetching publications from database:', err);
-      setError(err.message || 'Error loading publications.');
+      setError(formatFriendlyError(err));
     } finally {
       setLoading(false);
     }

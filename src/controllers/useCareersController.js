@@ -1,6 +1,7 @@
 // src/controllers/useCareersController.js
 import { useState, useEffect, useCallback } from 'react';
 import { fetchCareersFromApi } from '../api/postsApi';
+import { formatFriendlyError } from '../utils/formatError';
 
 export default function useCareersController() {
   const [careers, setCareers] = useState([]);
@@ -14,14 +15,14 @@ export default function useCareersController() {
 
       const careers = await fetchCareersFromApi();
 
-      // Filter only visible careers (backend should handle category filtering)
+      // Filter only visible careers (status = 1 means visible/active)
       const filtered = careers.filter(item => 
-        item.status && item.status.toLowerCase() === 'visible'
+        item.status === 1 || item.status === '1'
       );
 
       setCareers(filtered);
     } catch (err) {
-      setError('Failed to load career listings.');
+      setError(formatFriendlyError(err));
       console.error('Error in fetchCareers:', err);
     } finally {
       setLoading(false);

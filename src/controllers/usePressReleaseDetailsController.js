@@ -1,6 +1,8 @@
 // src/controllers/usePressReleaseDetailsController.js
 import { useState, useEffect, useCallback } from 'react';
 import { fetchPressReleaseDetails } from '../api/postsApi';
+import { sanitizeHtml } from '../utils/sanitize';
+import { formatFriendlyError } from '../utils/formatError';
 
 export default function usePressReleaseDetailsController(id) {
   const [release, setRelease] = useState(null);
@@ -11,9 +13,15 @@ export default function usePressReleaseDetailsController(id) {
     try {
       setLoading(true);
       const data = await fetchPressReleaseDetails(id);
+      
+      // Sanitize description HTML
+      if (data.description) {
+        data.description = sanitizeHtml(data.description);
+      }
+      
       setRelease(data);
     } catch (err) {
-      setError(err.message);
+      setError(formatFriendlyError(err));
     } finally {
       setLoading(false);
     }

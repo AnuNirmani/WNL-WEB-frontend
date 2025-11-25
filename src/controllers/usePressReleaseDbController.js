@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { fetchPressReleases } from '../api/postsApi';
+import { formatFriendlyError } from '../utils/formatError';
 
 /**
  * Controller hook for managing Press Release list logic
@@ -42,7 +43,7 @@ export const usePressReleaseDbController = () => {
       if (isLoadMore) setPressReleases((prev) => [...prev, ...data]);
       else setPressReleases(data);
     } catch (error) {
-      console.error('Error fetching latest press releases:', error);
+      console.error('Error fetching latest press releases:', formatFriendlyError(error));
       setHasMore(false);
     } finally {
       setLoading(false);

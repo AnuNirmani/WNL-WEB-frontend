@@ -1,6 +1,7 @@
 // src/controllers/useHeroController.js
 import { useState, useEffect, useCallback } from 'react';
 import { fetchLatestPosts } from '../api/homeApi';
+import { formatFriendlyError } from '../utils/formatError';
 
 export default function useHeroController() {
   const [newsItems, setNewsItems] = useState([]);
@@ -25,7 +26,7 @@ export default function useHeroController() {
 
       setNewsItems(formatted);
     } catch (err) {
-      setError(err.message || 'Failed to load latest posts');
+      setError(formatFriendlyError(err));
     } finally {
       setLoading(false);
     }

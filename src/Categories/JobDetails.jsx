@@ -51,7 +51,11 @@ const JobDetails = () => {
   };
 
   const handleApply = () => {
-    alert('Application functionality would be implemented here.');
+    const email = 'careers@wijeya.lk'; // Replace with actual HR email
+    const subject = `Application for ${jobData?.title || 'Job Position'}`;
+    const body = `Dear Hiring Team,`;
+    
+    window.location.href = `mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
   };
 
   if (loading) {
@@ -115,7 +119,7 @@ const JobDetails = () => {
             ></div>
 
             <button className="btn-apply" onClick={handleApply}>
-              Apply for this position
+              Send Your CV To Us
             </button>
           </div>
 

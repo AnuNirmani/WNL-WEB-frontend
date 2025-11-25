@@ -1,6 +1,8 @@
 // src/controllers/useOverviewController.js
 import { useState, useEffect, useCallback } from 'react';
 import { fetchPostById } from '../api/postsApi';
+import { sanitizeHtml } from '../utils/sanitize';
+import { formatFriendlyError } from '../utils/formatError';
 
 export default function useOverviewController(id) {
   const [post, setPost] = useState(null);
@@ -18,9 +20,15 @@ export default function useOverviewController(id) {
       setLoading(true);
       setError(null);
       const data = await fetchPostById(id);
+      
+      // Sanitize description HTML
+      if (data.description) {
+        data.description = sanitizeHtml(data.description);
+      }
+      
       setPost(data);
     } catch (err) {
-      setError(err.message || 'Failed to load post details.');
+      setError(formatFriendlyError(err));
     } finally {
       setLoading(false);
     }

@@ -1,11 +1,9 @@
-const API_URL = 'http://127.0.0.1:8000/api/employees';
+import { authFetch } from './client';
 
 // src/api/facesApi.js
 export async function fetchFacesFromApi(page = 1, perPage = 12) {
   try {
-    const response = await fetch(`${API_URL}?page=${page}&per_page=${perPage}`);
-    if (!response.ok) throw new Error('Network error while fetching employees');
-    const data = await response.json();
+    const data = await authFetch(`/employees?page=${page}&per_page=${perPage}`);
     // Handle paginated response or regular array
     if (data.data && Array.isArray(data.data)) {
       return {
@@ -36,9 +34,7 @@ export async function fetchFacesFromApi(page = 1, perPage = 12) {
 export async function fetchLeadersFromApi(page = 1, perPage = 12) {
   
   try {
-    const response = await fetch(`${API_URL}?page=${page}&per_page=${perPage}`);
-    if (!response.ok) throw new Error('Network error while fetching leaders');
-    const data = await response.json();
+    const data = await authFetch(`/employees?page=${page}&per_page=${perPage}`);
     // Handle paginated response or regular array
     if (data.data && Array.isArray(data.data)) {
       return {
