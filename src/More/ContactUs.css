@@ -240,6 +240,37 @@
   padding: 12px 15px;
   resize: vertical;
   min-height: 120px;
+  width: 100%;
+  pointer-events: auto !important;
+  position: relative !important;
+  z-index: 999 !important;
+  background-color: #fff !important;
+  cursor: text !important;
+  border: 1px solid #ced4da;
+  font-family: inherit;
+  font-size: 14px;
+}
+
+.php-email-form textarea:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+.php-email-form textarea:disabled {
+  pointer-events: none;
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.php-email-form .form-group {
+  position: relative;
+}
+
+.php-email-form .validate {
+  position: relative;
+  z-index: 0;
+  pointer-events: none;
 }
 
 .php-email-form button[type="submit"] {

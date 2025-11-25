@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Contact DB Test</title>
+  </head>
+  <body>
+    <h1>Contact → wnl_db.emails Test</h1>
+    <form action="http://localhost/WNL-Web4/WNL-WEB-frontend/public/contact_save.php" method="POST">
+      <div>
+        <label>Name:</label>
+        <input type="text" name="name" required />
+      </div>
+      <div>
+        <label>Email:</label>
+        <input type="email" name="email" required />
+      </div>
+      <div>
+        <label>Subject:</label>
+        <input type="text" name="subject" required />
+      </div>
+      <div>
+        <label>Message:</label>
+        <textarea name="message" rows="5" required></textarea>
+      </div>
+      <button type="submit">Send & Save</button>
+    </form>
+  </body>
+  </html>
+
+
+
