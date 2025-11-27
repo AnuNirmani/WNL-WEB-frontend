@@ -4,7 +4,6 @@
 
 [![React](https://img.shields.io/badge/React-18.3.1-blue.svg)](https://reactjs.org/)
 [![Vite](https://img.shields.io/badge/Vite-5.4.1-646CFF.svg)](https://vitejs.dev/)
-[![Bootstrap](https://img.shields.io/badge/Bootstrap-5.3.2-7952B3.svg)](https://getbootstrap.com/)
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
 ## 🌟 Overview
@@ -125,19 +124,12 @@ WNL-WEB-frontend/
 │
 ├── src/                        # Source code
 │   ├── api/                    # API service layer
-│   │
 │   ├── controllers/            # Business logic controllers (MVC pattern)
-│   │
 │   ├── components/             # Reusable UI components
-│   │
 │   ├── WhoAreWe/              # About Us section
-│   │
 │   ├── Leaders/               # Leadership section
-│   │
 │   ├── Categories/            # Content categories
-│   │
 │   ├── Others/                # Additional pages
-│   │
 │   ├── More/                  # Supplementary pages
 │   │
 │   ├── utils/                 # Utility functions
@@ -156,7 +148,6 @@ WNL-WEB-frontend/
 ├── package.json               # Dependencies and scripts
 ├── package-lock.json          # NPM lockfile
 ├── README.md                  # Project documentation
-├── SECURITY_IMPLEMENTATION.md # Security implementation guide
 └── vite.config.js             # Vite configuration
 ```
 
