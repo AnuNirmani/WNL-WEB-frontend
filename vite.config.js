@@ -9,15 +9,32 @@ export default defineConfig({
     port: 5174,
     open: true, // Automatically open browser
     strictPort: false, // Try next available port if 5173 is busy
-    // Dev proxy to avoid browser CORS issues. Frontend can call 
-    // relative paths like '/api/...', which will be proxied to the backend.
+    // Dev proxy to avoid browser CORS issues.
+    // Frontend can call relative paths like '/api/...',
+    // which will be proxied to the Laravel backend.
     proxy: {
+      // Proxy contact_save.php to XAMPP server (MUST be before /api rule)
+      '/contact_save.php': {
+        target: 'http://localhost',
+        changeOrigin: true,
+        secure: false,
+        rewrite: (path) => {
+          // Rewrite to full XAMPP path
+          return '/WNL-Web4/WNL-WEB-frontend/public/contact_save.php';
+        },
+        configure: (proxy, options) => {
+          proxy.on('error', (err, req, res) => {
+            console.log('Proxy error for contact_save.php:', err.message);
+          });
+          proxy.on('proxyReq', (proxyReq, req, res) => {
+            console.log('Proxying contact_save.php to:', proxyReq.path);
+          });
+        },
+      },
       '/api': {
         target: 'http://127.0.0.1:8000',
         changeOrigin: true,
         secure: false,
-        // If backend is mounted under /api already, no rewrite needed;
-        // keep it explicit in case of future changes.
         rewrite: (path) => path,
       },
     },

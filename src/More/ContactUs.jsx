@@ -23,11 +23,62 @@ const ContactUs = () => {
   }
 
   const handleSubmit = async (e) => {
-    e.preventDefault()
+    e.preventDefault() // Prevent default form submission
     setIsSubmitting(true)
     setSubmitStatus('')
 
     try {
+<<<<<<< HEAD
+      // Create FormData from form fields
+      const formDataToSend = new FormData()
+      formDataToSend.append('name', formData.name)
+      formDataToSend.append('email', formData.email)
+      formDataToSend.append('subject', formData.subject)
+      formDataToSend.append('message', formData.message)
+
+      // Use Laravel API endpoint (already working, proxy configured)
+      const apiUrl = '/api/contact'
+      console.log('Submitting to:', apiUrl)
+      
+      // Convert FormData to JSON for Laravel API
+      const jsonData = {
+        name: formData.name,
+        email: formData.email,
+        subject: formData.subject,
+        message: formData.message
+      }
+      
+      const response = await fetch(apiUrl, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(jsonData),
+      })
+
+      console.log('Response status:', response.status)
+
+      if (!response.ok) {
+        const errorText = await response.text()
+        console.error('Error response:', errorText)
+        throw new Error(`Server error: ${response.status}`)
+      }
+
+      const result = await response.json()
+      console.log('Response:', result)
+
+      if (result.success) {
+        setSubmitStatus('success')
+        setFormData({ name: '', email: '', subject: '', message: '' })
+        
+        // Hide success message after 5 seconds
+        setTimeout(() => setSubmitStatus(''), 5000)
+      } else {
+        throw new Error(result.message || 'Failed to save')
+      }
+    } catch (error) {
+      console.error('Form submission error:', error)
+=======
       const response = await fetch(
         "http://localhost/wnl_ci/index.php/api/send-email",
         {
@@ -49,7 +100,9 @@ const ContactUs = () => {
       }
     } catch (error) {
       console.error("Error submitting form:", error)
+>>>>>>> 3d334f9f79520f2ecf0bfbf69f2865f801182c5c
       setSubmitStatus('error')
+      alert('Error: ' + error.message)
     } finally {
       setIsSubmitting(false)
     }
@@ -136,7 +189,11 @@ const ContactUs = () => {
 
               {/* Contact Form */}
               <div className="col-lg-7 mt-5 mt-lg-0 d-flex align-items-stretch">
-                <form onSubmit={handleSubmit} className="php-email-form">
+                <form 
+                  onSubmit={handleSubmit} 
+                  className="php-email-form"
+                  noValidate
+                >
                   <div className="form-row">
                     <div className="form-group col-md-6">
                       <label htmlFor="name">Your Name</label>
@@ -176,14 +233,34 @@ const ContactUs = () => {
 
                   <div className="form-group">
                     <label htmlFor="message">Message</label>
+<<<<<<< HEAD
+                    <textarea 
+                      className="form-control"
+                      name="message"
+                      id="message"
+                      rows="10" 
+=======
                     <textarea
                       name="message"
                       rows="10"
                       className="form-control"
+>>>>>>> 3d334f9f79520f2ecf0bfbf69f2865f801182c5c
                       value={formData.message}
                       onChange={handleInputChange}
+                      placeholder="Enter your message here..."
                       required
+<<<<<<< HEAD
+                      disabled={isSubmitting}
+                      style={{ 
+                        width: '100%',
+                        minHeight: '120px',
+                        resize: 'vertical'
+                      }}
+                    />
+                    <div className="validate"></div>
+=======
                     ></textarea>
+>>>>>>> 3d334f9f79520f2ecf0bfbf69f2865f801182c5c
                   </div>
 
                   <div className="mb-3">
