@@ -28,7 +28,6 @@ const ContactUs = () => {
     setSubmitStatus('')
 
     try {
-<<<<<<< HEAD
       // Create FormData from form fields
       const formDataToSend = new FormData()
       formDataToSend.append('name', formData.name)
@@ -78,29 +77,6 @@ const ContactUs = () => {
       }
     } catch (error) {
       console.error('Form submission error:', error)
-=======
-      const response = await fetch(
-        "http://localhost/wnl_ci/index.php/api/send-email",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify(formData)
-        }
-      )
-
-      const data = await response.json()
-
-      if (response.ok && data.status === "success") {
-        setSubmitStatus('success')
-        setFormData({ name: '', email: '', subject: '', message: '' })
-      } else {
-        setSubmitStatus('error')
-      }
-    } catch (error) {
-      console.error("Error submitting form:", error)
->>>>>>> 3d334f9f79520f2ecf0bfbf69f2865f801182c5c
       setSubmitStatus('error')
       alert('Error: ' + error.message)
     } finally {
@@ -233,23 +209,15 @@ const ContactUs = () => {
 
                   <div className="form-group">
                     <label htmlFor="message">Message</label>
-<<<<<<< HEAD
                     <textarea 
                       className="form-control"
                       name="message"
                       id="message"
-                      rows="10" 
-=======
-                    <textarea
-                      name="message"
                       rows="10"
-                      className="form-control"
->>>>>>> 3d334f9f79520f2ecf0bfbf69f2865f801182c5c
                       value={formData.message}
                       onChange={handleInputChange}
                       placeholder="Enter your message here..."
                       required
-<<<<<<< HEAD
                       disabled={isSubmitting}
                       style={{ 
                         width: '100%',
@@ -258,9 +226,6 @@ const ContactUs = () => {
                       }}
                     />
                     <div className="validate"></div>
-=======
-                    ></textarea>
->>>>>>> 3d334f9f79520f2ecf0bfbf69f2865f801182c5c
                   </div>
 
                   <div className="mb-3">
