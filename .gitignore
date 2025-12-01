@@ -31,3 +31,5 @@ SECURITY_IMPLEMENTATION.md
 *.sln
 *.sw?
 
+
+/.vite.config.js

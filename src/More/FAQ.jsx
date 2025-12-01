@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
+import SEO from '../utils/SEO';
 import './FAQ.css'
 
 const FAQ = () => {
@@ -41,6 +42,10 @@ const FAQ = () => {
 
   return (
     <div className="faq-page">
+      <SEO
+        title="FAQ"
+        path="/faq"
+      />
       <Header />
       
       <main id="main">

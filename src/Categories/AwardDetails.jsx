@@ -3,6 +3,7 @@ import React from 'react';
 import { Link, useParams } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import SEO from '../utils/SEO';
 import useAwardDetailsController from '../controllers/useAwardDetailsController';
 import '../categories/AwardDetails.css';
 
@@ -35,6 +36,10 @@ const AwardDetailsPage = () => {
 
   return (
     <div className="award-details-page">
+            <SEO
+        title="Award Details"
+        path="/awards/details"
+      />
       <Header />
 
       <div className="container award-details-container py-5">

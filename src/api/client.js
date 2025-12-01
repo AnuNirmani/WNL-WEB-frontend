@@ -1,5 +1,9 @@
 // src/api/client.js
-const API_BASE = import.meta.env.VITE_API_BASE_URL || 'http://127.0.0.1:8000/api';
+// In development, use the Vite proxy to avoid CORS issues
+// In production, use the full API URL from environment variable
+const API_BASE = import.meta.env.DEV 
+  ? '/api' 
+  : (import.meta.env.VITE_API_BASE_URL || 'http://127.0.0.1:8000/api');
 
 // Helper to read token; tokens come from login and are saved to localStorage
 export function getAuthToken() {

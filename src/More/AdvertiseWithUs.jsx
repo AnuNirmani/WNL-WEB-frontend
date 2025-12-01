@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
+import SEO from '../utils/SEO';
 import './AdvertiseWithUs.css'
 
 const AdvertiseWithUs = () => {
@@ -56,7 +57,11 @@ const AdvertiseWithUs = () => {
   }
 
   return (
-    <>
+    <div>
+          <SEO
+        title="Advertise With Us"
+        path="/advertise-with-us"
+      />
       <Header />
       
       {/* Breadcrumbs */}
@@ -172,7 +177,7 @@ const AdvertiseWithUs = () => {
       </section>
 
       <Footer />
-    </>
+    </div>
   )
 }
 

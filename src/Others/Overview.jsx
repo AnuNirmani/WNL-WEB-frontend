@@ -3,6 +3,7 @@ import React from 'react';
 import { Link, useParams, useLocation } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import SEO from '../utils/SEO';
 import useOverviewController from '../controllers/useOverviewController';
 import '../others/Overview.css'; // You can reuse this CSS
 
@@ -31,6 +32,10 @@ const OverviewPage = () => {
 
   return (
     <div className="award-details-page">
+            <SEO
+        title="Overview Details"
+        path="/overview/details"
+      />
       <Header />
 
       <div className="container award-details-container py-5">

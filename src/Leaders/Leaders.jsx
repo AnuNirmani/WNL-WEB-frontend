@@ -3,6 +3,7 @@ import React, { useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import SEO from '../utils/SEO';
 import useLeadersController from '../controllers/useLeadersController';
 import '../leaders/Leaders.css';
 
@@ -43,6 +44,11 @@ const LeadersPage = () => {
 
   return (
     <div className="leaders-page">
+      <SEO
+        title="Leaders"
+        description="Meet the leaders guiding Wijeya Newspapers."
+        path="/leaders"
+      />
       <Header />
 
       {/* Breadcrumbs */}

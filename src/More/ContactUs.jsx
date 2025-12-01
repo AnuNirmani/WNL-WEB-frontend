@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
+import SEO from '../utils/SEO';
 import './ContactUs.css'
 
 const ContactUs = () => {
@@ -86,6 +87,10 @@ const ContactUs = () => {
 
   return (
     <div className="contact-us-page">
+            <SEO
+        title="Contact Us"
+        path="/contact-us"
+      />
       <Header />
 
       <main id="main">

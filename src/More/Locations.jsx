@@ -2,6 +2,7 @@
 import React from 'react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import SEO from '../utils/SEO';
 import useLocationsController from '../controllers/useLocationsController';
 import '../more/Locations.css';
 
@@ -10,6 +11,11 @@ const Locations = () => {
 
   return (
     <div className="locations-page">
+            <SEO
+        title="Locations"
+        description="Find the various office locations of Wijeya Newspapers across Sri Lanka."
+        path="/locations"
+      />
       <Header />
       <main id="main">
         <section className="inner-page">

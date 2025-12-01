@@ -6,9 +6,9 @@ export default defineConfig({
   plugins: [react()],
   server: {
     host: '0.0.0.0', // Expose to local network
-    port: 5174,
+    port: 5175,
     open: true, // Automatically open browser
-    strictPort: false, // Try next available port if 5173 is busy
+    strictPort: true, // Fail if 5173 is busy so we notice conflict
     // Dev proxy to avoid browser CORS issues.
     // Frontend can call relative paths like '/api/...',
     // which will be proxied to the Laravel backend.

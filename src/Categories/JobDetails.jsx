@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import SEO from '../utils/SEO';
 import './JobDetails.css';
 
 const JobDetails = () => {
@@ -79,6 +80,10 @@ const JobDetails = () => {
 
   return (
     <div className="job-details-page">
+            <SEO
+        title="Job Details"
+        path="/jobs/details"
+      />
       <Header />
 
       <main id="main">

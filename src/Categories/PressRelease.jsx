@@ -3,6 +3,7 @@ import React, { useEffect, useRef, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import SEO from '../utils/SEO';
 import usePressReleaseController from '../controllers/usePressReleaseController';
 import './PressRelease.css';
 
@@ -46,6 +47,11 @@ const PressReleasePage = () => {
 
   return (
     <div className="press-release-page">
+            <SEO
+        title="Press Releases"
+        description="Official statements and updates from Wijeya Newspapers."
+        path="/press-releases"
+      />
       <Header />
 
       {/* Breadcrumbs */}
