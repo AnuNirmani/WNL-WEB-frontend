@@ -14,6 +14,8 @@ const ContactUs = () => {
   })
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [submitStatus, setSubmitStatus] = useState('')
+  const [showThankYouModal, setShowThankYouModal] = useState(false)
+  const [submittedEmail, setSubmittedEmail] = useState('')
 
   const handleInputChange = (e) => {
     const { name, value } = e.target
@@ -29,18 +31,10 @@ const ContactUs = () => {
     setSubmitStatus('')
 
     try {
-      // Create FormData from form fields
-      const formDataToSend = new FormData()
-      formDataToSend.append('name', formData.name)
-      formDataToSend.append('email', formData.email)
-      formDataToSend.append('subject', formData.subject)
-      formDataToSend.append('message', formData.message)
-
-      // Use Laravel API endpoint (already working, proxy configured)
-      const apiUrl = '/api/contact'
+      // Use the Node.js backend server with SMTP
+      const apiUrl = 'http://localhost:3001/api/contact'
       console.log('Submitting to:', apiUrl)
       
-      // Convert FormData to JSON for Laravel API
       const jsonData = {
         name: formData.name,
         email: formData.email,
@@ -69,12 +63,11 @@ const ContactUs = () => {
 
       if (result.success) {
         setSubmitStatus('success')
+        setSubmittedEmail(formData.email) // Save email before clearing form
+        setShowThankYouModal(true)
         setFormData({ name: '', email: '', subject: '', message: '' })
-        
-        // Hide success message after 5 seconds
-        setTimeout(() => setSubmitStatus(''), 5000)
       } else {
-        throw new Error(result.message || 'Failed to save')
+        throw new Error(result.message || 'Failed to send message')
       }
     } catch (error) {
       console.error('Form submission error:', error)
@@ -85,6 +78,10 @@ const ContactUs = () => {
     }
   }
 
+  const closeModal = () => {
+    setShowThankYouModal(false)
+  }
+
   return (
     <div className="contact-us-page">
             <SEO
@@ -92,6 +89,36 @@ const ContactUs = () => {
         path="/contact-us"
       />
       <Header />
+
+      {/* Thank You Modal */}
+      {showThankYouModal && (
+        <div className="modal-overlay" onClick={closeModal}>
+          <div className="thank-you-modal" onClick={(e) => e.stopPropagation()}>
+            <button className="modal-close" onClick={closeModal}>
+              <i className="fas fa-times"></i>
+            </button>
+            <div className="modal-icon">
+              <i className="fas fa-check-circle"></i>
+            </div>
+            <h2>Thank You for Contacting Us!</h2>
+            <p className="modal-message">
+              We have received your message and appreciate you reaching out to us.
+            </p>
+            <p className="modal-submessage">
+              Our team will review your inquiry and get back to you as soon as possible, 
+              typically within 1-2 business days.
+            </p>
+            <div className="modal-footer">
+              <p>
+                <i className="fas fa-envelope"></i> A confirmation email has been sent to <strong>{submittedEmail}</strong>
+              </p>
+            </div>
+            <button className="modal-btn" onClick={closeModal}>
+              Close
+            </button>
+          </div>
+        </div>
+      )}
 
       <main id="main">
         {/* Breadcrumbs */}

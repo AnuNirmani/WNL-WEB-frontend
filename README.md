@@ -32,7 +32,7 @@ WNL Web Frontend is a comprehensive single-page application (SPA) built for Wije
 - **📍 Locations**: Interactive office locations and contact information
 - **❓ FAQ**: Frequently asked questions and answers
 - **📢 Advertise With Us**: Information about advertising opportunities
-- **📞 Contact**: Contact form and communication channels
+- **📞 Contact**: Contact form with SMTP email integration and beautiful thank you modal
 
 ## 🛠️ Tech Stack
 
@@ -45,6 +45,8 @@ WNL Web Frontend is a comprehensive single-page application (SPA) built for Wije
 | Bootstrap | 5.3.2 |
 | AOS | 2.3.4 |
 | Axios | 1.12.2 |
+| Express | 5.1.0 |
+| Nodemailer | 7.0.11 |
 
 ### Development Tools
 | Tool | Version |
@@ -100,6 +102,8 @@ The application will be available at **`http://localhost:5174`**
 | `npm run build` | Create optimized production build |
 | `npm run preview` | Preview production build locally |
 | `npm run lint` | Run ESLint to check code quality |
+| `npm run server` | Start backend email server |
+| `npm run dev:all` | Start both frontend and backend servers |
 
 ### Quick Start Example
 
@@ -176,6 +180,31 @@ User Action → Component → Controller Hook → API Service → Backend
                 ↓              ↓                ↓
               View ← State Update ← Data Processing
 ```
+
+## 📧 Contact Form with SMTP Email
+
+The application includes a fully functional contact form with SMTP email integration:
+
+- **Backend Server**: Node.js + Express (Port 3001)
+- **Email Service**: Nodemailer with Oracle Cloud SMTP
+- **Features**:
+  - Admin notification emails
+  - User confirmation emails
+  - Beautiful "Thank You" modal
+  - Professional HTML email templates
+  - Form validation and error handling
+
+### Quick Start Contact Form
+
+```bash
+# Start both frontend and backend
+npm run dev:all
+```
+
+For detailed setup and customization, see:
+- `CONTACT_FORM_README.md` - Complete documentation
+- `QUICK_START_CONTACT_FORM.md` - Quick start guide
+- `CONTACT_FORM_SETUP.md` - Detailed setup instructions
 
 ## 🔌 API Integration
 
