@@ -3,6 +3,7 @@ import React from 'react';
 import { Link, useParams } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import SEO from '../utils/SEO';
 import usePressReleaseDetailsController from '../controllers/usePressReleaseDetailsController';
 import '../others/PressReleaseDetails.css';
 
@@ -28,6 +29,11 @@ const PressReleaseDetailsPage = () => {
 
   return (
     <div className="press-release-details-page">
+            <SEO
+        title="Press Release Details"
+        description="Detailed information about the latest press releases from Wijeya Newspapers."
+        path="/press-release"
+      />
       <Header />
 
       <div className="container press-details-container py-5">

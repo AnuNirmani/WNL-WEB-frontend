@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import Header from './Header'
 import Hero from './Hero'
+import SEO from '../utils/SEO'
 
 // import Publications from './Publications'
 import PressRelease from './PressReleasedb'
@@ -87,6 +88,11 @@ const Dashboard = () => {
 
   return (
     <div className="dashboard">
+      <SEO
+        title="Home"
+        description="Explore publications, press releases, leaders, awards and more at Wijeya Newspapers Limited."
+        path="/"
+      />
       <Header />
       <div className="clearfix"></div>
 

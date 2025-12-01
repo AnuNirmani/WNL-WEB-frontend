@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import SEO from '../utils/SEO';
 import useAwardsController from '../controllers/useAwardsController';
 import '../categories/Awards.css';
 
@@ -44,6 +45,11 @@ const AwardsPage = () => {
 
   return (
     <div className="awards-page">
+      <SEO
+        title="Awards"
+        description="Recognizing excellence in journalism and media innovation at Wijeya Newspapers."
+        path="/awards"
+      />
       <Header />
 
       {/* Banner */}

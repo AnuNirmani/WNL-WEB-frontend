@@ -3,6 +3,7 @@ import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import SEO from '../utils/SEO';
 import useCareersController from '../controllers/useCareersController';
 import '../categories/Careers.css';
 
@@ -16,6 +17,11 @@ const CareersPage = () => {
 
   return (
     <div className="careers-page">
+            <SEO
+        title="Careers"
+        description="Join our team and be part of Sri Lanka's leading media organization."
+        path="/careers"
+      />
       <Header />
 
       {/* Breadcrumbs */}

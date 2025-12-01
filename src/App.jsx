@@ -1,5 +1,6 @@
 import { useEffect } from 'react'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import { HelmetProvider } from 'react-helmet-async'
 import AOS from 'aos'
 import ScrollToTop from './ScrollToTop'
 import Dashboard from './components/Dashboard'
@@ -29,9 +30,10 @@ function App() {
   }, [])
 
   return (
-    <Router>
-      <ScrollToTop />
-      <Routes>
+    <HelmetProvider>
+      <Router>
+        <ScrollToTop />
+        <Routes>
         <Route path="/" element={<Dashboard />} />
         <Route path="/leaders" element={<Leaders />} />
         <Route path="/faces" element={<Faces />} />
@@ -49,8 +51,9 @@ function App() {
         <Route path="/our-journey" element={<OurJourny />} />
         <Route path="/papers" element={<Papers />} />
         <Route path="/overview" element={<Overview />} />
-      </Routes>
-    </Router>
+        </Routes>
+      </Router>
+    </HelmetProvider>
   )
 }
 

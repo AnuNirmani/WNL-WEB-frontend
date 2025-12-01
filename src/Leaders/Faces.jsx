@@ -3,6 +3,7 @@ import React, { useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import SEO from '../utils/SEO';
 import useFacesController from '../controllers/useFacesController';
 import '../leaders/Faces.css';
 
@@ -48,6 +49,11 @@ const FacesPage = () => {
 
   return (
     <div className="faces-page">
+            <SEO
+        title="Faces"
+        description="Meet the talented individuals who make Wijeya Newspapers a trusted source of news and information."
+        path="/faces"
+      />
       <Header />
 
       {/* Breadcrumbs */}
