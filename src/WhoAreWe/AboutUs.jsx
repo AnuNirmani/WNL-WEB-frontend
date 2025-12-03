@@ -14,15 +14,7 @@ const AboutUs = () => {
       
       {/* Main Content */}
       <main id="main">
-        {/* Breadcrumbs */}
-        <section id="breadcrumbs" className="breadcrumbs" data-aos="fade-down">
-          <div className="container">
-            <ol>
-              <li><Link to="/">Home</Link></li>
-              <li>About Us</li>
-            </ol>
-          </div>
-        </section>
+
 
         {/* About Us Content */}
         <section className="inner-page">
