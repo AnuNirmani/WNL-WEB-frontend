@@ -24,16 +24,6 @@ const CareersPage = () => {
       />
       <Header />
 
-      {/* Breadcrumbs */}
-      <section id="breadcrumbs" className="breadcrumbs">
-        <div className="container">
-          <ol>
-            <li><Link to="/">Home</Link></li>
-            <li>Careers</li>
-          </ol>
-        </div>
-      </section>
-
       {/* Careers Section */}
       <section id="careers" className="careers section-bg">
         <div className="container" data-aos="fade-up">
@@ -48,7 +38,7 @@ const CareersPage = () => {
               <thead className="table-dark">
                 <tr>
                   <th>Job Title</th>
-                  <th>Description</th>
+                  <th>Heading</th>
                   <th>Closing Date</th>
                   <th>View Details</th>
                 </tr>
@@ -79,10 +69,20 @@ const CareersPage = () => {
                     // Get closing date from various possible field names
                     const closingDate = career.end_date || career.closing_date || career.deadline || null;
 
+                    // Strip HTML tags from description
+                    const stripHtml = (html) => {
+                      if (!html) return '—';
+                      const tmp = document.createElement('div');
+                      tmp.innerHTML = html;
+                      return tmp.textContent || tmp.innerText || '—';
+                    };
+
+                    const description = stripHtml(career.sub_topic || career.description);
+
                     return (
                       <tr key={career.post_id || index} data-aos="fade-up" data-aos-delay={300 + (index * 100)}>
                         <td>{career.title || '—'}</td>
-                        <td>{career.sub_topic || career.description || '—'}</td>
+                        <td>{description}</td>
                         <td>{formatDate(closingDate)}</td>
                         <td>
                           <Link to={`/job/${career.post_id || index + 1}`} className="btn btn-danger btn-sm">

@@ -356,7 +356,7 @@ h1, h2, h3, h4, h5, h6 {
   font-size: 32px;
   font-weight: bold;
   text-transform: uppercase;
-  margin-bottom: 20px;
+  margin-bottom: 2px;
   padding-bottom: 20px;
   position: relative;
   color: #124265;
@@ -477,11 +477,27 @@ h1, h2, h3, h4, h5, h6 {
 
 /* Press Release Section */
 .press {
-  padding: 60px 0;
+  padding: 20px 0 40px 0;
   background: #f8f9fa;
 }
 
+/* Reduce space between Press Release heading and posts */
+.press .section-title {
+  padding-bottom: 5px;
+  margin-bottom: 0;
+}
+
+.press .section-title h2 {
+  margin-bottom: 30px;
+  padding-bottom: 5px;
+}
+
+.press .section-title h2::before {
+  bottom: 0;
+}
+
 .press-item .card {
+  padding-top: 0.5px;
   border: none;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
@@ -675,12 +691,35 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 @media (max-width: 768px) {
+  /* Make press release section full-width on mobile */
+  .press .container {
+    max-width: 100%;
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .press .row {
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  .press .press-item {
+    width: 100%;
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .press .press-item .card {
+    border-radius: 0;
+  }
+
   .news-card {
     margin: 10px 0;
   }
 
   #intro-sec {
-    padding: 40px 0 20px 0;
+    padding: 5px 0 20px 0;
+    padding-top: 5px;
   }
 
 

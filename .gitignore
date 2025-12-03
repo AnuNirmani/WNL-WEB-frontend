@@ -33,3 +33,5 @@ SECURITY_IMPLEMENTATION.md
 
 
 /.vite.config.js
+/.config.example.js
+/.server.js

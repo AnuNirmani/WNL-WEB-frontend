@@ -123,16 +123,18 @@ const JobDetails = () => {
               dangerouslySetInnerHTML={{ __html: jobData.description }}
             ></div>
 
-            <button className="btn-apply" onClick={handleApply}>
+            <center><button className="btn-apply" onClick={handleApply}>
               Send Your CV To Us
             </button>
+            </center>
           </div>
 
-          <div className="back-link">
+          <center><div className="back-link">
             <Link to="/careers" className="btn btn-secondary">
               <i className="fas fa-arrow-left"></i> Back to Careers
             </Link>
           </div>
+          </center>
         </div>
       </main>
 

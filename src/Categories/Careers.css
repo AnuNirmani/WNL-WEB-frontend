@@ -5,44 +5,9 @@
   min-height: 100vh;
 }
 
-/* Breadcrumbs */
-.breadcrumbs {
-  padding: 10px 0;
-  background: #f8f9fa;
-  min-height: 40px;
-}
-
-.breadcrumbs ol {
-  display: flex;
-  flex-wrap: wrap;
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  font-size: 14px;
-}
-
-.breadcrumbs ol li + li {
-  padding-left: 2px;
-}
-
-.breadcrumbs ol li + li::before {
-  display: inline-block;
-  padding-right: 2px;
-  color: #6c757d;
-}
-
-.breadcrumbs ol li a {
-  color: #0563bb;
-  text-decoration: none;
-}
-
-.breadcrumbs ol li a:hover {
-  color: #024289;
-}
-
 /* Careers Section */
 .careers {
-  padding: 60px 0;
+  padding: 100px 0;
 }
 
 .section-bg {
@@ -117,6 +82,8 @@
 
 /* Table Styles */
 .careers-page .table {
+  margin-top: 0px; /* add small gap above table */
+  padding-top: 0px;
   background-color: #fff;
   border-radius: 8px;
   overflow: hidden;
