@@ -63,16 +63,6 @@ const AdvertiseWithUs = () => {
         path="/advertise-with-us"
       />
       <Header />
-      
-      {/* Breadcrumbs */}
-      <section id="breadcrumbs" className="breadcrumbs">
-        <div className="container">
-          <ol>
-            <li><Link to="/">Home</Link></li>
-            <li>Advertise With Us</li>
-          </ol>
-        </div>
-      </section>
 
       {/* Main Content */}
       <section className="inner-page">

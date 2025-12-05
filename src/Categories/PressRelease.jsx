@@ -54,16 +54,6 @@ const PressReleasePage = () => {
       />
       <Header />
 
-      {/* Breadcrumbs */}
-      <section id="breadcrumbs" className="breadcrumbs">
-        <div className="container">
-          <ol>
-            <li><Link to="/">Home</Link></li>
-            <li>Press Release</li>
-          </ol>
-        </div>
-      </section>
-
       {/* Press Release Section */}
       <section id="press-release" className="press-release section-bg py-5">
         <div className="container">
