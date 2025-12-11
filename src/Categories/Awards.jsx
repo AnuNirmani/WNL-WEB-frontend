@@ -5,6 +5,7 @@ import Footer from '../components/Footer';
 import SEO from '../utils/SEO';
 import useAwardsController from '../controllers/useAwardsController';
 import '../categories/Awards.css';
+import awardsBanner from '../assets/awards.jpg';
 
 const AwardsPage = () => {
   const {
@@ -57,7 +58,7 @@ const AwardsPage = () => {
         <div className="row">
           <div className="col-lg-12 col-sm-12 pl-0 pr-0">
             <img
-              src="https://images.unsplash.com/photo-1511795409834-ef04bbd61622?w=800&h=600&fit=crop"
+              src={awardsBanner}
               className="img-fluid awards-banner-img"
               alt="Awards Banner - Wijeya Newspapers Awards Collection"
             />
