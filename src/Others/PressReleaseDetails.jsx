@@ -42,8 +42,14 @@ const PressReleaseDetailsPage = () => {
         {/* Title & Subtitle */}
         <div className="text-center mb-4" data-aos="fade-up">
           <h1 className="press-title">{release.title}</h1>
-          <p className="press-subtitle">{release.sub_topic}</p>
+          <p className="press-subtitle">{release.sub_category_type}</p>
         </div>
+
+                  {release.sub_category_type && (
+            <p className="award-subcategory">
+              {release.sub_topic}
+            </p>
+          )}
 
         {/* Description (render HTML directly) */}
         <div

@@ -4,6 +4,7 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 import SEO from '../utils/SEO';
 import './JobDetails.css';
+import { authFetch } from '../api/client';
 
 const JobDetails = () => {
   const { id } = useParams();
@@ -14,15 +15,14 @@ const JobDetails = () => {
   useEffect(() => {
     const fetchJob = async () => {
       try {
-        const res = await fetch(`http://127.0.0.1:8000/api/careers/${id}`);
-        if (!res.ok) throw new Error(`Error ${res.status}`);
-        const data = await res.json();
+        const data = await authFetch(`/careers/${id}`);
 
         // Fix relative image URLs inside description
         if (data.description) {
+          const publicBase = `${window.location.origin}/WNL-Web/public`;
           data.description = data.description.replace(
             /src=["'](\/storage[^"']+)["']/g,
-            `src="http://127.0.0.1:8000$1"`
+            `src="${publicBase}$1"`
           );
         }
 
@@ -99,6 +99,11 @@ const JobDetails = () => {
               {jobData.sub_topic && (
                 <span>
                   <i></i> {jobData.sub_topic}
+                </span>
+              )}
+              {jobData.sub_category_type && (
+                <span>
+                  <i></i> Category: {jobData.sub_category_type}
                 </span>
               )}
               {jobData.end_date && (

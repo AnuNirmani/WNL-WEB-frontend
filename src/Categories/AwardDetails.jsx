@@ -49,8 +49,13 @@ const AwardDetailsPage = () => {
         <div className="text-center mb-4" data-aos="fade-up">
           <h1 className="award-title">{award.title}</h1>
           <p className="award-subtitle">
-            {award.sub_topic ? `Awarded for: ${award.sub_topic}` : ''}
+            {award.sub_topic ? `Awarded for: ${award.sub_category_type}` : ''}
           </p>
+          {award.sub_category_type && (
+            <p className="award-subcategory">
+              {award.sub_topic}
+            </p>
+          )}
         </div>
 
         {/* Description */}
