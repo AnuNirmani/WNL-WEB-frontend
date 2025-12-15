@@ -103,7 +103,7 @@ const JobDetails = () => {
               )}
               {jobData.sub_category_type && (
                 <span>
-                  <i></i> Category: {jobData.sub_category_type}
+                  <i></i> Vacansies at: {jobData.sub_category_type}
                 </span>
               )}
               {jobData.end_date && (
