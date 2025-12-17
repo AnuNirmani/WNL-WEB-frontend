@@ -36,9 +36,9 @@ const AwardDetailsPage = () => {
 
   return (
     <div className="award-details-page">
-            <SEO
-        title="Award Details"
-        path="/awards/details"
+      <SEO
+        title={award.title || 'Award Details'}
+        path={`/award/${id}`}
       />
       <Header />
 

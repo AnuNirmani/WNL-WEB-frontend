@@ -1,6 +1,7 @@
 import React from 'react'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
+import SEO from '../utils/SEO'
 import './OurJourny.css'
 
 const OurJourny = () => {
@@ -135,6 +136,11 @@ const OurJourny = () => {
 
   return (
     <>
+      <SEO
+        title="Our Journey"
+        description="Key milestones from Wijeya Newspapers Limited's history."
+        path="/our-journey"
+      />
       <Header />
       
       <main id="main">

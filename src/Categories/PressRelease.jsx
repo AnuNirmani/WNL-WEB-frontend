@@ -50,7 +50,7 @@ const PressReleasePage = () => {
             <SEO
         title="Press Releases"
         description="Official statements and updates from Wijeya Newspapers."
-        path="/press-releases"
+        path="/press-release"
       />
       <Header />
 

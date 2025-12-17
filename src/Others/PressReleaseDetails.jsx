@@ -29,10 +29,10 @@ const PressReleaseDetailsPage = () => {
 
   return (
     <div className="press-release-details-page">
-            <SEO
-        title="Press Release Details"
+      <SEO
+        title={release.title || 'Press Release Details'}
         description="Detailed information about the latest press releases from Wijeya Newspapers."
-        path="/press-release"
+        path={`/press-release/${id}`}
       />
       <Header />
 

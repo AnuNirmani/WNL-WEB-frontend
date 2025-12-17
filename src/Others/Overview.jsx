@@ -32,9 +32,9 @@ const OverviewPage = () => {
 
   return (
     <div className="award-details-page">
-            <SEO
-        title="Overview Details"
-        path="/overview/details"
+      <SEO
+        title={post.title || 'Overview'}
+        path="/overview"
       />
       <Header />
 

@@ -80,9 +80,9 @@ const JobDetails = () => {
 
   return (
     <div className="job-details-page">
-            <SEO
-        title="Job Details"
-        path="/jobs/details"
+      <SEO
+        title={jobData.title || 'Job Details'}
+        path={`/job/${id}`}
       />
       <Header />
 
