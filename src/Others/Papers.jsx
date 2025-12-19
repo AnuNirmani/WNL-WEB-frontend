@@ -17,15 +17,6 @@ const Papers = () => {
       <Header />
 
       <main className="papers-page">
-        {/* Breadcrumbs */}
-        <section id="breadcrumbs" className="breadcrumbs">
-          <div className="container">
-            <ol>
-              <li><a href="/">Home</a></li>
-              <li>Advertise With Us</li>
-            </ol>
-          </div>
-        </section>
 
         {/* ✅ Publications section */}
         <PublicationsPage />

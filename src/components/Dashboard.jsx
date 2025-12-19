@@ -4,8 +4,6 @@ import Hero from './Hero'
 import SEO from '../utils/SEO'
 
 // import Publications from './Publications'
-import PressRelease from './PressReleasedb'
-
 import CallToAction from './CallToAction'
 import Footer from './Footer'
 import './Dashboard.css'
@@ -196,7 +194,6 @@ const Dashboard = () => {
           </div>
         </section>
 
-        <PressRelease />
         <CallToAction />
       </main>
 

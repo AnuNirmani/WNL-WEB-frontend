@@ -32,9 +32,9 @@ const OverviewPage = () => {
 
   return (
     <div className="award-details-page">
-            <SEO
-        title="Overview Details"
-        path="/overview/details"
+      <SEO
+        title={post.title || 'Overview'}
+        path="/overview"
       />
       <Header />
 
@@ -44,6 +44,11 @@ const OverviewPage = () => {
         {/* Title & Subtitle */}
         <div className="text-center mb-4" data-aos="fade-up">
           <h1 className="award-title">{post.title}</h1>
+          {post.sub_category_type && (
+            <p className="award-subtitle">
+              Awarded for: {post.sub_category_type}
+            </p>
+          )}
           {post.sub_topic && (
             <p className="award-subtitle">
               {post.category_name === 'Awards'

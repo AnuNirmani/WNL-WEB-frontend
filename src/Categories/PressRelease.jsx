@@ -50,19 +50,9 @@ const PressReleasePage = () => {
             <SEO
         title="Press Releases"
         description="Official statements and updates from Wijeya Newspapers."
-        path="/press-releases"
+        path="/press-release"
       />
       <Header />
-
-      {/* Breadcrumbs */}
-      <section id="breadcrumbs" className="breadcrumbs">
-        <div className="container">
-          <ol>
-            <li><Link to="/">Home</Link></li>
-            <li>Press Release</li>
-          </ol>
-        </div>
-      </section>
 
       {/* Press Release Section */}
       <section id="press-release" className="press-release section-bg py-5">

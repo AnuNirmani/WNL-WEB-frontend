@@ -130,11 +130,12 @@
 /* Responsive Design */
 @media (max-width: 768px) {
   .award-details-container {
-    padding-top: 100px;
+    padding-top: 20px !important;
   }
 
   .award-title {
     font-size: 1.5rem;
+    padding-top: 0px;
   }
 
   .award-subtitle {
@@ -214,40 +215,5 @@
 /* Additional spacing adjustments */
 .award-details-container .container {
   padding-bottom: 40px;
-}
-
-/* Breadcrumb styles if needed */
-.breadcrumbs {
-  padding: 20px 0;
-  background: #f8f9fa;
-  margin-top: 120px;
-}
-
-.breadcrumbs ol {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  display: flex;
-  align-items: center;
-}
-
-.breadcrumbs ol li {
-  margin-right: 10px;
-}
-
-.breadcrumbs ol li:not(:last-child)::after {
-  content: '/';
-  margin-left: 10px;
-  color: #6c757d;
-}
-
-.breadcrumbs ol li a {
-  color: #007bff;
-  text-decoration: none;
-}
-
-.breadcrumbs ol li a:hover {
-  color: #0056b3;
-  text-decoration: underline;
 }
 

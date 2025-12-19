@@ -51,16 +51,6 @@ const LeadersPage = () => {
       />
       <Header />
 
-      {/* Breadcrumbs */}
-      <section id="breadcrumbs" className="breadcrumbs">
-        <div className="container">
-          <ol>
-            <li><Link to="/">Home</Link></li>
-            <li>Leadership</li>
-          </ol>
-        </div>
-      </section>
-
       {/* Leaders Section */}
       <section id="our-leaders" className="team section-bg">
         <div className="container" data-aos="fade-up">

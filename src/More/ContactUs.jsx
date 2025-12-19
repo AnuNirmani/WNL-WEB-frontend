@@ -121,15 +121,6 @@ const ContactUs = () => {
       )}
 
       <main id="main">
-        {/* Breadcrumbs */}
-        <section id="breadcrumbs" className="breadcrumbs">
-          <div className="container">
-            <ol>
-              <li><Link to="/">Home</Link></li>
-              <li>Contact Us</li>
-            </ol>
-          </div>
-        </section>
 
         {/* Contact Section */}
         <section id="contact" className="contact">

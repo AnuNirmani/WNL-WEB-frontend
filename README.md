@@ -21,41 +21,6 @@ WNL Web Frontend is a comprehensive single-page application (SPA) built for Wije
 - 🔄 **API integration** with RESTful backend services
 - 🎯 **Controller pattern** for separation of concerns
 
-### Content Sections
-- **🏠 Home Dashboard**: Dynamic hero carousel, publications portfolio, and latest press releases
-- **👔 About Us**: Company overview, mission statement, vision, and brand logos
-- **👥 Leadership**: Executive team profiles and the faces behind WNL
-- **🏆 Awards & Recognition**: Showcase of company achievements and industry accolades
-- **💼 Careers**: Dynamic job listings with detailed job descriptions
-- **📰 Press Releases**: Latest news announcements and company updates
-- **📚 Publications**: Portfolio of newspapers and magazines
-- **📍 Locations**: Interactive office locations and contact information
-- **❓ FAQ**: Frequently asked questions and answers
-- **📢 Advertise With Us**: Information about advertising opportunities
-- **📞 Contact**: Contact form with SMTP email integration and beautiful thank you modal
-
-## 🛠️ Tech Stack
-
-### Frontend
-| Technology | Version |
-|------------|---------|
-| React | 18.3.1 |
-| Vite | 5.4.1 |
-| React Router DOM | 7.9.4 |
-| Bootstrap | 5.3.2 |
-| AOS | 2.3.4 |
-| Axios | 1.12.2 |
-| Express | 5.1.0 |
-| Nodemailer | 7.0.11 |
-
-### Development Tools
-| Tool | Version |
-|------|---------|
-| ESLint | 9.9.0 |
-| @vitejs/plugin-react | 4.3.1 |
-| eslint-plugin-react | 7.35.0 |
-| eslint-plugin-react-hooks | 5.1.0-rc.0 |
-
 ## 🚀 Getting Started
 
 ### Prerequisites
@@ -79,31 +44,12 @@ npm install
 # or
 yarn install
 ```
-
-3. **Configure API endpoint** (if needed):
-   - API base URL is configured in `src/api/*.js` files
-   - Default: `http://127.0.0.1:8000/api`
-   - Update the `API_URL` constant if your backend is hosted elsewhere
-
-4. **Start the development server**:
+3. **Start the development server**:
 ```bash
 npm run dev
 # or
 yarn dev
 ```
-
-The application will be available at **`http://localhost:5174`**
-
-### 📜 Available Scripts
-
-| Command | Description |
-|---------|-------------|
-| `npm run dev` | Start development server with hot reload |
-| `npm run build` | Create optimized production build |
-| `npm run preview` | Preview production build locally |
-| `npm run lint` | Run ESLint to check code quality |
-| `npm run server` | Start backend email server |
-| `npm run dev:all` | Start both frontend and backend servers |
 
 ### Quick Start Example
 
@@ -118,41 +64,20 @@ npm run dev
 ## 📁 Project Structure
 
 ```
-WNL-WEB-frontend/
-├── .env                        # Environment variables
-├── .gitignore                  # Git ignore file
-├── dist/                       # Production build output (generated)
-├── node_modules/               # NPM dependencies (generated)
-├── public/                     # Static files served directly
-│   └── .gitkeep                # Placeholder for empty directory
-│
-├── src/                        # Source code
-│   ├── api/                    # API service layer
-│   ├── controllers/            # Business logic controllers (MVC pattern)
-│   ├── components/             # Reusable UI components
-│   ├── WhoAreWe/              # About Us section
-│   ├── Leaders/               # Leadership section
-│   ├── Categories/            # Content categories
-│   ├── Others/                # Additional pages
-│   ├── More/                  # Supplementary pages
-│   │
-│   ├── utils/                 # Utility functions
-│   │   ├── formatError.js      # Error formatting utilities
-│   │   └── sanitize.js         # Input sanitization utilities
-│   │
-│   ├── assets/                # Local assets (images, fonts, etc.)
-│   ├── App.jsx                # Root component with routing
-│   ├── ScrollToTop.jsx        # Scroll to top utility component
-│   ├── main.jsx               # Application entry point
-│   └── index.css              # Global styles
-│
-├── eslint.config.js           # ESLint configuration
-├── index.html                 # HTML entry point
-├── LICENSE                    # MIT License
-├── package.json               # Dependencies and scripts
-├── package-lock.json          # NPM lockfile
-├── README.md                  # Project documentation
-└── vite.config.js             # Vite configuration
+src/
+├── api/              # API service layer
+├── controllers/      # Business logic (custom hooks)
+├── components/       # Reusable UI components
+├── WhoAreWe/        # About Us pages
+├── Leaders/         # Leadership pages
+├── Categories/      # Content categories
+├── More/            # Additional pages
+├── Others/          # Miscellaneous pages
+├── utils/           # Utility functions
+├── assets/          # Images and fonts
+├── App.jsx          # Root component with routing
+├── main.jsx         # Entry point
+└── index.css        # Global styles
 ```
 
 ## 🏗️ Architecture
@@ -164,14 +89,6 @@ The application follows a modified MVC architecture:
 - **Models (API Layer)**: `src/api/` - Handle data fetching and API communication
 - **Views (Components)**: `src/components/`, `src/WhoAreWe/`, etc. - React components for UI
 - **Controllers**: `src/controllers/` - Custom hooks managing business logic and state
-
-### Key Architectural Features
-
-1. **Separation of Concerns**: Business logic is separated from UI components using custom controller hooks
-2. **Reusable Components**: Modular components that can be reused across different pages
-3. **Centralized Routing**: All routes defined in `App.jsx` for easy maintenance
-4. **API Abstraction**: API calls abstracted into service modules
-5. **Custom Hooks**: Controller hooks encapsulate data fetching, state management, and business logic
 
 ### Example Flow
 
@@ -210,31 +127,9 @@ For detailed setup and customization, see:
 
 The application integrates with a Laravel backend API (default: `http://127.0.0.1:8000/api`).
 
-### API Endpoints
-
-| Endpoint | Method | Purpose |
-|----------|--------|---------|
-| `/publications` | GET | Fetch all publications |
-| `/latest-posts` | GET | Fetch latest posts/articles |
-| `/employees` | GET | Fetch employee/leadership data |
-| `/locations` | GET | Fetch office locations |
-| `/posts` | GET | Fetch all posts |
-| `/posts/{id}` | GET | Fetch single post details |
-
 ## 💻 Development
 
-### Code Style & Guidelines
-
-#### ESLint Configuration
-
-This project uses ESLint for code quality and consistency. Configuration is in `eslint.config.js`.
-
-```bash
-# Run linting
-npm run lint
-```
-
-#### Component Guidelines
+### Component Guidelines
 
 1. **Functional Components**: Use functional components with hooks
 2. **File Organization**: Each major section has its own directory with `.jsx` and `.css` files
@@ -247,15 +142,6 @@ npm run lint
 4. **State Management**: Use custom controller hooks for complex state logic
 5. **Routing**: All routes defined in `App.jsx`
 6. **Animations**: AOS library initialized globally in `App.jsx`
-
-### Development Best Practices
-
-- **Hot Reload**: Vite provides instant hot module replacement
-- **Component Testing**: Test components in isolation before integration
-- **API Mocking**: Use mock data during development if backend is unavailable
-- **Error Handling**: Always include try-catch blocks in async operations
-- **Loading States**: Show loading indicators for async data fetching
-- **Responsive Design**: Test on multiple screen sizes using browser dev tools
 
 ## 🌐 Browser Support
 
@@ -270,37 +156,6 @@ The application supports all modern browsers:
 | Opera | Latest |
 
 **Note:** Internet Explorer is not supported.
-
-## 🔧 Troubleshooting
-
-### Common Issues
-
-**Issue:** Port 5173 already in use
-```bash
-# Solution: Kill the process or use a different port
-npx kill-port 5173
-# or
-npm run dev -- --port 3000
-```
-
-**Issue:** Module not found errors
-```bash
-# Solution: Reinstall dependencies
-rm -rf node_modules package-lock.json
-npm install
-```
-
-**Issue:** Build fails with memory error
-```bash
-# Solution: Increase Node.js memory
-set NODE_OPTIONS=--max-old-space-size=4096
-npm run build
-```
-
-**Issue:** API requests failing
-- Check if backend server is running
-- Verify API_URL in `src/api/*.js` files
-- Check CORS configuration on backend
 
 ## 🤝 Contributing
 
@@ -335,24 +190,17 @@ Sri Lanka's Premier Media Organization
 
 **Developed by:**
 - Anuttara Nirmani
+- Vinuja Ketimingama
 
 ## 📞 Support
 
 For technical support or questions:
 - **Repository**: [github.com/AnuNirmani/WNL-WEB-frontend](https://github.com/AnuNirmani/WNL-WEB-frontend)
-- **Issues**: [Report an Issue](https://github.com/AnuNirmani/WNL-WEB-frontend/issues)
-- **Email**: Contact your team lead for internal support
-
-## 🙏 Acknowledgments
-
-- React Team for the amazing library
-- Vite Team for the blazing-fast build tool
-- Bootstrap Team for the responsive framework
-- AOS Library for smooth animations
-- All contributors and team members
+- **Issues**: [Report an Issue](anuttaranirmani@gmail.com)
+- **Email**: anuttaranirmani@gmail.com
 
 ---
 
 **Built with ❤️ by the WNL Development Team**
 
-*Last Updated: November 21, 2025*
+*Last Updated: December 05, 2025*

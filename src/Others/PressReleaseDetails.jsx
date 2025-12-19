@@ -29,10 +29,10 @@ const PressReleaseDetailsPage = () => {
 
   return (
     <div className="press-release-details-page">
-            <SEO
-        title="Press Release Details"
+      <SEO
+        title={release.title || 'Press Release Details'}
         description="Detailed information about the latest press releases from Wijeya Newspapers."
-        path="/press-release"
+        path={`/press-release/${id}`}
       />
       <Header />
 
@@ -40,9 +40,27 @@ const PressReleaseDetailsPage = () => {
         <br />
 
         {/* Title & Subtitle */}
-        <div className="text-center mb-4" data-aos="fade-up">
+        {/* <div className="text-center mb-4" data-aos="fade-up">
           <h1 className="press-title">{release.title}</h1>
-          <p className="press-subtitle">{release.sub_topic}</p>
+          <p className="press-subtitle">{release.sub_category_type}</p>
+        </div>
+
+                  {release.sub_category_type && (
+            <p className="award-subcategory">
+              {release.sub_topic}
+            </p>
+          )} */}
+
+          <div className="text-center mb-4" data-aos="fade-up">
+          <h1 className="press-title">{release.title}</h1>
+          <p className="press-subtitle">
+            {release.sub_category_type ? `Awarded for: ${release.sub_category_type}` : ''}
+          </p>
+          {release.sub_topic && (
+            <p className="press-subcategory">
+              {release.sub_topic}
+            </p>
+          )}
         </div>
 
         {/* Description (render HTML directly) */}

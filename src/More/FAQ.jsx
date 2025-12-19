@@ -49,15 +49,6 @@ const FAQ = () => {
       <Header />
       
       <main id="main">
-        {/* Breadcrumbs */}
-        <section id="breadcrumbs" className="breadcrumbs">
-          <div className="container">
-            <ol>
-              <li><Link to="/">Home</Link></li>
-              <li>FAQ</li>
-            </ol>
-          </div>
-        </section>
 
         {/* FAQ Section */}
         <section id="faq" className="faq section-bg py-5">

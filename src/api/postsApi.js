@@ -91,6 +91,7 @@ export async function fetchPressReleaseDetails(id) {
     return {
       title: data.title,
       sub_topic: data.sub_topic,
+      sub_category_type: data.sub_category_type,
       description,
       image: data.image,
     };

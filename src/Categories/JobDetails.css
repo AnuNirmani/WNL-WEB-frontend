@@ -116,6 +116,24 @@
   color: #555;
 }
 
+/* Image size control in job description */
+.job-description img {
+  max-width: 100%;
+  width: 100%;
+  height: auto;
+  display: block;
+  margin: 15px auto;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+@media (max-width: 768px) {
+  .job-description img {
+    max-width: 400px;
+    width: 100%;
+  }
+}
+
 /* Apply Button */
 .btn-apply {
     background: #0c1a4b;
@@ -172,7 +190,7 @@
 /* Responsive Design */
 @media (max-width: 768px) {
   .job-details-page #main {
-    padding-top: 100px;
+    padding-top: 20px;
   }
   
   .job-header {

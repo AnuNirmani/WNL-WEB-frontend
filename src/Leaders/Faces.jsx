@@ -56,16 +56,6 @@ const FacesPage = () => {
       />
       <Header />
 
-      {/* Breadcrumbs */}
-      <section id="breadcrumbs" className="breadcrumbs">
-        <div className="container">
-          <ol>
-            <li><Link to="/">Home</Link></li>
-            <li>Faces</li>
-          </ol>
-        </div>
-      </section>
-
       {/* Faces Section */}
       <section id="our-faces" className="team section-bg">
         <div className="container" data-aos="fade-up">

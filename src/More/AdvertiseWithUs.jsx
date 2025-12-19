@@ -89,6 +89,7 @@ const AdvertiseWithUs = () => {
         path="/advertise-with-us"
       />
       <Header />
+<<<<<<< HEAD
 
       {/* Thank You Modal */}
       {showThankYouModal && (
@@ -129,6 +130,8 @@ const AdvertiseWithUs = () => {
           </ol>
         </div>
       </section>
+=======
+>>>>>>> e09af9f49d8be6040c0366e9d05517377b750f82
 
       {/* Main Content */}
       <section className="inner-page">

@@ -2,6 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
+import SEO from '../utils/SEO'
 import Vision from './Vision'
 import Mission from './Mission'
 import Logos from './logos'
@@ -10,19 +11,16 @@ import './AboutUs.css'
 const AboutUs = () => {
   return (
     <div className="about-us-page">
+      <SEO
+        title="About Us"
+        description="Learn about Wijeya Newspapers Limited, our story, and our mission."
+        path="/about-us"
+      />
       <Header />
       
       {/* Main Content */}
       <main id="main">
-        {/* Breadcrumbs */}
-        <section id="breadcrumbs" className="breadcrumbs" data-aos="fade-down">
-          <div className="container">
-            <ol>
-              <li><Link to="/">Home</Link></li>
-              <li>About Us</li>
-            </ol>
-          </div>
-        </section>
+
 
         {/* About Us Content */}
         <section className="inner-page">
