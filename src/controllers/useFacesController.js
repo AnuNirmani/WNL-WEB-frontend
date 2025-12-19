@@ -2,6 +2,7 @@
 import { useState, useEffect, useMemo, useCallback, useRef } from 'react';
 import { fetchFacesFromApi } from '../api/employeeApi';
 import { formatFriendlyError } from '../utils/formatError';
+import { sortEmployeesByJobTitlePriority, fetchJobTitlePriorities, sortEmployeesByJobTitlePrioritySync } from '../utils/jobTitlePriority';
 
 export default function useFacesController() {
   const [faces, setFaces] = useState([]);
@@ -13,7 +14,17 @@ export default function useFacesController() {
   const [currentPage, setCurrentPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
   const [totalFaces, setTotalFaces] = useState(0);
+  const [jobTitlePriorities, setJobTitlePriorities] = useState(null);
   const perPage = 12;
+
+  // Fetch job title priorities on mount
+  useEffect(() => {
+    fetchJobTitlePriorities().then(priorities => {
+      setJobTitlePriorities(priorities);
+    }).catch(err => {
+      console.warn('Failed to fetch job title priorities:', err);
+    });
+  }, []);
 
   const fetchFaces = useCallback(async (page = 1, append = false) => {
     try {
@@ -35,7 +46,7 @@ export default function useFacesController() {
 
       // filter active "faces" (status === true for active, false for inactive)
       // Position is "Faces" (capitalized) to identify faces
-      const facesData = employees.filter(emp => {
+      let facesData = employees.filter(emp => {
         const position = String(emp?.position || '').toLowerCase().trim();
         const department = String(emp?.department || '').toLowerCase().trim();
         const status = emp?.status;
@@ -49,8 +60,17 @@ export default function useFacesController() {
         return isActive && isFace;
       });
 
+      // Sort by job title priority
+      if (facesData.length > 0) {
+        facesData = await sortEmployeesByJobTitlePriority(facesData, jobTitlePriorities);
+      }
+
       if (append) {
-        setFaces(prev => [...prev, ...facesData]);
+        setFaces(prev => {
+          const combined = [...prev, ...facesData];
+          // Re-sort the combined array to maintain priority order (use sync version since priorities are cached)
+          return sortEmployeesByJobTitlePrioritySync(combined, jobTitlePriorities || null);
+        });
       } else {
         setFaces(facesData);
       }
@@ -66,7 +86,7 @@ export default function useFacesController() {
       setLoading(false);
       setLoadingMore(false);
     }
-  }, [perPage]);
+  }, [perPage, jobTitlePriorities]);
 
   const loadMore = useCallback(() => {
     if (!loadingMore && hasMore) {
@@ -88,7 +108,7 @@ export default function useFacesController() {
   }, [searchTerm, selectedDepartment]);
 
   const filteredFaces = useMemo(() => {
-    return faces.filter(face => {
+    let filtered = faces.filter(face => {
       const name = String(face?.name || '').toLowerCase();
       const department = String(face?.department || '').toLowerCase();
       const searchLower = searchTerm.toLowerCase();
@@ -98,7 +118,15 @@ export default function useFacesController() {
       const matchesDept = selectedDepartment === '' || department === deptLower;
       return matchesName && matchesDept;
     });
-  }, [faces, searchTerm, selectedDepartment]);
+    
+    // Re-sort filtered results to maintain priority order
+    if (filtered.length > 0) {
+      // Use sync version since we already have priorities cached (or will use default)
+      filtered = sortEmployeesByJobTitlePrioritySync(filtered, jobTitlePriorities || null);
+    }
+    
+    return filtered;
+  }, [faces, searchTerm, selectedDepartment, jobTitlePriorities]);
 
   // extract unique departments for dropdown
   const departments = useMemo(

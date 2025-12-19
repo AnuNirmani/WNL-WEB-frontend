@@ -32,7 +32,6 @@ export async function fetchFacesFromApi(page = 1, perPage = 12) {
 
 // src/api/leadersApi.js
 export async function fetchLeadersFromApi(page = 1, perPage = 12) {
-  
   try {
     const data = await authFetch(`/employees?page=${page}&per_page=${perPage}`);
     // Handle paginated response or regular array

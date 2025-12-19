@@ -118,7 +118,7 @@ const FacesPage = () => {
                     onError={(e) => e.target.src = 'https://placehold.co/200x200'}
                   />
                   <h3>{face.name}</h3>
-                  <p>{face.position} – {face.department}</p>
+                  <p>{(face.job_title || face.title || '') + (face.department ? ` – ${face.department}` : '')}</p>
                 </div>
               </div>
             ))}

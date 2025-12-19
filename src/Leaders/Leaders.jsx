@@ -92,7 +92,7 @@ const LeadersPage = () => {
                   />
                   <div className="member-content">
                     <h4>{emp.name || 'Unnamed'}</h4>
-                    <span>{emp.position || ''}</span>
+                    <span>{emp.job_title || emp.title || ''}</span>
                     <p>{emp.bio?.trim() ? emp.bio : 'No bio available.'}</p>
                   </div>
                 </div>

@@ -2,6 +2,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import { fetchLeadersFromApi } from '../api/employeeApi';
 import { formatFriendlyError } from '../utils/formatError';
+import { sortEmployeesByJobTitlePriority, fetchJobTitlePriorities, sortEmployeesByJobTitlePrioritySync } from '../utils/jobTitlePriority';
 
 export default function useLeadersController() {
   const [leaders, setLeaders] = useState([]);
@@ -11,7 +12,17 @@ export default function useLeadersController() {
   const [currentPage, setCurrentPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
   const [totalLeaders, setTotalLeaders] = useState(0);
+  const [jobTitlePriorities, setJobTitlePriorities] = useState(null);
   const perPage = 12;
+
+  // Fetch job title priorities on mount
+  useEffect(() => {
+    fetchJobTitlePriorities().then(priorities => {
+      setJobTitlePriorities(priorities);
+    }).catch(err => {
+      console.warn('Failed to fetch job title priorities:', err);
+    });
+  }, []);
 
   const fetchLeaders = useCallback(async (page = 1, append = false) => {
     try {
@@ -33,7 +44,7 @@ export default function useLeadersController() {
 
       // filter: only active leaders (status === true for active, false for inactive)
       // Position is "Leader" (singular, capitalized) to identify leaders
-      const filtered = employees.filter(emp => {
+      let filtered = employees.filter(emp => {
         const position = String(emp?.position || '').toLowerCase().trim();
         const status = emp?.status;
         
@@ -46,8 +57,17 @@ export default function useLeadersController() {
         return isActive && isLeader;
       });
 
+      // Sort by job title priority
+      if (filtered.length > 0) {
+        filtered = await sortEmployeesByJobTitlePriority(filtered, jobTitlePriorities);
+      }
+
       if (append) {
-        setLeaders(prev => [...prev, ...filtered]);
+        setLeaders(prev => {
+          const combined = [...prev, ...filtered];
+          // Re-sort the combined array to maintain priority order (use sync version since priorities are cached)
+          return sortEmployeesByJobTitlePrioritySync(combined, jobTitlePriorities || null);
+        });
       } else {
         setLeaders(filtered);
       }
@@ -64,7 +84,7 @@ export default function useLeadersController() {
       setLoading(false);
       setLoadingMore(false);
     }
-  }, [perPage]);
+  }, [perPage, jobTitlePriorities]);
 
   const loadMore = useCallback(() => {
     if (!loadingMore && hasMore) {

@@ -14,6 +14,8 @@ const AdvertiseWithUs = () => {
   })
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [submitStatus, setSubmitStatus] = useState('')
+  const [showThankYouModal, setShowThankYouModal] = useState(false)
+  const [submittedEmail, setSubmittedEmail] = useState('')
 
   const handleInputChange = (e) => {
     const { name, value } = e.target
@@ -29,31 +31,55 @@ const AdvertiseWithUs = () => {
     setSubmitStatus('')
 
     try {
-      const response = await fetch(
-        "http://localhost/wnl_ci/index.php/api/send-email",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify(formData)
-        }
-      )
+      // Use the Node.js backend server with SMTP
+      const apiUrl = 'http://localhost:3001/api/advertise'
+      console.log('Submitting advertise form to:', apiUrl)
+      
+      const jsonData = {
+        name: formData.name,
+        email: formData.email,
+        subject: formData.subject,
+        message: formData.message
+      }
+      
+      const response = await fetch(apiUrl, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(jsonData),
+      })
 
-      const data = await response.json()
+      console.log('Response status:', response.status)
 
-      if (response.ok && data.status === 'success') {
+      if (!response.ok) {
+        const errorText = await response.text()
+        console.error('Error response:', errorText)
+        throw new Error(`Server error: ${response.status}`)
+      }
+
+      const result = await response.json()
+      console.log('Response:', result)
+
+      if (result.success) {
         setSubmitStatus('success')
+        setSubmittedEmail(formData.email) // Save email before clearing form
+        setShowThankYouModal(true)
         setFormData({ name: '', email: '', subject: '', message: '' })
       } else {
-        setSubmitStatus('error')
+        throw new Error(result.message || 'Failed to send message')
       }
-    } catch (err) {
-      console.error('Advertise form submit error:', err)
+    } catch (error) {
+      console.error('Form submission error:', error)
       setSubmitStatus('error')
+      alert('Error: ' + error.message)
     } finally {
       setIsSubmitting(false)
     }
+  }
+
+  const closeModal = () => {
+    setShowThankYouModal(false)
   }
 
   return (
@@ -63,6 +89,36 @@ const AdvertiseWithUs = () => {
         path="/advertise-with-us"
       />
       <Header />
+
+      {/* Thank You Modal */}
+      {showThankYouModal && (
+        <div className="modal-overlay" onClick={closeModal}>
+          <div className="thank-you-modal" onClick={(e) => e.stopPropagation()}>
+            <button className="modal-close" onClick={closeModal}>
+              <i className="fas fa-times"></i>
+            </button>
+            <div className="modal-icon">
+              <i className="fas fa-check-circle"></i>
+            </div>
+            <h2>Thank You for Your Interest!</h2>
+            <p className="modal-message">
+              We have received your advertising inquiry and appreciate your interest in partnering with us.
+            </p>
+            <p className="modal-submessage">
+              Our advertising team will review your inquiry and get back to you as soon as possible, 
+              typically within 1-2 business days.
+            </p>
+            <div className="modal-footer">
+              <p>
+                <i className="fas fa-envelope"></i> A confirmation email has been sent to <strong>{submittedEmail}</strong>
+              </p>
+            </div>
+            <button className="modal-btn" onClick={closeModal}>
+              Close
+            </button>
+          </div>
+        </div>
+      )}
       
       {/* Breadcrumbs */}
       <section id="breadcrumbs" className="breadcrumbs">

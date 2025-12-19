@@ -2,14 +2,14 @@
 // Express server for handling contact form submissions with SMTP email
 import express from 'express';
 import cors from 'cors';
-import { handleContactSubmission } from './contactEmailHandler.js';
+import { handleContactSubmission, handleAdvertiseSubmission } from './contactEmailHandler.js';
 
 const app = express();
 const PORT = process.env.PORT || 3001;
 
 // Middleware
 app.use(cors({
-  origin: ['http://localhost:5174', 'http://localhost:5173', 'http://localhost:5176', 'http://localhost:3000'],
+  origin: ['http://localhost:5174', 'http://localhost:5173', 'http://localhost:5175', 'http://localhost:5176', 'http://localhost:3000'],
   credentials: true
 }));
 app.use(express.json());
@@ -22,6 +22,9 @@ app.get('/health', (req, res) => {
 
 // Contact form endpoint
 app.post('/api/contact', handleContactSubmission);
+
+// Advertise form endpoint
+app.post('/api/advertise', handleAdvertiseSubmission);
 
 // Error handling middleware
 app.use((err, req, res, next) => {
@@ -38,6 +41,7 @@ app.listen(PORT, () => {
   console.log(`🚀 Contact form server running on http://localhost:${PORT}`);
   console.log(`📧 SMTP email service is active`);
   console.log(`✅ Ready to handle contact form submissions`);
+  console.log(`✅ Ready to handle advertise form submissions`);
 });
 
 export default app;
