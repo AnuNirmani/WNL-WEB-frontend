@@ -28,15 +28,17 @@ async function parseErrorResponse(res) {
  *
  * @param {string} path   - path relative to API base, e.g. '/posts' or '/posts/123'
  * @param {Object} opts   - fetch options (method, body, headers, etc.)
+ * @param {boolean} opts.allow404 - if true, returns null for 404 errors instead of throwing
  */
 export async function authFetch(path, opts = {}) {
+  const { allow404, ...fetchOpts } = opts;
   const url = path.startsWith('http') ? path : `${API_BASE}${path.startsWith('/') ? '' : '/'}${path}`;
 
   const token = getAuthToken();
 
   const headers = {
     Accept: 'application/json',
-    ...(opts.headers || {})
+    ...(fetchOpts.headers || {})
   };
 
   if (token) {
@@ -44,25 +46,31 @@ export async function authFetch(path, opts = {}) {
   }
 
   // If body is provided as object, stringify and set content-type
-  let body = opts.body;
+  let body = fetchOpts.body;
   if (body && typeof body === 'object' && !(body instanceof FormData)) {
     body = JSON.stringify(body);
     headers['Content-Type'] = 'application/json';
   }
 
   const response = await fetch(url, {
-    credentials: opts.credentials || 'same-origin', // adjust if you want cookies
-    ...opts,
+    credentials: fetchOpts.credentials || 'same-origin', // adjust if you want cookies
+    ...fetchOpts,
     headers,
     body
   });
 
   if (!response.ok) {
+    // Handle 404 gracefully for optional endpoints
+    if (response.status === 404 && allow404) {
+      return null;
+    }
+    
     const msg = await parseErrorResponse(response);
     const errorMsg = msg || `HTTP ${response.status}`;
     const err = new Error(errorMsg);
     err.status = response.status;
     err.url = url;
+    
     // Log detailed error information for debugging
     console.error(`API Error [${response.status}]:`, {
       url,

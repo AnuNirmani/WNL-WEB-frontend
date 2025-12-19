@@ -5,14 +5,27 @@ import { authFetch } from '../api/client';
 const DEFAULT_JOB_TITLE_PRIORITY = {
   // Top Management (highest priority)
   'Managing Director': 1,
-  'Chairman': 2,
-  'CEO': 3,
-  'COO': 4,
-  'CFO': 5,
-  'Director Editorial': 6,
-  'Group Director': 7,
-  'Board Members': 8,
-  'Board Member': 8,
+  'Director': 2,
+  'Deputy Director': 2,
+  'Assistant Director': 2,
+  'Director of': 2,
+  'Director of': 2,
+  'Chairman': 3,
+  'CEO': 4,
+  'COO': 5,
+  'CFO': 6,
+  'Chief Technology Officer': 7,
+  'Chief Marketing Officer': 7,
+  'Chief Human Resources Officer': 7,
+  'Chief Information Officer': 7,
+  'Chief Legal Officer': 7,
+  'Chief Customer Officer': 7,
+  'Chief Product Officer': 7,
+  'Senior Vice President': 7,
+  'Director Editorial': 8,
+  'Group Director': 9,
+  'Board Members': 10,
+  'Board Member': 10,
   
   // Middle Management (medium priority - will be assigned dynamically)
   // Other titles will get priority 100+ (lower priority)
@@ -21,6 +34,7 @@ const DEFAULT_JOB_TITLE_PRIORITY = {
 // Cache for job title priorities
 let jobTitlePriorityCache = null;
 let priorityCachePromise = null;
+const ENDPOINT_NOT_FOUND_KEY = 'job-title-priorities-endpoint-not-found';
 
 /**
  * Fetches job title priorities from the API
@@ -32,6 +46,14 @@ export async function fetchJobTitlePriorities() {
     return jobTitlePriorityCache;
   }
 
+  // Check if we've already determined the endpoint doesn't exist (persisted across page reloads)
+  const endpointNotFound = localStorage.getItem(ENDPOINT_NOT_FOUND_KEY) === 'true';
+  if (endpointNotFound) {
+    // Use default mapping without making a request
+    jobTitlePriorityCache = DEFAULT_JOB_TITLE_PRIORITY;
+    return jobTitlePriorityCache;
+  }
+
   // If a request is already in progress, wait for it
   if (priorityCachePromise) {
     return priorityCachePromise;
@@ -40,16 +62,27 @@ export async function fetchJobTitlePriorities() {
   // Create new request
   priorityCachePromise = (async () => {
     try {
-      // Try to fetch from API endpoint
-      const data = await authFetch('/job-title-priorities');
+      // Try to fetch from API endpoint (allow404=true means it returns null instead of throwing on 404)
+      const data = await authFetch('/job-title-priorities', { allow404: true });
       
       if (data && typeof data === 'object') {
         // If API returns priorities, use them
         jobTitlePriorityCache = { ...DEFAULT_JOB_TITLE_PRIORITY, ...data };
+        // Clear the "not found" flag since endpoint exists
+        localStorage.removeItem(ENDPOINT_NOT_FOUND_KEY);
         return jobTitlePriorityCache;
+      } else {
+        // Endpoint returned null (404), mark it as not found
+        localStorage.setItem(ENDPOINT_NOT_FOUND_KEY, 'true');
       }
     } catch (error) {
-      console.warn('Could not fetch job title priorities from API, using default mapping:', error);
+      // Only log non-404 errors
+      if (error.status !== 404) {
+        console.warn('Could not fetch job title priorities from API, using default mapping:', error);
+      } else {
+        // Mark endpoint as not found for 404 errors
+        localStorage.setItem(ENDPOINT_NOT_FOUND_KEY, 'true');
+      }
     }
 
     // Fallback to default mapping
@@ -88,10 +121,23 @@ export function getJobTitlePriority(jobTitle, priorityMap = null) {
   // Partial match for titles containing key phrases
   const topManagementTitles = [
     'managing director',
+    'director',
+    'deputy director',
+    'assistant director',
+    'director of',
+    'director of',
     'chairman',
     'ceo',
     'coo',
     'cfo',
+    'chief technology officer',
+    'chief marketing officer',
+    'chief human resources officer',
+    'chief information officer',
+    'chief legal officer',
+    'chief customer officer',
+    'chief product officer',
+    'senior vice president',
     'director editorial',
     'group director',
     'board member'
@@ -183,6 +229,7 @@ export function sortEmployeesByJobTitlePrioritySync(employees, priorityMap = DEF
 
   return sorted;
 }
+
 
 
 
