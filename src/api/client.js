@@ -59,8 +59,17 @@ export async function authFetch(path, opts = {}) {
 
   if (!response.ok) {
     const msg = await parseErrorResponse(response);
-    const err = new Error(msg || `HTTP ${response.status}`);
+    const errorMsg = msg || `HTTP ${response.status}`;
+    const err = new Error(errorMsg);
     err.status = response.status;
+    err.url = url;
+    // Log detailed error information for debugging
+    console.error(`API Error [${response.status}]:`, {
+      url,
+      status: response.status,
+      statusText: response.statusText,
+      message: errorMsg
+    });
     throw err;
   }
 

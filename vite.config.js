@@ -32,10 +32,19 @@ export default defineConfig({
         },
       },
       '/api': {
-        target: 'http://127.0.0.1:8001',
+        target: 'http://127.0.0.1:8000',
         changeOrigin: true,
         secure: false,
         rewrite: (path) => path,
+        configure: (proxy, options) => {
+          proxy.on('error', (err, req, res) => {
+            console.error('API Proxy error:', err.message);
+            console.error('Request URL:', req.url);
+          });
+          proxy.on('proxyReq', (proxyReq, req, res) => {
+            console.log('Proxying API request to:', proxyReq.path);
+          });
+        },
       },
     },
   },
