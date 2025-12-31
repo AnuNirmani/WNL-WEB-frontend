@@ -1,6 +1,9 @@
 // server/contactEmailHandler.js
 // Backend API handler for contact form with SMTP email functionality
+
 import nodemailer from 'nodemailer';
+import { body, validationResult } from 'express-validator';
+import validator from 'validator';
 
 // SMTP Configuration (Oracle Cloud Email)
 const SMTP_CONFIG = {
@@ -388,43 +391,39 @@ export async function sendAdvertiseEmail(formData) {
  * @param {Object} req - Request object
  * @param {Object} res - Response object
  */
+export const contactValidation = [
+  body('name').trim().notEmpty().withMessage('Name is required').escape(),
+  body('email').trim().notEmpty().withMessage('Email is required').isEmail().withMessage('Invalid email format').normalizeEmail(),
+  body('subject').trim().notEmpty().withMessage('Subject is required').escape(),
+  body('message').trim().notEmpty().withMessage('Message is required').escape()
+];
+
 export async function handleContactSubmission(req, res) {
   try {
-    const { name, email, subject, message } = req.body;
-
-    // Validate required fields
-    if (!name || !email || !subject || !message) {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
       return res.status(400).json({
         success: false,
-        error: 'All fields are required'
+        errors: errors.array()
       });
     }
+    let { name, email, subject, message } = req.body;
+    // Additional sanitization
+    name = validator.escape(name);
+    subject = validator.escape(subject);
+    message = validator.escape(message);
 
-    // Validate email format
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
-      return res.status(400).json({
-        success: false,
-        error: 'Invalid email format'
-      });
-    }
-
-    // Send email
     const result = await sendContactEmail({ name, email, subject, message });
-
-    // Return success response
     return res.status(200).json({
       success: true,
       message: 'Thank you for contacting us! Our team will reach out to you soon.',
       data: result
     });
-
   } catch (error) {
     console.error('Error handling contact submission:', error);
     return res.status(500).json({
       success: false,
-      error: 'Failed to send email. Please try again later.',
-      details: error.message
+      error: 'Failed to send email. Please try again later.'
     });
   }
 }
@@ -434,43 +433,39 @@ export async function handleContactSubmission(req, res) {
  * @param {Object} req - Request object
  * @param {Object} res - Response object
  */
+export const advertiseValidation = [
+  body('name').trim().notEmpty().withMessage('Name is required').escape(),
+  body('email').trim().notEmpty().withMessage('Email is required').isEmail().withMessage('Invalid email format').normalizeEmail(),
+  body('subject').trim().notEmpty().withMessage('Subject is required').escape(),
+  body('message').trim().notEmpty().withMessage('Message is required').escape()
+];
+
 export async function handleAdvertiseSubmission(req, res) {
   try {
-    const { name, email, subject, message } = req.body;
-
-    // Validate required fields
-    if (!name || !email || !subject || !message) {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
       return res.status(400).json({
         success: false,
-        error: 'All fields are required'
+        errors: errors.array()
       });
     }
+    let { name, email, subject, message } = req.body;
+    // Additional sanitization
+    name = validator.escape(name);
+    subject = validator.escape(subject);
+    message = validator.escape(message);
 
-    // Validate email format
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
-      return res.status(400).json({
-        success: false,
-        error: 'Invalid email format'
-      });
-    }
-
-    // Send email
     const result = await sendAdvertiseEmail({ name, email, subject, message });
-
-    // Return success response
     return res.status(200).json({
       success: true,
       message: 'Thank you for your advertising inquiry! Our team will reach out to you soon.',
       data: result
     });
-
   } catch (error) {
     console.error('Error handling advertise submission:', error);
     return res.status(500).json({
       success: false,
-      error: 'Failed to send email. Please try again later.',
-      details: error.message
+      error: 'Failed to send email. Please try again later.'
     });
   }
 }
