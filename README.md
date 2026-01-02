@@ -118,57 +118,9 @@ The application includes a fully functional contact form with SMTP email integra
 npm run dev:all
 ```
 
-For detailed setup and customization, see:
-- `CONTACT_FORM_README.md` - Complete documentation
-- `QUICK_START_CONTACT_FORM.md` - Quick start guide
-- `CONTACT_FORM_SETUP.md` - Detailed setup instructions
-
-## 🔌 API Integration
-
-The application integrates with a Laravel backend API (default: `http://127.0.0.1:8000/api`).
-
-## 💻 Development
-
-### Component Guidelines
-
-1. **Functional Components**: Use functional components with hooks
-2. **File Organization**: Each major section has its own directory with `.jsx` and `.css` files
-3. **Naming Conventions**: 
-   - Components: PascalCase (e.g., `Dashboard.jsx`)
-   - Styles: Match component name (e.g., `Dashboard.css`)
-   - Controllers: `use` prefix (e.g., `useAwardsController.js`)
-   - API files: Descriptive names (e.g., `homeApi.js`)
-
-4. **State Management**: Use custom controller hooks for complex state logic
-5. **Routing**: All routes defined in `App.jsx`
-6. **Animations**: AOS library initialized globally in `App.jsx`
-
-## 🌐 Browser Support
-
-The application supports all modern browsers:
-
-| Browser | Version |
-|---------|---------|
-| Chrome | Latest |
-| Firefox | Latest |
-| Safari | Latest |
-| Edge | Latest |
-| Opera | Latest |
-
-**Note:** Internet Explorer is not supported.
-
 ## 🤝 Contributing
 
 This is a private project for Wijeya Newspapers Limited. For internal development inquiries, please contact the development team.
-
-### Development Workflow
-
-1. Create a new branch: `git checkout -b feature/your-feature`
-2. Make your changes following the coding guidelines
-3. Test thoroughly
-4. Commit: `git commit -m "Description of changes"`
-5. Push: `git push origin feature/your-feature`
-6. Create a Pull Request
 
 ## 📄 License
 
