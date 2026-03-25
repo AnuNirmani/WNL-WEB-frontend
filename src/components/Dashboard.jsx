@@ -2,11 +2,15 @@ import React, { useEffect, useState } from 'react'
 import Header from './Header'
 import Hero from './Hero'
 import SEO from '../utils/SEO'
+import headerTopImage from '../assets/heder_image.png'
 
 // import Publications from './Publications'
 import CallToAction from './CallToAction'
 import Footer from './Footer'
 import './Dashboard.css'
+
+const BACKEND_ORIGIN = import.meta.env.VITE_BACKEND_ORIGIN || 'http://127.0.0.1:8000'
+const PUBLICATIONS_API_URL = `${BACKEND_ORIGIN}/api/publications`
 
 const Dashboard = () => {
   const [publications, setPublications] = useState([])
@@ -18,7 +22,7 @@ const Dashboard = () => {
   useEffect(() => {
     const fetchPublications = async () => {
       try {
-        const response = await fetch('http://127.0.0.1:8000/api/publications')
+        const response = await fetch(PUBLICATIONS_API_URL)
         
         if (!response.ok) {
           throw new Error(`Failed to fetch publications: ${response.status} ${response.statusText}`)
@@ -95,6 +99,10 @@ const Dashboard = () => {
       <div className="clearfix"></div>
 
       <main id="main">
+        <section className="header-top-image" aria-label="Featured image">
+          <img src={headerTopImage} alt="Featured" className="header-top-image__img" />
+        </section>
+
         <Hero />
 
         <section id="portfolio" className="portfolio">
@@ -140,7 +148,7 @@ const Dashboard = () => {
                   // Handle different field names (name/title, cover_image/image)
                   const pubName = pub.name || pub.title || 'Untitled'
                   const pubImage = pub.cover_image ? `storage/${pub.cover_image}` : (pub.image || '')
-                  const imageUrl = pubImage ? `http://127.0.0.1:8000/${pubImage}` : null
+                  const imageUrl = pubImage ? `${BACKEND_ORIGIN}/${pubImage}` : null
                   
                   return (
                     <div

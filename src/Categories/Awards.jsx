@@ -53,18 +53,7 @@ const AwardsPage = () => {
       />
       <Header />
 
-      {/* Banner */}
-      <div className="container-fluid" style={{ marginBottom: 0, paddingBottom: 0 }}>
-        <div className="row">
-          <div className="col-lg-12 col-sm-12 pl-0 pr-0">
-            <img
-              src={awardsBanner}
-              className="img-fluid awards-banner-img"
-              alt="Awards Banner - Wijeya Newspapers Awards Collection"
-            />
-          </div>
-        </div>
-      </div>
+
 
       {/* Awards Section */}
       <section id="awards" className="awards section-bg" style={{ marginTop: 0, paddingTop: '1rem' }}>
