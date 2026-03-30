@@ -2,6 +2,7 @@ import React from 'react'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
 import SEO from '../utils/SEO'
+import logo from '../assets/logo.png'
 import './OurJourny.css'
 
 const OurJourny = () => {
@@ -173,7 +174,7 @@ const OurJourny = () => {
                   <div className={`timeline-content ${item.side}`}>
                     <span className="year">{item.year}</span>
                     <img 
-                      src="https://images.unsplash.com/photo-1511795409834-ef04bbd61622?w=400&h=500&fit=crop" 
+                      src={logo}
                       alt={`Milestone ${item.year}`} 
                       className="img-fluid"
                     />

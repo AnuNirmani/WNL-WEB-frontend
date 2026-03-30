@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import Header from './Header'
 import Hero from './Hero'
 import SEO from '../utils/SEO'
+import { authFetch } from '../api/client'
 import headerTopImage from '../assets/heder_image.png'
 
 // import Publications from './Publications'
@@ -10,34 +11,47 @@ import Footer from './Footer'
 import './Dashboard.css'
 
 const BACKEND_ORIGIN = import.meta.env.VITE_BACKEND_ORIGIN || 'http://127.0.0.1:8000'
-const PUBLICATIONS_API_URL = `${BACKEND_ORIGIN}/api/publications`
+
+const extractPublicationArray = (payload) => {
+  if (Array.isArray(payload)) return payload
+  if (!payload || typeof payload !== 'object') return []
+
+  const candidateKeys = ['data', 'value', 'publications', 'results', 'items']
+  for (const key of candidateKeys) {
+    if (Array.isArray(payload[key])) {
+      return payload[key]
+    }
+  }
+
+  for (const key of candidateKeys) {
+    if (payload[key] && typeof payload[key] === 'object') {
+      const nested = extractPublicationArray(payload[key])
+      if (nested.length > 0) {
+        return nested
+      }
+    }
+  }
+
+  return []
+}
 
 const Dashboard = () => {
   const [publications, setPublications] = useState([])
   const [filteredPublications, setFilteredPublications] = useState([])
   const [categories, setCategories] = useState(['All'])
   const [activeFilter, setActiveFilter] = useState('All')
+  const [loadingPublications, setLoadingPublications] = useState(true)
+  const [publicationsError, setPublicationsError] = useState('')
 
   // Fetch publications dynamically from Laravel API
   useEffect(() => {
     const fetchPublications = async () => {
       try {
-        const response = await fetch(PUBLICATIONS_API_URL)
-        
-        if (!response.ok) {
-          throw new Error(`Failed to fetch publications: ${response.status} ${response.statusText}`)
-        }
-        
-        const data = await response.json()
-        
-        // Handle different response formats (array or wrapped in object)
-        let publicationsData = []
-        if (Array.isArray(data)) {
-          publicationsData = data
-        } else if (data && typeof data === 'object') {
-          // Try common Laravel API response formats
-          publicationsData = data.data || data.value || data.publications || data.results || []
-        }
+        setLoadingPublications(true)
+        setPublicationsError('')
+
+        const data = await authFetch('/publications', { allow404: true })
+        const publicationsData = extractPublicationArray(data)
         
         setPublications(publicationsData)
         setFilteredPublications(publicationsData)
@@ -49,6 +63,12 @@ const Dashboard = () => {
         setCategories(['All', ...uniqueCategories])
       } catch (error) {
         console.error('Error fetching publications:', error)
+        setPublications([])
+        setFilteredPublications([])
+        setCategories(['All'])
+        setPublicationsError('Unable to load publications right now. Please try again later.')
+      } finally {
+        setLoadingPublications(false)
       }
     }
     fetchPublications()
@@ -143,9 +163,18 @@ const Dashboard = () => {
               data-aos="fade-up"
               data-aos-delay="200"
             >
-              {filteredPublications.length > 0 ? (
+              {loadingPublications ? (
+                <div className="col-12 text-center py-5">
+                  <p className="text-muted">Loading publications...</p>
+                </div>
+              ) : publicationsError ? (
+                <div className="col-12 text-center py-5">
+                  <p className="text-danger mb-0">{publicationsError}</p>
+                </div>
+              ) : filteredPublications.length > 0 ? (
                 filteredPublications.map((pub) => {
-                  // Handle different field names (name/title, cover_image/image)
+                  // Handle different field name
+                  // s (name/title, cover_image/image)
                   const pubName = pub.name || pub.title || 'Untitled'
                   const pubImage = pub.cover_image ? `storage/${pub.cover_image}` : (pub.image || '')
                   const imageUrl = pubImage ? `${BACKEND_ORIGIN}/${pubImage}` : null

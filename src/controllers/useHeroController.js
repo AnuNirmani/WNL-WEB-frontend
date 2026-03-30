@@ -1,7 +1,16 @@
 // src/controllers/useHeroController.js
 import { useState, useEffect, useCallback } from 'react';
-import { fetchLatestPosts } from '../api/homeApi';
+import { fetchPressReleasesFromApi } from '../api/postsApi';
 import { formatFriendlyError } from '../utils/formatError';
+
+const BACKEND_ORIGIN = import.meta.env.VITE_BACKEND_ORIGIN || 'http://127.0.0.1:8000';
+
+const normalizeImageUrl = (image) => {
+  if (!image || typeof image !== 'string') return '';
+  if (image.startsWith('http://') || image.startsWith('https://')) return image;
+  const normalizedPath = image.startsWith('/') ? image : `/${image}`;
+  return `${BACKEND_ORIGIN}${normalizedPath}`;
+};
 
 export default function useHeroController() {
   const [newsItems, setNewsItems] = useState([]);
@@ -12,13 +21,34 @@ export default function useHeroController() {
     try {
       setLoading(true);
       setError('');
-      const data = await fetchLatestPosts();
 
-      const formatted = data.map(item => ({
-        id: item.id,
+      const PAGE_SIZE = 50;
+      let page = 1;
+      let hasMore = true;
+      const allPressReleases = [];
+
+      while (hasMore) {
+        const pageData = await fetchPressReleasesFromApi(page, PAGE_SIZE);
+        const visibleItems = (Array.isArray(pageData) ? pageData : []).filter((item) => {
+          if (typeof item.status === 'number') return item.status === 1;
+          if (typeof item.status === 'string') return item.status.toLowerCase() === 'visible';
+          return true;
+        });
+
+        allPressReleases.push(...visibleItems);
+
+        if (!Array.isArray(pageData) || pageData.length < PAGE_SIZE) {
+          hasMore = false;
+        } else {
+          page += 1;
+        }
+      }
+
+      const formatted = allPressReleases.map((item, index) => ({
+        id: item.id ?? item.post_id ?? `${index}`,
         title: item.title,
         sub_topic: item.sub_topic,
-        image: item.image,
+        image: normalizeImageUrl(item.image),
         date: item.created_at
           ? new Date(item.created_at).toLocaleDateString()
           : ''

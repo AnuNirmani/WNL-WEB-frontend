@@ -265,6 +265,66 @@ h1, h2, h3, h4, h5, h6 {
   padding-top: 60px;
 }
 
+.hero-carousel-wrapper {
+  position: relative;
+  padding: 0 44px;
+}
+
+.hero-carousel-track {
+  display: flex;
+  gap: 16px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-snap-stop: always;
+  scroll-behavior: smooth;
+  padding: 8px 4px 16px;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.hero-carousel-track::-webkit-scrollbar {
+  display: none;
+}
+
+.hero-carousel-slide {
+  flex: 0 0 calc((100% - 32px) / 3);
+  scroll-snap-align: start;
+  min-width: 280px;
+}
+
+.hero-carousel-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 36px;
+  height: 36px;
+  border: none;
+  border-radius: 50%;
+  background: #0c1a4b;
+  color: #fff;
+  font-size: 28px;
+  line-height: 1;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.hero-carousel-btn:hover {
+  background: #12307c;
+}
+
+.hero-carousel-btn--prev {
+  left: 0;
+}
+
+.hero-carousel-btn--next {
+  right: 0;
+}
+
 
 .news-card {
   background-color: #0c1a4b !important;
@@ -686,6 +746,10 @@ h1, h2, h3, h4, h5, h6 {
     max-height: 40px;
   }
 
+  .hero-carousel-slide {
+    flex: 0 0 72%;
+  }
+
   .navbar-collapse {
     background: #fff;
     padding: 15px;
@@ -724,6 +788,18 @@ h1, h2, h3, h4, h5, h6 {
 
   .press .press-item .card {
     border-radius: 0;
+  }
+
+  .hero-carousel-wrapper {
+    padding: 0;
+  }
+
+  .hero-carousel-slide {
+    flex: 0 0 88%;
+  }
+
+  .hero-carousel-btn {
+    display: none;
   }
 
   .news-card {
