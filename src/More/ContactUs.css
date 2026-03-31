@@ -210,7 +210,7 @@
   background-color: #fff !important;
   cursor: text !important;
   border: 1px solid #ced4da;
-  font-family: inherit;
+  /* font-family: inherit; */
   font-size: 14px;
 }
 
