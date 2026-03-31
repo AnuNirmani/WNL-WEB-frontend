@@ -2,18 +2,30 @@
 
 .awards-page {
   min-height: 100vh;
-  padding-top: 140px !important;
+  padding-top: 0 !important;
 }
 
 @media (max-width: 768px) {
   .awards-page {
-    padding-top: 20px !important;
+    padding-top: 0 !important;
   }
 }
 
 /* Override global body padding for awards page */
 body.awards-page-body {
-  padding-top: 0 !important;
+  padding-top: 90px !important;
+}
+
+@media (max-width: 991.98px) {
+  body.awards-page-body {
+    padding-top: 70px !important;
+  }
+}
+
+@media (max-width: 575.98px) {
+  body.awards-page-body {
+    padding-top: 65px !important;
+  }
 }
 
 /* Reduce gap between banner and content */
@@ -75,6 +87,12 @@ body.awards-page-body {
   padding-top: 1rem !important;
   padding-bottom: 3rem !important;
   margin-top: 0 !important;
+}
+
+@media (max-width: 768px) {
+  .awards-page .awards {
+    padding-top: 2rem !important;
+  }
 }
 
 .section-title {

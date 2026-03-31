@@ -38,11 +38,15 @@ export default function usePressReleaseController() {
 
       const posts = await fetchPressReleasesFromApi(pageNum, ITEMS_PER_PAGE, yearFilter);
 
-      // Filter only visible press releases (API already filters by category)
-      // Status can be 1 (visible) or "visible" string
-      const filtered = posts.filter(item => {
-        if (typeof item.status === 'number') return item.status === 1;
-        if (typeof item.status === 'string') return item.status.toLowerCase() === 'visible';
+      // Filter only active/visible press releases
+      // Backend status may come as: 1, "1", true, "true", or "visible"
+      const filtered = posts.filter((item) => {
+        const status = item?.status;
+        if (status === 1 || status === true) return true;
+        if (typeof status === 'string') {
+          const normalized = status.trim().toLowerCase();
+          return normalized === '1' || normalized === 'true' || normalized === 'visible';
+        }
         return false;
       });
 

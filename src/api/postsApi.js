@@ -1,11 +1,30 @@
 // src/api/postsApi.js
 import { authFetch } from './client';
 
+function parseCategoryTypeId(value, fallback) {
+  const parsed = Number(value);
+  return Number.isFinite(parsed) && parsed > 0 ? parsed : fallback;
+}
+
+const CATEGORY_TYPE_IDS = {
+  awards: parseCategoryTypeId(import.meta.env.VITE_CATEGORY_TYPE_AWARDS_ID, 1),
+  careers: parseCategoryTypeId(import.meta.env.VITE_CATEGORY_TYPE_CAREERS_ID, 2),
+  pressRelease: parseCategoryTypeId(import.meta.env.VITE_CATEGORY_TYPE_PRESS_RELEASE_ID, 3),
+};
+
+function normalizeArrayResponse(data) {
+  if (Array.isArray(data)) return data;
+  if (data && Array.isArray(data.data)) return data.data;
+  if (data && Array.isArray(data.value)) return data.value;
+  return [];
+}
+
 export async function fetchAwardsFromApi(page = 1, limit = 12, year = '') {
   try {
-    let path = `/awards?page=${page}&limit=${limit}&category_name=Awards`;
+    let path = `/category-types/${CATEGORY_TYPE_IDS.awards}/posts?page=${page}&limit=${limit}`;
     if (year) path += `&year=${year}`;
-    return await authFetch(path);
+    const data = await authFetch(path);
+    return normalizeArrayResponse(data);
   } catch (error) {
     console.error('Error fetching awards:', error);
     throw error;
@@ -24,16 +43,9 @@ export async function fetchYearsFromApi() {
 // src/api/careersApi.js
 export async function fetchCareersFromApi() {
   try {
-    // Fetch careers from dedicated careers endpoint with category filter
-    const data = await authFetch('/careers?category_name=Careers');
-    // Handle both array and single object responses
-    if (Array.isArray(data)) {
-      return data;
-    } else if (data && typeof data === 'object') {
-      // If single object returned, wrap in array
-      return [data];
-    }
-    return data.value || data.data || [];
+    // Careers now fetched by category_type_id
+    const data = await authFetch(`/category-types/${CATEGORY_TYPE_IDS.careers}/posts?limit=100`);
+    return normalizeArrayResponse(data);
   } catch (error) {
     console.error('Error fetching careers:', error);
     throw error;
@@ -47,11 +59,10 @@ export async function fetchCareersFromApi() {
 // Fetch press releases with optional year filter
 export async function fetchPressReleasesFromApi(page = 1, limit = 12, year = '') {
   try {
-    let path = `/posts?page=${page}&limit=${limit}&category_name=Press Release`;
+    let path = `/category-types/${CATEGORY_TYPE_IDS.pressRelease}/posts?page=${page}&limit=${limit}`;
     if (year) path += `&year=${year}`;
     const data = await authFetch(path);
-    // Handle Laravel pagination response format
-    return data.value || data.data || (Array.isArray(data) ? data : []);
+    return normalizeArrayResponse(data);
   } catch (error) {
     console.error('Error fetching press releases:', error);
     throw error;
